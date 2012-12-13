@@ -1,6 +1,13 @@
 source 'https://rubygems.org'
 
+# for mongodb
+# gem 'rails3-generators'
+require 'rubygems'
+require 'mongo'
+
 gem 'rails', '3.2.9'
+gem 'bootstrap-sass', '2.1'
+gem "mongo_mapper"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -25,9 +32,10 @@ end
 
 gem 'jquery-rails'
 
-group :production do
-    gem 'pg', '0.12.2'
-end
+# for heroku
+#group :production do
+#    gem 'pg', '0.12.2'
+#end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
