@@ -1,0 +1,28 @@
+<% provide(:title, "Meals") %>
+
+<h1>Meals</h1>
+
+<table cellpadding=10>
+    <tr>
+        <td>MEAL</td>
+        <td>Proposed by</td>
+        <td># Votes</td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% @meals.each do |meal| %>
+        <tr>
+            <td> <%= meal.name %> </td>
+            <td> -- </td>
+            <td> <%= meal.votes %> </td>
+            <td> <%= link_to '+1' %> </td>
+            <td> <%= link_to 'Cook this!' %> </td>
+            <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
+        </tr>
+    <% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Meal', new_meal_path, :class => "btn btn-primary" %>
