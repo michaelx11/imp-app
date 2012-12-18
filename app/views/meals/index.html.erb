@@ -15,8 +15,12 @@
         <tr>
             <td> <%= meal.name %> </td>
             <td> -- </td>
-            <td> <%= meal.votes %> </td>
-            <td> <%= link_to '+1', edit_meal_path(meal) %> </td>
+            <td> <%= meal.votes.size %> </td>
+            <% if meal.votes.has_key?("user") %>
+                <td> <%= link_to '-1', edit_vote_path(meal) %> </td>
+            <% else %>
+                <td> <%= link_to '+1', edit_vote_path(meal) %> </td>
+            <% end %>
             <td> <%= link_to 'Cook this!' %> </td>
             <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
         </tr>
