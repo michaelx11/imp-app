@@ -15,15 +15,30 @@
             <div class="container">
                 <%= link_to "MIT Simple", '/', :id => "logo" %>
                 <nav>
+                <ul class="nav pull-left">
+                    <li><%= link_to "Meals", meals_path %></li>
+                    <li><%= link_to "Schedule", '#' %></li>
+                    <li><%= link_to "Shopping Runs", '#' %></li>
+                </ul>
+                </nav>
+                <nav>
                 <ul class="nav pull-right">
-                    <li><%= link_to "Home",    '/' %></li>
-                    <li><%= link_to "About",    '#' %></li>
+                    <li><%= link_to "Home", '/' %></li>
+                    <% if signed_in? %>
+                        <li>Welcome, <%= current_user.name %>!</li>
+                        <li><%= link_to "Sign Out", signout_path, :method => :delete %></li>
+                    <% else %>
+                        <li><%= link_to "Sign In", signin_path %></li>
+                    <% end %>
                 </ul>
                 </nav>
             </div>
         </div>
         </header>
         <div class="container">
+            <% flash.each do |key, value| %>
+                <div class="alert alert-<%= key %>"><%= value %></div>
+            <% end %>
             <%= yield %>
         </div>
     </body>
