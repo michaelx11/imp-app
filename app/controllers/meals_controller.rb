@@ -23,4 +23,11 @@ class MealsController < ApplicationController
         @meal.destroy
         redirect_to meals_path
     end
+
+    # Increments the number of votes.
+    def edit
+        @meal = Meal.find(params[:id])
+        @meal.update_attribute :votes, @meal.votes + 1
+        redirect_to meals_path
+    end
 end
