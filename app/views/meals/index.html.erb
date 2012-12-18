@@ -23,7 +23,9 @@
                     <td> <%= link_to '+1', edit_vote_path(meal) %> </td>
                 <% end %>
                 <td> <%= link_to 'Cook this!' %> </td>
-                <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
+                <% if is_admin? %>
+                    <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
+                <% end %>
             <% end %>
         </tr>
     <% end %>
