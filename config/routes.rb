@@ -1,7 +1,4 @@
 ImpApp::Application.routes.draw do
-  resources :users
-
-
   get "static_pages/home"
 
   get "static_pages/help"
@@ -20,6 +17,7 @@ ImpApp::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :meals, :votes
   resources :users, :sessions
+  resources :meal_events
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
 

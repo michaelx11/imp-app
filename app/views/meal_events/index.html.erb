@@ -1,0 +1,37 @@
+<% provide(:title, "Schedule") %>
+
+<h1>Schedule</h1>
+
+<table cellpadding=10>
+    <tr>
+        <td>Status</td>
+        <td>Date</td>
+        <td>MEAL</td>
+        <td>Cook</td>
+        <td>Helpers</td>
+    </tr>
+    <% @meal_events.each do |meal_event| %>
+        <tr>
+            <td> </td>
+            <td> <%= meal_event.time %> </td>
+            <td> <%= meal_event.meal %> </td>
+            <td> <%= meal_event.cook %> </td>
+            <td> <%= meal_event.helpers %> </td>
+            <% if is_admin? %>
+                <td> <%= meal_event.rsvps %> </td>
+                <td> <%= meal_event.latersvps %> </td>
+                <td> <%= meal_event.customers %> </td>
+            <% end %>
+            <% if signed_in? %>
+                <td> <%= link_to 'Help Cook' %> </td>
+                <td> <%= link_to 'RSVP' %> </td>
+                <td> <%= link_to 'RSVP Late' %> </td>
+                <% if is_admin? %>
+                    <td> <%= link_to 'Edit', edit_meal_event_path(meal_event) %> </td>
+                    <td> <%= link_to 'Remove', meal_event, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
+                <% end %>
+            <% end %>
+        </tr>
+    <% end %>
+</table>
+
