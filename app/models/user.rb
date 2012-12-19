@@ -2,6 +2,7 @@ class User
   include MongoMapper::Document
 
   key :name, String
+  key :uid, String
   key :paid, Float
   key :remember_token, String
 

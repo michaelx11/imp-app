@@ -1,4 +1,6 @@
 ImpApp::Application.routes.draw do
+
+
   get "static_pages/home"
 
   get "static_pages/help"
@@ -20,6 +22,9 @@ ImpApp::Application.routes.draw do
   resources :meal_events
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
+
+  # Omniauth Authentication callback
+  match '/auth/:provider/callback', :to => 'sessions#create'
 
   # Sample resource route with options:
   #   resources :products do

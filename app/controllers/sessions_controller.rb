@@ -1,14 +1,19 @@
 class SessionsController < ApplicationController
+    def new
+        redirect_to '/auth/Facebook'
+    end
+
     def create
-        user = User.find_by_name(params[:session][:name])
+        auth = request.env['omniauth.auth']
+        user = User.find_by_uid(auth.uid)
+        
         if user
             sign_in user
             puts "SIGNING IN"
-            redirect_to root_url
         else
             flash.now[:error] = 'Invalid user'
-            render 'new'
         end
+        redirect_to root_url
     end
 
     def destroy

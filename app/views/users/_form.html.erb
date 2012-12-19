@@ -16,8 +16,16 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :uid %><br />
+    <%= f.text_field :uid %>
+  </div>
+  <div class="field">
     <%= f.label :paid %><br />
     <%= f.text_field :paid %>
+  </div>
+  <div class="field">
+    <%= f.label :remember_token %><br />
+    <%= f.text_field :remember_token %>
   </div>
   <div class="actions">
     <%= f.submit %>
