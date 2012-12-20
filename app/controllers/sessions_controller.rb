@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
             sign_in user
             puts "SIGNING IN"
         else
-            flash.now[:error] = 'Invalid user'
+            flash[:error] = 'Invalid user'
         end
         redirect_to root_url
     end
