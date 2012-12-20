@@ -3,10 +3,10 @@ class MealEvent
 
   key :meal, String
   key :cook, String
-  key :helpers, Array
+  key :helpers, Set
   key :time, String
-  key :rsvps, Array
-  key :latersvps, Array
-  key :customers, Array
+  key :rsvps, Set
+  key :latersvps, Set
+  key :customers, Set
 
 end
