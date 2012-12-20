@@ -17,7 +17,7 @@
             <td> <%= meal.proposer %> </td>
             <td> <%= meal.votes.size %> </td>
             <% if signed_in? %>
-                <% if meal.votes.has_key?(current_user.name) %>
+                <% if meal.votes.include?(current_user.name) %>
                     <td> <%= link_to '-1', edit_vote_path(meal) %> </td>
                 <% else %>
                     <td> <%= link_to '+1', edit_vote_path(meal) %> </td>
