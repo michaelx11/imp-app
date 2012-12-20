@@ -1,0 +1,14 @@
+class LateRsvpsController < ApplicationController
+    def edit
+        @meal_event = MealEvent.find(params[:id])
+        if @meal_event.latersvps.include?(current_user.name)
+            @meal_event.latersvps.delete(current_user.name)
+        else
+            @meal_event.latersvps.add(current_user.name)
+        end
+        @meal_event.save
+        redirect_to meal_events_path
+    end
+end
+
+
