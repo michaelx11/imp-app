@@ -16,14 +16,18 @@
             <td> <%= meal_event.time %> </td>
             <td> <%= meal_event.meal %> </td>
             <td> <%= meal_event.cook %> </td>
-            <td> <%= meal_event.helpers %> </td>
+            <td> <%= meal_event.helpers.to_a %> </td>
             <% if is_admin? %>
                 <td> <%= meal_event.rsvps %> </td>
                 <td> <%= meal_event.latersvps %> </td>
                 <td> <%= meal_event.customers %> </td>
             <% end %>
             <% if signed_in? %>
-                <td> <%= link_to 'Help Cook' %> </td>
+                <% if meal_event.helpers.include?(current_user.name) %>
+                    <td> <%= link_to 'Won\'t Help', edit_helper_path(meal_event) %> </td>
+                <% else %>
+                    <td> <%= link_to 'Help Cook', edit_helper_path(meal_event) %> </td>
+                <% end %>
                 <td> <%= link_to 'RSVP' %> </td>
                 <td> <%= link_to 'RSVP Late' %> </td>
                 <% if is_admin? %>
