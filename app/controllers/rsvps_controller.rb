@@ -1,7 +1,7 @@
 class RsvpsController < ApplicationController
     def edit
         @meal_event = MealEvent.find(params[:id])
-        if @meal_event.rsvps.include?(current_user.name)
+        if is_rsvp?(@meal_event)
             @meal_event.rsvps.delete(current_user.name)
         else
             @meal_event.rsvps.add(current_user.name)
