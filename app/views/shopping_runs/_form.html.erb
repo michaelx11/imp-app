@@ -1,0 +1,26 @@
+<%= form_for(@shopping_run) do |f| %>
+    <% if @shopping_run.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@shopping_run.errors.count, "error") %> prohibited this shopping_run from being saved:</h2>
+
+            <ul>
+                <% @shopping_run.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+        <%= f.label :time %><br />
+        <%= f.text_field :time %>
+    </div>
+    <div class="field">
+        <%= f.label "Shopper" %><br />
+        <%= f.text_field :shopper, :value => current_user.name %>
+    </div>
+    <div class="actions">
+        <%= f.submit %>
+    </div>
+<% end %>
+

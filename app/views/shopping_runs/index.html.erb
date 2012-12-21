@@ -1,0 +1,37 @@
+<% provide(:title, "Shopping Runs") %>
+
+<h1><%= yield(:title) %></h1>
+
+<table cellpadding=10>
+    <tr>
+        <td>Status</td>
+        <td>Date</td>
+        <td>Requests</td>
+        <td>Shopper</td>
+        <% if is_admin? %>
+            <td>Cost</td>
+        <% end %>
+    </tr>
+    <% @shopping_runs.each do |shopping_run| %>
+        <tr>
+            <td> </td>
+            <td> <%= shopping_run.time %> </td>
+            <td> <%= shopping_run.requests.to_a %> </td>
+            <td> <%= shopping_run.shopper %> </td>
+            <% if is_admin? %>
+                <td> <%= shopping_run.cost %> </td>
+            <% end %>
+            <% if shopping_run.shopper == current_user.name %>
+                <td> <%= link_to "Mark Completed" %> </td>
+            <% end %>
+            <% if is_admin? %>
+                <td> <%= link_to 'Edit', edit_shopping_run_path(shopping_run) %> </td>
+                <td> <%= link_to 'Remove', shopping_run, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
+            <% end %>
+        </tr>
+    <% end %>
+</table>
+
+<% if signed_in? %>
+    <%= link_to 'New Shopping Run', new_shopping_run_path, :class => "btn btn-primary" %>
+<% end %>
