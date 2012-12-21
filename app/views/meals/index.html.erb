@@ -2,33 +2,37 @@
 
 <h1>Meals</h1>
 
-<table cellpadding=10>
-    <tr>
-        <td>MEAL</td>
-        <td>Proposed by</td>
-        <td># Votes</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <% @meals.each do |meal| %>
+<table class="table table-striped " cellpadding=10>
+    <thead>
         <tr>
-            <td> <%= meal.name %> </td>
-            <td> <%= meal.proposer %> </td>
-            <td> <%= meal.votes.size %> </td>
-            <% if signed_in? %>
-                <% if meal.votes.include?(current_user.name) %>
-                    <td> <%= link_to '-1', edit_vote_path(meal) %> </td>
-                <% else %>
-                    <td> <%= link_to '+1', edit_vote_path(meal) %> </td>
-                <% end %>
-                <td> <%= link_to 'Cook this!', new_meal_event_path(:meal => meal.name) %> </td>
-                <% if is_admin? %>
-                    <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
-                <% end %>
-            <% end %>
+            <td>MEAL</td>
+            <td>Proposed by</td>
+            <td># Votes</td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
-    <% end %>
+    </thead>
+    <tbody>
+        <% @meals.each do |meal| %>
+            <tr>
+                <td> <%= meal.name %> </td>
+                <td> <%= meal.proposer %> </td>
+                <td> <%= meal.votes.size %> </td>
+                <% if signed_in? %>
+                    <% if meal.votes.include?(current_user.name) %>
+                        <td> <%= link_to '-1', edit_vote_path(meal) %> </td>
+                    <% else %>
+                        <td> <%= link_to '+1', edit_vote_path(meal) %> </td>
+                    <% end %>
+                 <td> <%= link_to 'Cook this!', new_meal_event_path(:meal => meal.name) %> </td>
+                    <% if is_admin? %>
+                        <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
+                    <% end %>
+                <% end %>
+            </tr>
+        <% end %>
+    </tbody>
 </table>
 
 <br />
