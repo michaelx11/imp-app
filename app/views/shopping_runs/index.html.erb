@@ -41,15 +41,15 @@
     </tr>
     <% @shopping_runs.each do |shopping_run| %>
         <tr>
-            <td> </td>
+            <td> <%= shopping_run.status %> </td>
             <td> <%= shopping_run.time %> </td>
             <td> <%= shopping_run.requests.to_a %> </td>
             <td> <%= shopping_run.shopper %> </td>
             <% if is_admin? %>
                 <td> <%= shopping_run.cost %> </td>
             <% end %>
-            <% if shopping_run.shopper == current_user.name %>
-                <td> <%= link_to "Mark Completed" %> </td>
+            <% if shopping_run.status.nil? && shopping_run.shopper == current_user.name %>
+                <td> <%= link_to "Mark Completed", edit_shopping_run_path(shopping_run) %> </td>
             <% end %>
             <% if is_admin? %>
                 <td> <%= link_to 'Edit', edit_shopping_run_path(shopping_run) %> </td>

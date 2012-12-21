@@ -25,4 +25,16 @@ class ShoppingRunsController < ApplicationController
         @shopping_run.destroy
         redirect_to shopping_runs_path
     end
+
+    def edit
+        @shopping_run = ShoppingRun.find(params[:id])
+    end
+
+    def update
+        @shopping_run = ShoppingRun.find(params[:id])
+        @shopping_run.status = 'done'
+        @shopping_run.cost = params[:shopping_run][:cost]
+        @shopping_run.save
+        redirect_to shopping_runs_path
+    end
 end
