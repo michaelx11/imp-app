@@ -19,7 +19,7 @@ ImpApp::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :meals, :votes
   resources :users, :sessions
-  resources :meal_events, :helpers, :rsvps, :late_rsvps
+  resources :meal_events, :helpers, :rsvps, :late_rsvps, :meal_event_statuses
   resources :shopping_runs
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'

@@ -9,19 +9,21 @@
         <td>Cook</td>
     </tr>
     <% MealEvent.each do |meal_event| %>
-        <tr>
-            <td> <%= meal_event.time %> </td>
-            <td> <%= meal_event.meal %> </td>
-            <td> <%= meal_event.cook %> </td>
-            <% if is_admin? %>
-                <td> <%= meal_event.rsvps.to_a %> </td>
-                <td> <%= meal_event.latersvps.to_a %> </td>
-                <td> <%= meal_event.customers.to_a %> </td>
-            <% end %>
-            <% if signed_in? %>
-                <td> <%= link_to "Buy Supplies", '#' %> </td>
-            <% end %>
-        </tr>
+        <% if is_pending?(meal_event) %>
+            <tr>
+                <td> <%= meal_event.time %> </td>
+                <td> <%= meal_event.meal %> </td>
+                <td> <%= meal_event.cook %> </td>
+                <% if is_admin? %>
+                    <td> <%= meal_event.rsvps.to_a %> </td>
+                    <td> <%= meal_event.latersvps.to_a %> </td>
+                    <td> <%= meal_event.customers.to_a %> </td>
+                <% end %>
+                <% if signed_in? %>
+                    <td> <%= link_to "Buy Supplies", edit_meal_event_status_path(meal_event) %> </td>
+                <% end %>
+            </tr>
+        <% end %>
     <% end %>
 </table>
 

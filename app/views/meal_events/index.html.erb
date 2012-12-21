@@ -12,7 +12,7 @@
     </tr>
     <% @meal_events.each do |meal_event| %>
         <tr>
-            <td> </td>
+            <td> <%= status_text(meal_event) %> </td>
             <td> <%= meal_event.time %> </td>
             <td> <%= meal_event.meal %> </td>
             <td> <%= meal_event.cook %> </td>

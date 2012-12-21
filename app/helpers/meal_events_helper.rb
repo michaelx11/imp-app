@@ -1,4 +1,13 @@
 module MealEventsHelper
+    def is_pending?(meal_event)
+        meal_event.status.nil?
+    end
+
+    def status_text(meal_event)
+        return 'Pending' if is_pending?(meal_event)
+        'Shopping Run by ' + meal_event.status
+    end
+
     def is_helper?(meal_event)
         meal_event.helpers.include?(current_user.name)
     end

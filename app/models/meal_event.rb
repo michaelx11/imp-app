@@ -9,4 +9,7 @@ class MealEvent
   key :latersvps, Set
   key :customers, Set
 
+  # name of shopper if a shopping run has been scheduled, otherwise nil
+  key :status, String
+
 end
