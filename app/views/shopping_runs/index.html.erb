@@ -1,5 +1,30 @@
 <% provide(:title, "Shopping Runs") %>
 
+<h1>Pending Requests</h1>
+
+<table cellpadding=10>
+    <tr>
+        <td>Date</td>
+        <td>MEAL</td>
+        <td>Cook</td>
+    </tr>
+    <% MealEvent.each do |meal_event| %>
+        <tr>
+            <td> <%= meal_event.time %> </td>
+            <td> <%= meal_event.meal %> </td>
+            <td> <%= meal_event.cook %> </td>
+            <% if is_admin? %>
+                <td> <%= meal_event.rsvps.to_a %> </td>
+                <td> <%= meal_event.latersvps.to_a %> </td>
+                <td> <%= meal_event.customers.to_a %> </td>
+            <% end %>
+            <% if signed_in? %>
+                <td> <%= link_to "Buy Supplies", '#' %> </td>
+            <% end %>
+        </tr>
+    <% end %>
+</table>
+
 <h1><%= yield(:title) %></h1>
 
 <table cellpadding=10>
