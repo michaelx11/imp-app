@@ -10,7 +10,8 @@
                     <th>MEAL</th>
                     <th>Proposed by</th>
                     <th># Votes</th>
-                    <th></th>
+                    <th>Vote!</th>
+                    <th>Cook!</th>
                     <th></th>
                 </tr>
             </thead>
@@ -29,7 +30,13 @@
                             <td> <%= link_to 'Cook this!', new_meal_event_path(:meal => meal.id) %> </td>
                             <% if is_admin? %>
                                 <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
+                            <% else %>
+                                <td></td>
                             <% end %>
+                        <% else %>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         <% end %>
                     </tr>
                 <% end %>
