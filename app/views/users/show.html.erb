@@ -6,20 +6,27 @@
 </p>
 
 <p>
-  <b>Uid:</b>
-  <%= @user.uid %>
-</p>
-
-<p>
   <b>Paid:</b>
   <%= @user.paid %>
 </p>
 
 <p>
-  <b>Remember token:</b>
-  <%= @user.remember_token %>
+<b>Cooking:</b>
+<% MealEvent.each do |meal_event| %>
+    <% if User.find_by_id(meal_event.cook) == @user %>
+        <%= Meal.find_by_id(meal_event.meal).name %> on <%= meal_event.time %>,
+    <% end %>
+<% end %>
 </p>
 
+<p>
+<b>Shopping:</b>
+<% ShoppingRun.each do |shopping_run| %>
+    <% if User.find_by_id(shopping_run.shopper) == @user %>
+        <%= shopping_run.requests.to_a %> on <%= shopping_run.time %>,
+    <% end %>
+<% end %>
+</p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
