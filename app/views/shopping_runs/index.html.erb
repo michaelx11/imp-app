@@ -35,7 +35,7 @@
                             <td> <%= meal_event.customers.to_a %> </td>
                         <% end %>
                         <% if signed_in? %>
-                            <td> <%= link_to "Buy Supplies", edit_meal_event_status_path(meal_event) %> </td>
+                            <td> <%= link_to "Buy Supplies", new_shopping_request_path(:meal_event => meal_event.id) %> </td>
                         <% end %>
                     </tr>
                 <% end %>
