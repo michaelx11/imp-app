@@ -1,64 +1,85 @@
 <% provide(:title, "Shopping Runs") %>
+<div class="row-fluid">
+    <h1>Pending Requests</h1>
 
-<h1>Pending Requests</h1>
-
-<table cellpadding=10>
-    <tr>
-        <td>Date</td>
-        <td>MEAL</td>
-        <td>Cook</td>
-    </tr>
-    <% MealEvent.each do |meal_event| %>
-        <% if is_pending?(meal_event) %>
+    <table class="display" id="requests-table">
+        <thead>
             <tr>
-                <td> <%= meal_event.time %> </td>
-                <td> <%= meal_event.meal %> </td>
-                <td> <%= meal_event.cook %> </td>
-                <% if is_admin? %>
-                    <td> <%= meal_event.rsvps.to_a %> </td>
-                    <td> <%= meal_event.latersvps.to_a %> </td>
-                    <td> <%= meal_event.customers.to_a %> </td>
+                <th>Date</th>
+                <th>MEAL</th>
+                <th>Cook</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% MealEvent.each do |meal_event| %>
+                <% if is_pending?(meal_event) %>
+                    <tr>
+                        <td> <%= meal_event.time %> </td>
+                        <td> <%= meal_event.meal %> </td>
+                        <td> <%= meal_event.cook %> </td>
+                        <% if is_admin? %>
+                            <td> <%= meal_event.rsvps.to_a %> </td>
+                            <td> <%= meal_event.latersvps.to_a %> </td>
+                            <td> <%= meal_event.customers.to_a %> </td>
+                        <% end %>
+                        <% if signed_in? %>
+                            <td> <%= link_to "Buy Supplies", edit_meal_event_status_path(meal_event) %> </td>
+                        <% end %>
+                    </tr>
                 <% end %>
-                <% if signed_in? %>
-                    <td> <%= link_to "Buy Supplies", edit_meal_event_status_path(meal_event) %> </td>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<div class="row-fluid">
+    <h1><%= yield(:title) %></h1>
+
+    <table class="display" id="shopping-runs-table">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Requests</th>
+                <th>Shopper</th>
+                <% if is_admin? %>
+                    <th>Cost</th>
                 <% end %>
             </tr>
-        <% end %>
-    <% end %>
-</table>
-
-<h1><%= yield(:title) %></h1>
-
-<table cellpadding=10>
-    <tr>
-        <td>Status</td>
-        <td>Date</td>
-        <td>Requests</td>
-        <td>Shopper</td>
-        <% if is_admin? %>
-            <td>Cost</td>
-        <% end %>
-    </tr>
-    <% @shopping_runs.each do |shopping_run| %>
-        <tr>
-            <td> <%= shopping_run.status %> </td>
-            <td> <%= shopping_run.time %> </td>
-            <td> <%= shopping_run.requests.to_a %> </td>
-            <td> <%= shopping_run.shopper %> </td>
-            <% if is_admin? %>
-                <td> <%= shopping_run.cost %> </td>
+        </thead>
+        <tbody>
+            <% @shopping_runs.each do |shopping_run| %>
+                <tr>
+                    <td> <%= shopping_run.status %> </td>
+                    <td> <%= shopping_run.time %> </td>
+                    <td> <%= shopping_run.requests.to_a %> </td>
+                    <td> <%= shopping_run.shopper %> </td>
+                    <% if is_admin? %>
+                        <td> <%= shopping_run.cost %> </td>
+                    <% end %>
+                    <% if shopping_run.status.nil? && shopping_run.shopper == current_user.name %>
+                        <td> <%= link_to "Mark Completed", edit_shopping_run_path(shopping_run) %> </td>
+                    <% end %>
+                    <% if is_admin? %>
+                        <td> <%= link_to 'Edit', edit_shopping_run_path(shopping_run) %> </td>
+                        <td> <%= link_to 'Remove', shopping_run, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
+                    <% end %>
+                </tr>
             <% end %>
-            <% if shopping_run.status.nil? && shopping_run.shopper == current_user.name %>
-                <td> <%= link_to "Mark Completed", edit_shopping_run_path(shopping_run) %> </td>
-            <% end %>
-            <% if is_admin? %>
-                <td> <%= link_to 'Edit', edit_shopping_run_path(shopping_run) %> </td>
-                <td> <%= link_to 'Remove', shopping_run, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
-            <% end %>
-        </tr>
-    <% end %>
-</table>
+        </tbody>
+    </table>
+</div>
 
 <% if signed_in? %>
     <%= link_to 'New Shopping Run', new_shopping_run_path, :class => "btn btn-primary" %>
 <% end %>
+
+<script>
+    $(document).ready(function() {
+        $("#requests-table").dataTable();
+        $("#shopping-runs-table").dataTable();
+    });
+    
+    $.extend( $.fn.dataTableExt.oStdClasses, {
+        "sWrapper": "dataTables_wrapper form-inline"
+    });
+</script>
