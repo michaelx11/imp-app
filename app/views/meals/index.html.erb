@@ -21,22 +21,24 @@
         </thead>
         <tbody>
             <% @meals.each do |meal| %>
-                <tr>
-                    <td> <%= meal.name %> </td>
-                    <td> <%= meal.proposer %> </td>
-                    <td> <%= meal.votes.size %> </td>
-                    <% if signed_in? %>
-                        <% if meal.votes.include?(current_user.name) %>
-                            <td> <%= link_to '-1', edit_vote_path(meal) %> </td>
-                        <% else %>
-                            <td> <%= link_to '+1', edit_vote_path(meal) %> </td>
+                <% unless meal.cooked %>
+                    <tr>
+                        <td> <%= meal.name %> </td>
+                        <td> <%= meal.proposer %> </td>
+                        <td> <%= meal.votes.size %> </td>
+                        <% if signed_in? %>
+                            <% if meal.votes.include?(current_user.name) %>
+                                <td> <%= link_to '-1', edit_vote_path(meal) %> </td>
+                            <% else %>
+                                <td> <%= link_to '+1', edit_vote_path(meal) %> </td>
+                            <% end %>
+                            <td> <%= link_to 'Cook this!', new_meal_event_path(:meal => meal.id) %> </td>
                         <% end %>
-                        <td> <%= link_to 'Cook this!', new_meal_event_path(:meal => meal.id) %> </td>
-                    <% end %>
-                    <% if is_admin? %>
-                        <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
-                    <% end %>
-                </tr>
+                        <% if is_admin? %>
+                            <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
+                        <% end %>
+                    </tr>
+                <% end %>
             <% end %>
         </tbody>
     </table>
