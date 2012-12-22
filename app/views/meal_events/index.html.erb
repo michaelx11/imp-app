@@ -1,37 +1,52 @@
 <% provide(:title, "Schedule") %>
 
-<h1>Schedule</h1>
+<div class="row-fluid">
+    <h1>Schedule</h1>
 
-<table cellpadding=10>
-    <tr>
-        <td>Status</td>
-        <td>Date</td>
-        <td>MEAL</td>
-        <td>Cook</td>
-        <td>Helpers</td>
-    </tr>
-    <% @meal_events.each do |meal_event| %>
-        <tr>
-            <td> <%= status_text(meal_event) %> </td>
-            <td> <%= meal_event.time %> </td>
-            <td> <%= meal_event.meal %> </td>
-            <td> <%= meal_event.cook %> </td>
-            <td> <%= meal_event.helpers.to_a %> </td>
-            <% if is_admin? %>
-                <td> <%= meal_event.rsvps.to_a %> </td>
-                <td> <%= meal_event.latersvps.to_a %> </td>
-                <td> <%= meal_event.customers.to_a %> </td>
+    <table class="display" id="meal-events-table">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Date</th>
+                <th>MEAL</th>
+                <th>Cook</th>
+                <th>Helpers</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @meal_events.each do |meal_event| %>
+                <tr>
+                    <td> <%= status_text(meal_event) %> </td>
+                    <td> <%= meal_event.time %> </td>
+                    <td> <%= meal_event.meal %> </td>
+                    <td> <%= meal_event.cook %> </td>
+                    <td> <%= meal_event.helpers.to_a %> </td>
+                    <% if is_admin? %>
+                        <td> <%= meal_event.rsvps.to_a %> </td>
+                        <td> <%= meal_event.latersvps.to_a %> </td>
+                        <td> <%= meal_event.customers.to_a %> </td>
+                    <% end %>
+                    <% if signed_in? %>
+                        <td> <%= link_to help_text(meal_event), edit_helper_path(meal_event) %> </td>
+                        <td> <%= link_to rsvp_text(meal_event), edit_rsvp_path(meal_event) %> </td>
+                        <td> <%= link_to late_rsvp_text(meal_event), edit_late_rsvp_path(meal_event) %> </td>
+                        <% if is_admin? %>
+                            <td> <%= link_to 'Edit', edit_meal_event_path(meal_event) %> </td>
+                            <td> <%= link_to 'Remove', meal_event, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
+                        <% end %>
+                    <% end %>
+                </tr>
             <% end %>
-            <% if signed_in? %>
-                <td> <%= link_to help_text(meal_event), edit_helper_path(meal_event) %> </td>
-                <td> <%= link_to rsvp_text(meal_event), edit_rsvp_path(meal_event) %> </td>
-                <td> <%= link_to late_rsvp_text(meal_event), edit_late_rsvp_path(meal_event) %> </td>
-                <% if is_admin? %>
-                    <td> <%= link_to 'Edit', edit_meal_event_path(meal_event) %> </td>
-                    <td> <%= link_to 'Remove', meal_event, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
-                <% end %>
-            <% end %>
-        </tr>
-    <% end %>
-</table>
+        </tbody>
+    </table>
+</div>
 
+<script>
+    $(document).ready(function() {
+        $("#meal-events-table").dataTable();
+    });
+
+    $.extend( $.fn.dataTableExt.oStdClasses, {
+        "sWrapper": "dataTables_wrapper form-inline"
+    });
+</script>
