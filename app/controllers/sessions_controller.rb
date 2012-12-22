@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
         if user
             sign_in user
         else
-            params = {name: auth.info.name, uid: auth.uid}
+            params = {name: auth.info.name, uid: auth.uid, email: auth.info.email}
             user = User.create(params)
             sign_in user
         end

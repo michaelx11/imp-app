@@ -3,6 +3,7 @@ class User
 
   key :name, String
   key :uid, String
+  key :email, String
   key :paid, Float
   key :remember_token, String
 
