@@ -9,9 +9,10 @@ class SessionsController < ApplicationController
         
         if user
             sign_in user
-            puts "SIGNING IN"
         else
-            flash[:error] = 'Invalid user'
+            params = {name: auth.info.name, uid: auth.uid}
+            user = User.create(params)
+            sign_in user
         end
         redirect_to root_url
     end

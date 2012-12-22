@@ -15,6 +15,8 @@
 <% MealEvent.each do |meal_event| %>
     <% if User.find_by_id(meal_event.cook) == @user %>
         <%= Meal.find_by_id(meal_event.meal).name %> on <%= meal_event.time %>,
+    <% else %>
+        <% "hello" %>
     <% end %>
 <% end %>
 </p>
