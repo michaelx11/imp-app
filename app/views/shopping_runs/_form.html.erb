@@ -10,14 +10,16 @@
             </ul>
         </div>
     <% end %>
-
-    <div class="field">
-        <%= f.label :time %><br />
-        <%= f.text_field :time %>
+    <div class="well">
+        <label for="shopping_run_time">Time:</label>
+        <input id="shopping_run_time" name="shopping_run[time]" size="30" type="text"/>
     </div>
     <%= f.hidden_field :shopper, :value => current_user.id %>
     <div class="actions">
         <%= f.submit %>
     </div>
+    <script>
+        $('#shopping_run_time').datepicker();
+    </script>
 <% end %>
 
