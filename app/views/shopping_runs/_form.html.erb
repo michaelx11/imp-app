@@ -15,10 +15,7 @@
         <%= f.label :time %><br />
         <%= f.text_field :time %>
     </div>
-    <div class="field">
-        <%= f.label "Shopper" %><br />
-        <%= f.text_field :shopper, :value => current_user.name %>
-    </div>
+    <%= f.hidden_field :shopper, :value => current_user.id %>
     <div class="actions">
         <%= f.submit %>
     </div>

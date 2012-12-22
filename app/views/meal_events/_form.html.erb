@@ -15,14 +15,8 @@
         <%= f.label :time %><br />
         <%= f.text_field :time %>
     </div>
-    <div class="field">
-        <%= f.label :meal %><br />
-        <%= f.text_field :meal, :value => params[:meal] %>
-    </div>
-    <div class="field">
-        <%= f.label "Cook" %><br />
-        <%= f.text_field :cook, :value => current_user.name %>
-    </div>
+    <%= f.hidden_field :meal, :value => params[:meal] %>
+    <%= f.hidden_field :cook, :value => current_user.id %>
     <div class="actions">
         <%= f.submit %>
     </div>

@@ -15,8 +15,8 @@
                 <% if is_pending?(meal_event) %>
                     <tr>
                         <td> <%= meal_event.time %> </td>
-                        <td> <%= meal_event.meal %> </td>
-                        <td> <%= meal_event.cook %> </td>
+                        <td> <%= Meal.find_by_id(meal_event.meal).name %> </td>
+                        <td> <%= User.find_by_id(meal_event.cook).name %> </td>
                         <% if is_admin? %>
                             <td> <%= meal_event.rsvps.to_a %> </td>
                             <td> <%= meal_event.latersvps.to_a %> </td>
@@ -52,7 +52,7 @@
                     <td> <%= shopping_run.status %> </td>
                     <td> <%= shopping_run.time %> </td>
                     <td> <%= shopping_run.requests.to_a %> </td>
-                    <td> <%= shopping_run.shopper %> </td>
+                    <td> <%= User.find_by_id(shopping_run.shopper).name %> </td>
                     <% if is_admin? %>
                         <td> <%= shopping_run.cost %> </td>
                     <% end %>
@@ -68,6 +68,8 @@
         </tbody>
     </table>
 </div>
+
+<br />
 
 <% if signed_in? %>
     <%= link_to 'New Shopping Run', new_shopping_run_path, :class => "btn btn-primary" %>

@@ -1,6 +1,6 @@
 <% provide(:title, "Cook") %>
 
-<h1>Cook <%= params[:meal] %></h1>
+<h1>Cook <%= Meal.find_by_id(params[:meal]).name %></h1>
 
 <h6>Current schedule is below.</h6>
 

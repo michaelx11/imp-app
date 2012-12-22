@@ -18,8 +18,8 @@
                 <tr>
                     <td> <%= status_text(meal_event) %> </td>
                     <td> <%= meal_event.time %> </td>
-                    <td> <%= meal_event.meal %> </td>
-                    <td> <%= meal_event.cook %> </td>
+                    <td> <%= Meal.find_by_id(meal_event.meal).name %> </td>
+                    <td> <%= User.find_by_id(meal_event.cook).name %> </td>
                     <td> <%= meal_event.helpers.to_a %> </td>
                     <% if is_admin? %>
                         <td> <%= meal_event.rsvps.to_a %> </td>
