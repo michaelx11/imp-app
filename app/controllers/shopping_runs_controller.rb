@@ -13,6 +13,7 @@ class ShoppingRunsController < ApplicationController
 
     def create
         @shopping_run = ShoppingRun.new(params[:shopping_run])
+        @shopping_run.time = Date.strptime(params[:shopping_run][:time], "%m/%d/%Y")
         if @shopping_run.shopper.blank?
             @shopping_run.shopper = current_user.name
         end
