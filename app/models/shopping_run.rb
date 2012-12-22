@@ -2,7 +2,7 @@ class ShoppingRun
   include MongoMapper::Document
 
   key :shopper, String # User.id
-  key :time, String # TODO change to Date
+  key :time, Date # TODO change to Date
   key :requests, Set # TODO contains MealEvent.id's
   key :cost, Float
 
