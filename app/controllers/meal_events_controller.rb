@@ -13,6 +13,7 @@ class MealEventsController < ApplicationController
 
     def create
         @meal_event = MealEvent.new(params[:meal_event])
+        @meal_event.time = Date.strptime(params[:meal_event][:time], "%m/%d/%Y")
         if @meal_event.cook.blank?
             @meal_event.cook = current_user.name
         end
