@@ -25,7 +25,7 @@
                 <ul class="nav pull-right">
                     <li><%= link_to "Home", '/' %></li>
                     <% if signed_in? %>
-                        <li>Welcome, <%= current_user.name %>!</li>
+                        <li><a> Welcome, <%= current_user.name %>! </a></li>
                         <li><%= link_to "Sign Out", signout_path, :method => :delete %></li>
                     <% else %>
                         <li><%= link_to "Sign In", signin_path %></li>
