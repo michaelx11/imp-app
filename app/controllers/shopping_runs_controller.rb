@@ -16,6 +16,7 @@ class ShoppingRunsController < ApplicationController
         if @shopping_run.shopper.blank?
             @shopping_run.shopper = current_user.name
         end
+        @shopping_run.status = 'Pending'
         @shopping_run.save
         redirect_to shopping_runs_path
     end
@@ -32,7 +33,7 @@ class ShoppingRunsController < ApplicationController
 
     def update
         @shopping_run = ShoppingRun.find(params[:id])
-        @shopping_run.status = 'done'
+        @shopping_run.status = 'Done'
         @shopping_run.cost = params[:shopping_run][:cost]
         @shopping_run.save
         redirect_to shopping_runs_path

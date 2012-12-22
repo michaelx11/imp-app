@@ -6,7 +6,7 @@ class ShoppingRun
   key :requests, Set
   key :cost, Float
 
-  # 'done' if completed, otherwise nil
+  # 'Done' if completed, otherwise 'Pending'
   key :status, String
 
   validates :shopper, :presence => true

@@ -56,7 +56,7 @@
                     <% if is_admin? %>
                         <td> <%= shopping_run.cost %> </td>
                     <% end %>
-                    <% if shopping_run.status.nil? && current_user?(User.find_by_id(shopping_run.shopper)) %>
+                    <% if shopping_run.status == 'Pending' && current_user?(User.find_by_id(shopping_run.shopper)) %>
                         <td> <%= link_to "Mark Completed", edit_shopping_run_path(shopping_run) %> </td>
                     <% end %>
                     <% if is_admin? %>
