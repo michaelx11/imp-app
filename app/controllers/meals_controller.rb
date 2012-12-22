@@ -12,6 +12,10 @@ class MealsController < ApplicationController
     end
 
     def create
+        unless signed_in?
+            return
+        end
+
         @meal = Meal.new(params[:meal])
         @meal.proposer = current_user.name
         @meal.cooked = false
@@ -20,6 +24,10 @@ class MealsController < ApplicationController
     end
 
     def destroy
+        unless signed_in?
+            return
+        end
+
         @meal = Meal.find(params[:id])
         @meal.destroy
         redirect_to meals_path

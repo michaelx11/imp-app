@@ -12,6 +12,10 @@ class MealEventsController < ApplicationController
     end
 
     def create
+        unless signed_in?
+            return
+        end
+
         @meal_event = MealEvent.new(params[:meal_event])
         @meal_event.time = Date.strptime(params[:meal_event][:time], "%m/%d/%Y")
         Meal.update(@meal_event.meal, :cooked => true)
@@ -23,6 +27,10 @@ class MealEventsController < ApplicationController
     end
 
     def destroy
+        unless signed_in?
+            return
+        end
+
         @meal_event = MealEvent.find(params[:id])
         Meal.update(@meal_event.meal, :cooked => false)
         @meal_event.destroy
@@ -34,6 +42,10 @@ class MealEventsController < ApplicationController
     end
 
     def update
+        unless signed_in?
+            return
+        end
+
         @meal_event = MealEvent.find(params[:id])
         @meal_event.update_attributes(params[:meal_event])
         redirect_to meal_events_path

@@ -12,6 +12,10 @@ class ShoppingRunsController < ApplicationController
     end
 
     def create
+        unless signed_in?
+            return
+        end
+
         @shopping_run = ShoppingRun.new(params[:shopping_run])
         @shopping_run.time = Date.strptime(params[:shopping_run][:time], "%m/%d/%Y")
         if @shopping_run.shopper.blank?
@@ -23,6 +27,10 @@ class ShoppingRunsController < ApplicationController
     end
 
     def destroy
+        unless signed_in?
+            return
+        end
+
         @shopping_run = ShoppingRun.find(params[:id])
         @shopping_run.destroy
         redirect_to shopping_runs_path
@@ -33,6 +41,10 @@ class ShoppingRunsController < ApplicationController
     end
 
     def update
+        unless signed_in?
+            return
+        end
+
         @shopping_run = ShoppingRun.find(params[:id])
         @shopping_run.status = 'Done'
         @shopping_run.cost = params[:shopping_run][:cost]
