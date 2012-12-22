@@ -24,7 +24,18 @@ class MealEventsController < ApplicationController
 
     def destroy
         @meal_event = MealEvent.find(params[:id])
+        Meal.update(@meal_event.meal, :cooked => false)
         @meal_event.destroy
+        redirect_to meal_events_path
+    end
+
+    def edit
+        @meal_event = MealEvent.find(params[:id])
+    end
+
+    def update
+        @meal_event = MealEvent.find(params[:id])
+        @meal_event.update_attributes(params[:meal_event])
         redirect_to meal_events_path
     end
 end

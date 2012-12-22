@@ -13,14 +13,12 @@
 
     <div class="field">
         <%= f.label :time %><br />
-        <%= f.text_field :time %>
+        <%= f.text_field :time, :value => @meal_event.time, :required => "true" %>
     </div>
     <div class="materials">
         <%= f.label :materials %><br />
-        <%= f.text_field :materials %>
+        <%= f.text_field :materials, :value => @meal_event.materials %>
     </div>
-    <%= f.hidden_field :meal, :value => params[:meal] %>
-    <%= f.hidden_field :cook, :value => current_user.id %>
     <div class="actions">
         <%= f.submit %>
     </div>

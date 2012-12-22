@@ -22,10 +22,8 @@
                     <th></th>
                     <th></th>
                 <% end %>
-                <% if is_admin? %>
-                    <th></th>
-                    <th></th>
-                <% end %>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -46,9 +44,12 @@
                         <td> <%= link_to rsvp_text(meal_event), edit_rsvp_path(meal_event) %> </td>
                         <td> <%= link_to late_rsvp_text(meal_event), edit_late_rsvp_path(meal_event) %> </td>
                     <% end %>
-                    <% if is_admin? %>
+                    <% if current_user?(User.find_by_id(meal_event.cook)) || is_admin? %>
                         <td> <%= link_to 'Edit', edit_meal_event_path(meal_event) %> </td>
                         <td> <%= link_to 'Remove', meal_event, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
+                    <% else %>
+                        <td></td>
+                        <td></td>
                     <% end %>
                 </tr>
             <% end %>
