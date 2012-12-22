@@ -1,6 +1,8 @@
 <% provide(:title, "Shopping Runs") %>
-<div class="row-fluid">
+<div class="page-header well">
     <h1>Pending Requests</h1>
+</div>
+<div class="row-fluid">
 
     <table class="display" id="requests-table">
         <thead>
@@ -39,8 +41,13 @@
         </tbody>
     </table>
 </div>
-<div class="row-fluid">
+
+<hr></hr>
+
+<div class="page-header well">
     <h1><%= yield(:title) %></h1>
+</div>
+<div class="row-fluid">
 
     <table class="display" id="shopping-runs-table">
         <thead>
