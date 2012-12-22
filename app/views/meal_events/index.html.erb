@@ -11,6 +11,20 @@
                 <th>MEAL</th>
                 <th>Cook</th>
                 <th>Helpers</th>
+                <% if is_admin? %>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                <% end %>
+                <% if signed_in? %>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                <% end %>
+                <% if is_admin? %>
+                    <th></th>
+                    <th></th>
+                <% end %>
             </tr>
         </thead>
         <tbody>
@@ -30,10 +44,10 @@
                         <td> <%= link_to help_text(meal_event), edit_helper_path(meal_event) %> </td>
                         <td> <%= link_to rsvp_text(meal_event), edit_rsvp_path(meal_event) %> </td>
                         <td> <%= link_to late_rsvp_text(meal_event), edit_late_rsvp_path(meal_event) %> </td>
-                        <% if is_admin? %>
-                            <td> <%= link_to 'Edit', edit_meal_event_path(meal_event) %> </td>
-                            <td> <%= link_to 'Remove', meal_event, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
-                        <% end %>
+                    <% end %>
+                    <% if is_admin? %>
+                        <td> <%= link_to 'Edit', edit_meal_event_path(meal_event) %> </td>
+                        <td> <%= link_to 'Remove', meal_event, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
                     <% end %>
                 </tr>
             <% end %>

@@ -8,6 +8,14 @@
                 <th>Date</th>
                 <th>MEAL</th>
                 <th>Cook</th>
+                <% if is_admin? %>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                <% end %>
+                <% if signed_in? %>
+                    <th></th>
+                <% end %>
             </tr>
         </thead>
         <tbody>
@@ -44,6 +52,11 @@
                 <% if is_admin? %>
                     <th>Cost</th>
                 <% end %>
+                <th></th>
+                <% if is_admin? %>
+                    <th></th>
+                    <th></th>
+                <% end %>
             </tr>
         </thead>
         <tbody>
@@ -58,6 +71,8 @@
                     <% end %>
                     <% if shopping_run.status == 'Pending' && current_user?(User.find_by_id(shopping_run.shopper)) %>
                         <td> <%= link_to "Mark Completed", edit_shopping_run_path(shopping_run) %> </td>
+                    <% else %>
+                        <td></td>
                     <% end %>
                     <% if is_admin? %>
                         <td> <%= link_to 'Edit', edit_shopping_run_path(shopping_run) %> </td>

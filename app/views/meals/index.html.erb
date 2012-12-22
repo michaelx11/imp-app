@@ -3,52 +3,56 @@
 <div class="row-fluid">
     <h1>Meals</h1>
 
-    <!--<table class="table table-striped " cellpadding="0" cellspacing="0" border="0" id="meal-table">-->
-        <table class="display" id="meal-table">
-            <thead>
-                <tr>
-                    <th>MEAL</th>
-                    <th>Proposed by</th>
-                    <th># Votes</th>
+    <table class="display" id="meal-table">
+        <thead>
+            <tr>
+                <th>MEAL</th>
+                <th>Proposed by</th>
+                <th># Votes</th>
+                <% if signed_in? %>
                     <th></th>
                     <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @meals.each do |meal| %>
-                    <tr>
-                        <td> <%= meal.name %> </td>
-                        <td> <%= meal.proposer %> </td>
-                        <td> <%= meal.votes.size %> </td>
-                        <% if signed_in? %>
-                            <% if meal.votes.include?(current_user.name) %>
-                                <td> <%= link_to '-1', edit_vote_path(meal) %> </td>
-                            <% else %>
-                                <td> <%= link_to '+1', edit_vote_path(meal) %> </td>
-                            <% end %>
-                            <td> <%= link_to 'Cook this!', new_meal_event_path(:meal => meal.id) %> </td>
-                            <% if is_admin? %>
-                                <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
-                            <% end %>
-                        <% end %>
-                    </tr>
                 <% end %>
-            </tbody>
-        </table>
-    </div>
-    <br />
+                <% if is_admin? %>
+                    <th></th>
+                <% end %>
+            </tr>
+        </thead>
+        <tbody>
+            <% @meals.each do |meal| %>
+                <tr>
+                    <td> <%= meal.name %> </td>
+                    <td> <%= meal.proposer %> </td>
+                    <td> <%= meal.votes.size %> </td>
+                    <% if signed_in? %>
+                        <% if meal.votes.include?(current_user.name) %>
+                            <td> <%= link_to '-1', edit_vote_path(meal) %> </td>
+                        <% else %>
+                            <td> <%= link_to '+1', edit_vote_path(meal) %> </td>
+                        <% end %>
+                        <td> <%= link_to 'Cook this!', new_meal_event_path(:meal => meal.id) %> </td>
+                    <% end %>
+                    <% if is_admin? %>
+                        <td> <%= link_to 'Remove', meal, :method => :delete, :data => { :confirm => "Are you sure?" } %></td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<br />
 
-    <% if signed_in? %>
-        <%= link_to 'New Meal', new_meal_path, :class => "btn btn-primary" %>
-    <% end %>
+<% if signed_in? %>
+    <%= link_to 'New Meal', new_meal_path, :class => "btn btn-primary" %>
+<% end %>
 
-    <script>
-        $(document).ready(function() {
-            $("#meal-table").dataTable();
-        });
+<script>
+    $(document).ready(function() {
+        $("#meal-table").dataTable();
+    });
 
-        $.extend( $.fn.dataTableExt.oStdClasses, {
-            "sWrapper": "dataTables_wrapper form-inline"
-        });
+    $.extend( $.fn.dataTableExt.oStdClasses, {
+        "sWrapper": "dataTables_wrapper form-inline"
+    });
 </script>
 
