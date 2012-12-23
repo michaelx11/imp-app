@@ -16,6 +16,15 @@ ImpApp::Application.configure do
   # Send mail using :sendmail
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :sendmail
+  #config.action_mailer.delivery_method = :smtp
+  #config.action_mailer.smtp_settings = {
+      #address: 'smtp.gmail.com',
+      #port: 587,
+      #domain: 'mplcr.mit.edu',
+      #user_name: 'trzhang',
+      #password: 'password',
+      #authentication: 'plain',
+      #enable_starttls_auto: 'true' }
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false

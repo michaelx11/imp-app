@@ -14,7 +14,8 @@ class UsersController < ApplicationController
     # GET /users/1.json
     def show
         @user = User.find(params[:id])
-        UserMailer.sample_email(@user).deliver
+        #UserMailer.sample_email(@user).deliver
+        UserMailer.delay(run_at: 1.minute.from_now).sample_email(@user)
 
         respond_to do |format|
             format.html # show.html.erb
