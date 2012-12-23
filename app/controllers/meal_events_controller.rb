@@ -17,7 +17,7 @@ class MealEventsController < ApplicationController
         end
 
         @meal_event = MealEvent.new(params[:meal_event])
-        @meal_event.time = Date.strptime(params[:meal_event][:time], "%m/%d/%Y")
+        @meal_event.date = Date.strptime(params[:meal_event][:date], "%m/%d/%Y")
         Meal.update(@meal_event.meal, :cooked => true)
         if @meal_event.cook.blank?
             @meal_event.cook = current_user.name
@@ -48,6 +48,8 @@ class MealEventsController < ApplicationController
 
         @meal_event = MealEvent.find(params[:id])
         @meal_event.update_attributes(params[:meal_event])
+        @meal_event.date = Date.strptime(params[:meal_event][:date], "%m/%d/%Y")
+        @meal_event.save
         redirect_to meal_events_path
     end
 end

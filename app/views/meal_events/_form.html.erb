@@ -12,8 +12,8 @@
     <% end %>
 
     <div class="field">
-        <%= f.label :time %><br />
-        <%= f.text_field :time , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}"%>
+        <%= f.label :date %><br />
+        <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}"%>
     </div>
     <div class="materials">
         <%= f.label :materials %><br />
@@ -25,6 +25,6 @@
         <%= f.submit %>
     </div>
     <script>
-        $('#meal_event_time').datepicker();
+        $('#meal_event_date').datepicker();
     </script>
 <% end %>
