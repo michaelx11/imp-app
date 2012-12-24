@@ -17,4 +17,7 @@ class MealEvent
   # TODO change to id of shopper if a shopping run has been scheduled
   key :status, String
 
+  validates :date, :presence => true
+  validates :time, :presence => true
+
 end

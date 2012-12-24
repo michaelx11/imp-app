@@ -1,7 +1,7 @@
 <% my_shopping_runs = [] %>
 <% ShoppingRun.all.each do |shopping_run| %>
     <% if current_user?(User.find_by_id(shopping_run.shopper)) %>
-        <% my_shopping_runs << [shopping_run.time, shopping_run.id] %>
+        <% my_shopping_runs << [shopping_run.date, shopping_run.id] %>
     <% end %>
 <% end %>
 

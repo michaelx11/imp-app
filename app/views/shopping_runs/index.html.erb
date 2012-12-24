@@ -25,7 +25,7 @@
             <% MealEvent.each do |meal_event| %>
                 <% if is_pending?(meal_event) %>
                     <tr>
-                        <td> <%= meal_event.time %> </td>
+                        <td> <%= meal_event.date %> </td>
                         <td> <%= Meal.find_by_id(meal_event.meal).name %> </td>
                         <td> <%= User.find_by_id(meal_event.cook).name %> </td>
                         <td> <%= meal_event.materials %></td>
@@ -72,7 +72,7 @@
             <% @shopping_runs.each do |shopping_run| %>
                 <tr>
                     <td> <%= shopping_run.status %> </td>
-                    <td> <%= shopping_run.time %> </td>
+                    <td> <%= shopping_run.date %> </td>
                     <td> <%= shopping_run.requests.to_a %> </td>
                     <td> <%= User.find_by_id(shopping_run.shopper).name %> </td>
                     <% if is_admin? %>

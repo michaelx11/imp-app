@@ -13,7 +13,11 @@
 
     <div class="field">
         <%= f.label :date %><br />
-        <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}"%>
+        <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}" %>
+    </div>
+    <div class="field">
+        <%= f.label :time %><br />
+        <%= f.text_field :time , :required => "true", :pattern => "[0-9]{1,2}:[0-9]{2} [ap]m" %>
     </div>
     <div class="materials">
         <%= f.label :materials %><br />
@@ -26,5 +30,6 @@
     </div>
     <script>
         $('#meal_event_date').datepicker();
+        $('#meal_event_time').timepicker({ 'timeFormat': 'g:i a'});
     </script>
 <% end %>
