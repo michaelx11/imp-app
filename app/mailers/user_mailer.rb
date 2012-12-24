@@ -11,16 +11,34 @@ class UserMailer < ActionMailer::Base
       @meal = meal
       @date = date
       @time = time
-      mail(to: user.email, subject: "Reminder: Meal Event")
+      mail(to: user.email, subject: "Reminder: Upcoming Meal Event")
   end
 
-  def send_meal_event_mails()
+  def send_meal_event_emails()
       MealEvent.all.each do |meal_event|
           unless meal_event.reminded
               if meal_event.time - Time.now <= meal_event.remind_in_advance * 60
-                  puts "Sending mail"
+                  puts "Sending meal event mail"
                   UserMailer.meal_event_email(User.find(meal_event.cook), Meal.find(meal_event.meal), meal_event.date, meal_event.time).deliver
                   meal_event.update_attributes({reminded: true})
+              end
+          end
+      end
+  end
+
+  def shopping_run_email(user, date)
+      @user = user
+      @date = date
+      mail(to: user.email, subject: "Reminder: Upcoming Shopping Run")
+  end
+  
+  def send_shopping_run_emails()
+      ShoppingRun.all.each do |shopping_run|
+          unless shopping_run.reminded
+              if shopping_run.date - Date.today <= shopping_run.remind_in_advance
+                  puts "Sending shopping run mail"
+                  UserMailer.shopping_run_email(User.find(shopping_run.shopper), shopping_run.date).deliver
+                  shopping_run.update_attributes({reminded: true})
               end
           end
       end
