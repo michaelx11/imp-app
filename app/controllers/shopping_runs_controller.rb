@@ -17,7 +17,7 @@ class ShoppingRunsController < ApplicationController
         end
 
         @shopping_run = ShoppingRun.new(params[:shopping_run])
-        @shopping_run.date = Date.strpdate(params[:shopping_run][:date], "%m/%d/%Y")
+        @shopping_run.date = Date.strptime(params[:shopping_run][:date], "%m/%d/%Y")
         if @shopping_run.shopper.blank?
             @shopping_run.shopper = current_user.name
         end
