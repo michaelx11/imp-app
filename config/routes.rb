@@ -1,6 +1,9 @@
 ImpApp::Application.routes.draw do
 
 
+  resources :reminders
+
+
   get "static_pages/home"
   get "static_pages/secretsignin"
   get "static_pages/help"
