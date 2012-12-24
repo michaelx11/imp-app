@@ -11,12 +11,14 @@
         </div>
     <% end %>
     <div class="well">
-        <%= f.label :date %><br />
-        <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}"%>
-    </div>
-    <div class="well">
+        <div class="field">
+            <%= f.label :date %><br />
+            <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}", :placeholder => "enter planned date here" %>
+        </div>
+        <div class="field">
         <%= f.label :remind_in_advance %><br />
-        <%= f.text_field :remind_in_advance %>
+        <%= f.text_field :remind_in_advance, :placeholder => "days to remind in advance" %>
+        </div>
     </div>
     <%= f.hidden_field :shopper, :value => current_user.id %>
     <div class="actions">

@@ -12,12 +12,14 @@
     <% end %>
 
     <div class="well">
-        <%= f.label :cost %><br />
-        <%= f.text_field :cost , :required => "true", :type => "number", :min => "0.01", :step => "0.01", :value => "0.01"%> 
-    </div>
-    <div class="well">
-        <%= f.label :date %><br />
-        <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}", :value => "enter date here"%>
+        <div class="field">
+            <%= f.label :cost %><br />
+            <%= f.text_field :cost , :required => "true", :type => "number", :min => "0.01", :step => "0.01", :value => "0.01"%> 
+        </div>
+        <div class="field">
+            <%= f.label :date %><br />
+            <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}", :value => "enter completed date here" %>
+        </div>
     </div>
     <div class="actions">
         <%= f.submit %>

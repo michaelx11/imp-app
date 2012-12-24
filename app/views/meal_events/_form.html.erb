@@ -10,22 +10,23 @@
             </ul>
         </div>
     <% end %>
-
-    <div class="field">
-        <%= f.label :date %><br />
-        <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}" %>
-    </div>
-    <div class="field">
-        <%= f.label :time %><br />
-        <%= f.text_field :time , :required => "true", :pattern => "[0-9]{1,2}:[0-9]{2} [ap]m" %>
-    </div>
-    <div class="field">
-        <%= f.label :materials %><br />
-        <%= f.text_field :materials %>
-    </div>
-    <div class="field">
-        <%= f.label :remind_in_advance %><br />
-        <%= f.text_field :remind_in_advance %>
+    <div class="well">
+        <div class="field">
+            <%= f.label :date %><br />
+            <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}", :placeholder => "enter planned date here" %>
+        </div>
+        <div class="field">
+            <%= f.label :time %><br />
+            <%= f.text_field :time , :required => "true", :pattern => "[0-9]{1,2}:[0-9]{2} [ap]m", :placeholder => "enter planned time here" %>
+        </div>
+        <div class="field">
+            <%= f.label :materials %><br />
+            <%= f.text_field :materials, :placeholder => "required ingredients" %>
+        </div>
+        <div class="field">
+            <%= f.label :remind_in_advance %><br />
+            <%= f.text_field :remind_in_advance, :placeholder => "hours to remind in advance" %>
+        </div>
     </div>
     <%= f.hidden_field :meal, :value => params[:meal] %>
     <%= f.hidden_field :cook, :value => current_user.id %>
