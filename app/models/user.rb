@@ -7,6 +7,8 @@ class User
   key :paid, Float
   key :remember_token, String
 
+  has_many :proposed_meals, :class_name => 'Meal', :foreign_key => 'proposer_id'
+
   before_save :create_remember_token
 
   private

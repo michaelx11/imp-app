@@ -24,14 +24,10 @@
                 <% unless meal.cooked %>
                     <tr>
                         <td> <%= meal.name %> </td>
-                        <td> <%= meal.proposer %> </td>
-                        <td> <%= meal.votes.size %> </td>
+                        <td> <%= meal.proposer.name %> </td>
+                        <td> <%= meal.voters.size %> </td>
                         <% if signed_in? %>
-                            <% if meal.votes.include?(current_user.name) %>
-                                <td> <%= link_to '-1', edit_vote_path(meal) %> </td>
-                            <% else %>
-                                <td> <%= link_to '+1', edit_vote_path(meal) %> </td>
-                            <% end %>
+                            <td> <%= link_to vote_text(meal), edit_vote_path(meal) %> </td>
                             <td> <%= link_to 'Cook this!', new_meal_event_path(:meal => meal.id) %> </td>
                         <% end %>
                         <% if is_admin? %>

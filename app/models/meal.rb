@@ -2,11 +2,10 @@ class Meal
   include MongoMapper::Document
 
   key :name, String
-  key :proposer, String # User.name TODO change to User.id
-  key :votes, Set # contains User.name's TODO change to User.id's
+  belongs_to :proposer, :class_name => 'User', :foreign_key => 'proposed_meals_id'
+  key :voters, Set # User.ids
   key :cooked, Boolean
 
   validates :name, :presence => true, :length => {:maximum => 50 }
-  validates :proposer, :presence => true
 
 end
