@@ -24,7 +24,7 @@
 <b>Cooking:</b>
 <% MealEvent.each do |meal_event| %>
     <% if User.find_by_id(meal_event.cook) == @user %>
-        <%= Meal.find_by_id(meal_event.meal).name %> on <%= meal_event.time %>,
+        <%= Meal.find_by_id(meal_event.meal).name %> on <%= meal_event.date %> at <%= meal_event.time %>,
     <% end %>
 <% end %>
 </p>
@@ -33,7 +33,7 @@
 <b>Shopping:</b>
 <% ShoppingRun.each do |shopping_run| %>
     <% if User.find_by_id(shopping_run.shopper) == @user %>
-        <%= shopping_run.requests.to_a %> on <%= shopping_run.time %>,
+        <%= shopping_run.requests.to_a %> on <%= shopping_run.date %>,
     <% end %>
 <% end %>
 </p>
