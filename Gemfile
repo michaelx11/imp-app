@@ -13,10 +13,8 @@ gem "mongo_mapper"
 gem 'omniauth'
 gem 'omniauth-facebook'
 
-# delayed_job
-gem 'delayed_job'
-gem 'delayed_job_mongo_mapper', git: 'git://github.com/thisduck/delayed_job_mongo_mapper.git'
-gem 'daemons'
+# whenever
+gem 'whenever'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
