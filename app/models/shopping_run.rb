@@ -9,6 +9,10 @@ class ShoppingRun
   # 'Done' if completed, otherwise 'Pending'
   key :status, String
 
+  # reminders
+  key :remind_in_advance, Integer
+  key :reminded, Boolean
+
   validates :shopper, :presence => true
   validates :date, :presence => true
 

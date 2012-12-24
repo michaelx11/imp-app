@@ -17,11 +17,16 @@ class ShoppingRunsController < ApplicationController
         end
 
         @shopping_run = ShoppingRun.new(params[:shopping_run])
+        @shopping_run.status = 'Pending'
         @shopping_run.date = Date.strptime(params[:shopping_run][:date], "%m/%d/%Y")
         if @shopping_run.shopper.blank?
             @shopping_run.shopper = current_user.name
         end
-        @shopping_run.status = 'Pending'
+        if @shopping_run.remind_in_advance.blank?
+            @shopping_run.reminded = true
+        else
+            @shopping_run.reminded = false
+        end
         @shopping_run.save
         redirect_to shopping_runs_path
     end
@@ -47,6 +52,7 @@ class ShoppingRunsController < ApplicationController
 
         @shopping_run = ShoppingRun.find(params[:id])
         @shopping_run.status = 'Done'
+        @shopping_run.date = Date.strptime(params[:shopping_run][:date], "%m/%d/%Y")
         @shopping_run.cost = params[:shopping_run][:cost]
         @shopping_run.save
         redirect_to shopping_runs_path
