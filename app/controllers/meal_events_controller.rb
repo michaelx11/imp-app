@@ -18,12 +18,15 @@ class MealEventsController < ApplicationController
 
         @meal_event = MealEvent.new(params[:meal_event])
         @meal_event.date = Date.strptime(params[:meal_event][:date], "%m/%d/%Y")
-        d = @meal_event.date
-        t = Time.parse(params[:meal_event][:time])
-        @meal_event.time = Time.new(d.year, d.month, d.day, t.hour, t.min, t.sec)
+        @meal_event.time = Time.new(@meal_event.date.year, @meal_event.date.month, @meal_event.date.day, @meal_event.time.hour, @meal_event.time.min, @meal_event.time.sec)
         Meal.update(@meal_event.meal, :cooked => true)
         if @meal_event.cook.blank?
             @meal_event.cook = current_user.name
+        end
+        if @meal_event.remind_in_advance.blank?
+            @meal_event.reminded = true
+        else
+            @meal_event.reminded = false
         end
         @meal_event.save
         redirect_to meal_events_path
@@ -52,9 +55,12 @@ class MealEventsController < ApplicationController
         @meal_event = MealEvent.find(params[:id])
         @meal_event.update_attributes(params[:meal_event])
         @meal_event.date = Date.strptime(params[:meal_event][:date], "%m/%d/%Y")
-        d = @meal_event.date
-        t = Time.parse(params[:meal_event][:time])
-        @meal_event.time = Time.new(d.year, d.month, d.day, t.hour, t.min, t.sec)
+        @meal_event.time = Time.new(@meal_event.date.year, @meal_event.date.month, @meal_event.date.day, @meal_event.time.hour, @meal_event.time.min, @meal_event.time.sec)
+        if @meal_event.remind_in_advance.blank?
+            @meal_event.reminded = true
+        else
+            @meal_event.reminded = false
+        end
         @meal_event.save
         redirect_to meal_events_path
     end

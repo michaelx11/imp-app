@@ -17,6 +17,10 @@ class MealEvent
   # TODO change to id of shopper if a shopping run has been scheduled
   key :status, String
 
+  # reminders
+  key :remind_in_advance, Integer
+  key :reminded, Boolean
+
   validates :date, :presence => true
   validates :time, :presence => true
 

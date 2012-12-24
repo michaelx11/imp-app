@@ -21,7 +21,7 @@ ImpApp::Application.configure do
       #address: 'smtp.gmail.com',
       #port: 587,
       #domain: 'mplcr.mit.edu',
-      #user_name: 'trzhang',
+      #user_name: 'username',
       #password: 'password',
       #authentication: 'plain',
       #enable_starttls_auto: 'true' }
