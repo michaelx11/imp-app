@@ -18,3 +18,12 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+every 15.minutes do
+    runner "UserMailer.send_meal_event_emails"
+    runner "UserMailer.send_shopping_run_emails"
+end
+
+every 1.day do
+    runner "UserMailer.send_need_people_emails"
+end
