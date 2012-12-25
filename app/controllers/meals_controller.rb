@@ -1,7 +1,6 @@
 class MealsController < ApplicationController
     def index
         @meals = Meal.all
-	UserMailer.send_need_people_emails()
     end
 
     def show

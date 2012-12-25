@@ -18,7 +18,6 @@ class UserMailer < ActionMailer::Base
       MealEvent.find_each do |meal_event|
           unless meal_event.reminded
               if meal_event.time - Time.now <= meal_event.remind_in_advance * 3600
-                  puts "Sending meal event mail"
                   UserMailer.meal_event_email(User.find(meal_event.cook), Meal.find(meal_event.meal), meal_event.date, meal_event.time).deliver
                   meal_event.update_attributes({reminded: true})
               end
@@ -36,7 +35,6 @@ class UserMailer < ActionMailer::Base
       ShoppingRun.find_each do |shopping_run|
           unless shopping_run.reminded
               if shopping_run.date - Date.today <= shopping_run.remind_in_advance
-                  puts "Sending shopping run mail"
                   UserMailer.shopping_run_email(User.find(shopping_run.shopper), shopping_run.date).deliver
                   shopping_run.update_attributes({reminded: true})
               end

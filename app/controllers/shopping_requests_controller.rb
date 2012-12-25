@@ -11,7 +11,6 @@ class ShoppingRequestsController < ApplicationController
 
         shopping_request = params[:shopping_request]
         meal_event = shopping_request[:meal_event]
-        puts "MEAL EVENT ", meal_event
         if is_pending?(MealEvent.find_by_id(meal_event))
             MealEvent.update(meal_event, :status => current_user.name)
             @shopping_run = ShoppingRun.find_by_id(shopping_request[:shopping_run])
