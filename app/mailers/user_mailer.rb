@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
       @meal = meal
       @date = date
       @time = time
-      mail(to: user.email, subject: "Reminder: Upcoming Meal Event")
+      mail(to: user.email, subject: "Reminder: Upcoming meal event")
   end
 
   def send_meal_event_emails()
@@ -29,7 +29,7 @@ class UserMailer < ActionMailer::Base
   def shopping_run_email(user, date)
       @user = user
       @date = date
-      mail(to: user.email, subject: "Reminder: Upcoming Shopping Run")
+      mail(to: user.email, subject: "Reminder: Upcoming shopping run")
   end
   
   def send_shopping_run_emails()
@@ -42,5 +42,26 @@ class UserMailer < ActionMailer::Base
               end
           end
       end
+  end
+
+  def need_people_email(users, meal_dates, shopping_runs)
+      @meal_dates = meal_dates
+      @shopping_runs = shopping_runs
+      mail(to: users.map(&:email), subject: "Important: Need additional people")
+  end
+
+  def send_need_people_emails()
+      meal_dates = Set.new
+      shopping_runs = Set.new
+      Date.today.upto(Date.today + 3) do |date|
+          t = Time.new(date.year, date.month, date.day, 0, 0, 0, 0)
+          if MealEvent.where(:date => t).empty?
+              meal_dates.add(date)
+          end
+          MealEvent.where({:date => t, :status => nil}).each do |meal_event|
+              shopping_runs.add(meal_event)
+          end
+      end
+      UserMailer.need_people_email(User.find_each, meal_dates, shopping_runs).deliver
   end
 end

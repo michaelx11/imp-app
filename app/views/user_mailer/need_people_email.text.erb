@@ -1,0 +1,17 @@
+Hi all, we are in need of additional people.
+<% unless @meal_dates.empty? %>
+
+There are no meals currently scheduled for the following dates:
+    <% @meal_dates.each do |date| %>   
+    <%= date.to_s %>
+    <% end %>
+<% end %>
+<% unless @shopping_runs.empty? %>
+
+There are no shopping runs currently scheduled for meals on the following dates:
+    <% @shopping_runs.each do |shopping_run| %>
+    <%= Meal.find_by_id(shopping_run.meal).name %> on <%= shopping_run.date %>
+    <% end %>
+<% end %>
+
+If you can help out, please visit mplcr.mit.edu!  Thanks.
