@@ -44,10 +44,10 @@ class UserMailer < ActionMailer::Base
       end
   end
 
-  def need_people_email(users, no_meal_dates, unshopped_meal_events)
+  def need_people_email(user, no_meal_dates, unshopped_meal_events)
       @no_meal_dates = no_meal_dates
       @unshopped_meal_events = unshopped_meal_events
-      mail(to: users.map(&:email), subject: "Important: Need additional people")
+      mail(to: user.email, subject: "Important: Need additional people")
   end
 
   def send_need_people_emails()
@@ -62,6 +62,10 @@ class UserMailer < ActionMailer::Base
               unshopped_meal_events.add(meal_event)
           end
       end
-      UserMailer.need_people_email(User.find_each, no_meal_dates, unshopped_meal_events).deliver
+      unless no_meal_dates.empty? and unshopped_meal_events.empty?
+          User.find_each do |user|
+              UserMailer.need_people_email(user, no_meal_dates, unshopped_meal_events).deliver
+          end
+      end
   end
 end
