@@ -1,16 +1,16 @@
 Hi all, we are in need of additional people.
-<% unless @meal_dates.empty? %>
+<% unless @no_meal_dates.empty? %>
 
 There are no meals currently scheduled for the following dates:
-    <% @meal_dates.each do |date| %>   
+    <% @no_meal_dates.each do |date| %>   
     <%= date.to_s %>
     <% end %>
 <% end %>
-<% unless @shopping_runs.empty? %>
+<% unless @unshopped_meal_events.empty? %>
 
 There are no shopping runs currently scheduled for meals on the following dates:
-    <% @shopping_runs.each do |shopping_run| %>
-    <%= Meal.find_by_id(shopping_run.meal).name %> on <%= shopping_run.date %>
+    <% @unshopped_meal_events.each do |meal_event| %>
+    <%= Meal.find_by_id(meal_event.meal).name %> on <%= meal_event.date %>
     <% end %>
 <% end %>
 
