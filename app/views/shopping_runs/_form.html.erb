@@ -16,11 +16,18 @@
             <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}", :placeholder => "enter planned date here" %>
         </div>
         <div class="field">
-        <%= f.label :remind_in_advance %><br />
-        <%= f.text_field :remind_in_advance, :placeholder => "days to remind in advance" %>
+            <%= f.label :remind_in_advance %><br />
+            <%= f.text_field :remind_in_advance, :placeholder => "days to remind in advance" %>
         </div>
+        <% if is_admin? %>
+            <div class="field">
+                <%= f.label :shopper %><br />
+                <%= f.select :shopper, options_for_select(User.all.map{ |user| [user.name, user.id] }, current_user.id), :required => true %>
+            </div>
+        <% else %>
+            <%= f.hidden_field :shopper, :value => current_user.id %>
+        <% end %>
     </div>
-    <%= f.hidden_field :shopper, :value => current_user.id %>
     <div class="actions">
         <%= f.submit %>
     </div>

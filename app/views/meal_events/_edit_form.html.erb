@@ -32,7 +32,19 @@
             <%= f.label :remind_in_advance %><br />
             <%= f.text_field :remind_in_advance, :value => @meal_event.remind_in_advance, :placeholder => "hours to remind in advance" %>
         </div>
-    </div>
+        <% if is_admin? %>
+            <div class="field">
+                <%= f.label :meal %><br />
+                <%= f.select :meal, options_for_select(Meal.all.map{ |meal| [meal.name, meal.id] }, @meal_event.meal.id), :required => true %>
+            </div>
+            <div class="field">
+                <%= f.label :cook %><br />
+                <%= f.select :cook, options_for_select(User.all.map{ |user| [user.name, user.id] }, @meal_event.cook.id), :required => true %>
+            </div>
+        <% else %>
+            <% f.hidden_field :meal, :value => @meal_event.meal.id %>
+            <% f.hidden_field :cook, :value => @meal_event.cook.id %>
+        <% end %>
     <div class="actions">
         <%= f.submit %>
     </div>

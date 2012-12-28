@@ -20,7 +20,6 @@ class MealEventsController < ApplicationController
         @meal_event = MealEvent.new
         @meal_event.meal = Meal.find_by_id(info[:meal])
         @meal_event.cook = User.find_by_id(info[:cook])
-        @meal_event.shopping_run = ShoppingRun.find_by_id(info[:shopping_run])
         @meal_event.date = Date.strptime(info[:date], "%m/%d/%Y")
         @meal_event.time = info[:time]
         @meal_event.description = info[:description]
@@ -51,6 +50,8 @@ class MealEventsController < ApplicationController
 
         @meal_event = MealEvent.find(params[:id])
         info = params[:meal_event]
+        @meal_event.meal = Meal.find_by_id(info[:meal])
+        @meal_event.cook = User.find_by_id(info[:cook])
         @meal_event.date = Date.strptime(info[:date], "%m/%d/%Y")
         @meal_event.time = info[:time]
         @meal_event.reminded = info[:remind_in_advance].blank?
