@@ -23,8 +23,8 @@
 <p>
 <b>Cooking:</b> <br />
 <% MealEvent.each do |meal_event| %>
-    <% if User.find_by_id(meal_event.cook) == @user %>
-        <%= Meal.find_by_id(meal_event.meal).name %> on <%= meal_event.date %> at <%= meal_event.time %> <br />
+    <% if meal_event.cook == @user %>
+        <%= meal_event.meal.name %> on <%= meal_event.date %> at <%= meal_event.time %> <br />
     <% end %>
 <% end %>
 </p>
@@ -32,7 +32,7 @@
 <p>
 <b>Shopping:</b> <br />
 <% ShoppingRun.each do |shopping_run| %>
-    <% if User.find_by_id(shopping_run.shopper) == @user %>
+    <% if shopping_run.shopper == @user %>
         <%= shopping_run.requests.to_a %> on <%= shopping_run.date %> <br />
     <% end %>
 <% end %>

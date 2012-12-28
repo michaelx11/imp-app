@@ -1,6 +1,6 @@
 <% my_shopping_runs = [] %>
 <% ShoppingRun.all.each do |shopping_run| %>
-    <% if current_user?(User.find_by_id(shopping_run.shopper)) %>
+    <% if current_user?(shopping_run.shopper) %>
         <% my_shopping_runs << [shopping_run.date, shopping_run.id] %>
     <% end %>
 <% end %>

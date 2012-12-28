@@ -1,4 +1,8 @@
 module MealsHelper
+    def has_cook?(meal)
+        !meal.meal_event.nil?
+    end
+
     def contains_vote?(meal)
         meal.voters.include?(current_user.id)
     end

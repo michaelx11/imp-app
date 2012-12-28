@@ -23,15 +23,15 @@
         </thead>
         <tbody>
             <% MealEvent.each do |meal_event| %>
-                <% if is_pending?(meal_event) %>
+                <% unless has_shopper?(meal_event) %>
                     <tr>
                         <td> <%= meal_event.date %> </td>
-                        <td> <%= Meal.find_by_id(meal_event.meal).name %> </td>
-                        <td> <%= User.find_by_id(meal_event.cook).name %> </td>
+                        <td> <%= meal_event.meal.name %> </td>
+                        <td> <%= meal_event.cook.name %> </td>
                         <td> <%= meal_event.materials %></td>
                         <% if is_admin? %>
                             <td> <%= meal_event.rsvps.to_a %> </td>
-                            <td> <%= meal_event.latersvps.to_a %> </td>
+                            <td> <%= meal_event.late_rsvps.to_a %> </td>
                             <td> <%= meal_event.customers.to_a %> </td>
                         <% end %>
                         <% if signed_in? %>
@@ -71,14 +71,14 @@
         <tbody>
             <% @shopping_runs.each do |shopping_run| %>
                 <tr>
-                    <td> <%= shopping_run.status %> </td>
+                    <td> <%= shopping_run_status_text(shopping_run) %> </td>
                     <td> <%= shopping_run.date %> </td>
-                    <td> <%= shopping_run.requests.to_a %> </td>
-                    <td> <%= User.find_by_id(shopping_run.shopper).name %> </td>
+                    <td> <%= shopping_run_requests(shopping_run) %> </td>
+                    <td> <%= shopping_run.shopper.name %> </td>
                     <% if is_admin? %>
                         <td> <%= shopping_run.cost %> </td>
                     <% end %>
-                    <% if shopping_run.status == 'Pending' && current_user?(User.find_by_id(shopping_run.shopper)) %>
+                    <% if shopping_run.pending && current_user?(shopping_run.shopper) %>
                         <td> <%= link_to "Mark Completed", edit_shopping_run_path(shopping_run) %> </td>
                     <% else %>
                         <td></td>

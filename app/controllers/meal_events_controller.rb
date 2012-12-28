@@ -16,18 +16,14 @@ class MealEventsController < ApplicationController
             return
         end
 
-        @meal_event = MealEvent.new(params[:meal_event])
-        @meal_event.date = Date.strptime(params[:meal_event][:date], "%m/%d/%Y")
-        @meal_event.time = Time.new(@meal_event.date.year, @meal_event.date.month, @meal_event.date.day, @meal_event.time.hour, @meal_event.time.min, @meal_event.time.sec)
-        Meal.update(@meal_event.meal, :cooked => true)
-        if @meal_event.cook.blank?
-            @meal_event.cook = current_user.name
-        end
-        if @meal_event.remind_in_advance.blank?
-            @meal_event.reminded = true
-        else
-            @meal_event.reminded = false
-        end
+        info = params[:meal_event]
+        @meal_event = MealEvent.new
+        @meal_event.meal = Meal.find_by_id(info[:meal])
+        @meal_event.cook = User.find_by_id(info[:cook])
+        @meal_event.shopping_run = ShoppingRun.find_by_id(info[:shopping_run])
+        @meal_event.date = Date.strptime(info[:date], "%m/%d/%Y")
+        @meal_event.time = info[:time]
+        @meal_event.reminded = info[:remind_in_advance].blank?
         @meal_event.save
         redirect_to meal_events_path
     end
@@ -38,7 +34,6 @@ class MealEventsController < ApplicationController
         end
 
         @meal_event = MealEvent.find(params[:id])
-        Meal.update(@meal_event.meal, :cooked => false)
         @meal_event.destroy
         redirect_to meal_events_path
     end
@@ -53,14 +48,10 @@ class MealEventsController < ApplicationController
         end
 
         @meal_event = MealEvent.find(params[:id])
-        @meal_event.update_attributes(params[:meal_event])
-        @meal_event.date = Date.strptime(params[:meal_event][:date], "%m/%d/%Y")
-        @meal_event.time = Time.new(@meal_event.date.year, @meal_event.date.month, @meal_event.date.day, @meal_event.time.hour, @meal_event.time.min, @meal_event.time.sec)
-        if @meal_event.remind_in_advance.blank?
-            @meal_event.reminded = true
-        else
-            @meal_event.reminded = false
-        end
+        info = params[:meal_event]
+        @meal_event.date = Date.strptime(info[:date], "%m/%d/%Y")
+        @meal_event.time = info[:time]
+        @meal_event.reminded = info[:remind_in_advance].blank?
         @meal_event.save
         redirect_to meal_events_path
     end

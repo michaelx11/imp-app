@@ -30,15 +30,15 @@
         <tbody>
             <% @meal_events.each do |meal_event| %>
                 <tr>
-                    <td> <%= status_text(meal_event) %> </td>
+                    <td> <%= meal_event_status_text(meal_event) %> </td>
                     <td> <%= meal_event.date %> </td>
                     <td> <%= meal_event.time %> </td>
-                    <td> <%= Meal.find_by_id(meal_event.meal).name %> </td>
-                    <td> <%= User.find_by_id(meal_event.cook).name %> </td>
+                    <td> <%= meal_event.meal.name %> </td>
+                    <td> <%= meal_event.cook.name %> </td>
                     <td> <%= meal_event.helpers.to_a %> </td>
                     <% if is_admin? %>
                         <td> <%= meal_event.rsvps.to_a %> </td>
-                        <td> <%= meal_event.latersvps.to_a %> </td>
+                        <td> <%= meal_event.late_rsvps.to_a %> </td>
                         <td> <%= meal_event.customers.to_a %> </td>
                     <% end %>
                     <% if signed_in? %>
@@ -46,7 +46,7 @@
                         <td> <%= link_to rsvp_text(meal_event), edit_rsvp_path(meal_event) %> </td>
                         <td> <%= link_to late_rsvp_text(meal_event), edit_late_rsvp_path(meal_event) %> </td>
                     <% end %>
-                    <% if current_user?(User.find_by_id(meal_event.cook)) || is_admin? %>
+                    <% if current_user?(meal_event.cook) || is_admin? %>
                         <td> <%= link_to 'Edit', edit_meal_event_path(meal_event) %> </td>
                         <td> <%= link_to 'Remove', meal_event, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
                     <% else %>

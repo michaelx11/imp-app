@@ -18,7 +18,6 @@ class MealsController < ApplicationController
 
         @meal = Meal.new(params[:meal])
         @meal.proposer = current_user
-        @meal.cooked = false
         @meal.save
         redirect_to meals_path
     end

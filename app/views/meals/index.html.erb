@@ -21,7 +21,7 @@
         </thead>
         <tbody>
             <% @meals.each do |meal| %>
-                <% unless meal.cooked %>
+                <% unless has_cook?(meal) %>
                     <tr>
                         <td> <%= meal.name %> </td>
                         <td> <%= meal.proposer.name %> </td>

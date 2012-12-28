@@ -1,27 +1,25 @@
 class MealEvent
   include MongoMapper::Document
 
-  key :meal, String # Meal.id
-  key :cook, String # User.id
-  key :helpers, Set # contains User.name's TODO change to User.id's
+  belongs_to :meal
+  belongs_to :cook, :class_name => 'User'
+  belongs_to :shopping_run
+  key :helpers, Set # User.ids
   key :date, Date
   key :time, Time
-  key :rsvps, Set # contains User.name's TODO change to User.id's
-  key :latersvps, Set # contains User.name's TODO change to User.id's
-  key :customers, Set # contains User.name's TODO change to User.id's
+  key :rsvps, Set # User.ids
+  key :late_rsvps, Set # User.ids
+  key :customers, Set # User.ids
+
+  # description of meal (for customers' knowledge)
+  key :description, String
 
   # materials needed for the meal (for the shopper's knowledge)
   key :materials, String
-
-  # name of shopper if a shopping run has been scheduled, otherwise nil
-  # TODO change to id of shopper if a shopping run has been scheduled
-  key :status, String
 
   # reminders
   key :remind_in_advance, Integer
   key :reminded, Boolean
 
-  validates :date, :presence => true
-  validates :time, :presence => true
 
 end

@@ -20,6 +20,10 @@
             <%= f.text_field :time , :required => "true", :pattern => "[0-9]{1,2}:[0-9]{2} [ap]m", :placeholder => "enter planned time here" %>
         </div>
         <div class="field">
+            <%= f.label :description %><br />
+            <%= f.text_field :description, :placeholder => "description of meal" %>
+        </div>
+        <div class="field">
             <%= f.label :materials %><br />
             <%= f.text_field :materials, :placeholder => "required ingredients" %>
         </div>

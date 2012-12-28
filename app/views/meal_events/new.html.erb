@@ -27,12 +27,12 @@
                 <tr>
                     <td> <%= meal_event.date %> </td>
                     <td> <%= meal_event.time %> </td>
-                    <td> <%= Meal.find_by_id(meal_event.meal).name %> </td>
-                    <td> <%= User.find_by_id(meal_event.cook).name %> </td>
+                    <td> <%= meal_event.meal.name %> </td>
+                    <td> <%= meal_event.cook.name %> </td>
                     <td> <%= meal_event.helpers.to_a %> </td>
                     <% if is_admin? %>
                         <td> <%= meal_event.rsvps.to_a %> </td>
-                        <td> <%= meal_event.latersvps.to_a %> </td>
+                        <td> <%= meal_event.late_rsvps.to_a %> </td>
                         <td> <%= meal_event.customers.to_a %> </td>
                     <% end %>
                 </tr>

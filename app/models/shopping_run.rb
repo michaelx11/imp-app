@@ -1,13 +1,10 @@
 class ShoppingRun
   include MongoMapper::Document
 
-  key :shopper, String # User.id
-  key :date, Date # TODO change to Date
-  key :requests, Set # TODO contains MealEvent.id's
+  belongs_to :shopper, :class_name => 'User'
+  key :date, Date
   key :cost, Float
-
-  # 'Done' if completed, otherwise 'Pending'
-  key :status, String
+  key :pending, Boolean
 
   # reminders
   key :remind_in_advance, Integer

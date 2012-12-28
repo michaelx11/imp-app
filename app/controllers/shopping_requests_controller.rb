@@ -9,13 +9,11 @@ class ShoppingRequestsController < ApplicationController
             return
         end
 
-        shopping_request = params[:shopping_request]
-        meal_event = shopping_request[:meal_event]
-        if is_pending?(MealEvent.find_by_id(meal_event))
-            MealEvent.update(meal_event, :status => current_user.name)
-            @shopping_run = ShoppingRun.find_by_id(shopping_request[:shopping_run])
-            @shopping_run.requests << meal_event
-            @shopping_run.save
+        info = params[:shopping_request]
+        meal_event = MealEvent.find_by_id(info[:meal_event])
+        unless has_shopper?(meal_event)
+            meal_event.shopping_run = ShoppingRun.find_by_id(info[:shopping_run])
+            meal_event.save
         end
         redirect_to shopping_runs_path
     end

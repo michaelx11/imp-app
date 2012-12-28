@@ -1,15 +1,15 @@
 module MealEventsHelper
-    def is_pending?(meal_event)
-        meal_event.status.nil?
+    def has_shopper?(meal_event)
+        !meal_event.shopping_run.nil?
     end
 
-    def status_text(meal_event)
-        return 'Pending' if is_pending?(meal_event)
-        'Shopping Run by ' + meal_event.status
+    def meal_event_status_text(meal_event)
+        return (meal_event.shopping_run.shopper.name + ' shopping') if has_shopper?(meal_event)
+        'awaiting shopper'
     end
 
     def is_helper?(meal_event)
-        meal_event.helpers.include?(current_user.name)
+        meal_event.helpers.include?(current_user.id)
     end
 
     def help_text(meal_event)
@@ -18,7 +18,7 @@ module MealEventsHelper
     end
 
     def is_rsvp?(meal_event)
-        meal_event.rsvps.include?(current_user.name)
+        meal_event.rsvps.include?(current_user.id)
     end
 
     def rsvp_text(meal_event)
@@ -27,7 +27,7 @@ module MealEventsHelper
     end
 
     def is_late_rsvp?(meal_event)
-        meal_event.latersvps.include?(current_user.name)
+        meal_event.late_rsvps.include?(current_user.id)
     end
 
     def late_rsvp_text(meal_event)
