@@ -20,7 +20,8 @@ class ShoppingRunsController < ApplicationController
         @shopping_run = ShoppingRun.new
         @shopping_run.shopper = User.find_by_id(info[:shopper])
         @shopping_run.date = Date.strptime(info[:date], "%m/%d/%Y")
-        @shopping_run.reminded = info[:remind_in_advance]
+        @shopping_run.remind_in_advance = info[:remind_in_advance]
+        @shopping_run.reminded = info[:remind_in_advance].blank?
         @shopping_run.pending = true
         @shopping_run.save
         redirect_to shopping_runs_path
@@ -49,7 +50,8 @@ class ShoppingRunsController < ApplicationController
         @shopping_run = ShoppingRun.find(params[:id])
         @shopping_run.shopper = User.find_by_id(info[:shopper])
         @shopping_run.date = Date.strptime(info[:date], "%m/%d/%Y")
-        @shopping_run.reminded = info[:remind_in_advance]
+        @shopping_run.remind_in_advance = info[:remind_in_advance]
+        @shopping_run.reminded = info[:remind_in_advance].blank?
         @shopping_run.save
         redirect_to shopping_runs_path
     end

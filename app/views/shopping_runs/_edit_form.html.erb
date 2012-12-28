@@ -17,7 +17,7 @@
         </div>
         <div class="field">
             <%= f.label :remind_in_advance %><br />
-            <%= f.text_field :remind_in_advance, :placeholder => "days to remind in advance" %>
+            <%= f.text_field :remind_in_advance, :value => @shopping_run.remind_in_advance %>
         </div>
         <% if is_admin? %>
             <div class="field">

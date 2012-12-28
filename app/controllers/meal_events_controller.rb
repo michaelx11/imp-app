@@ -24,6 +24,7 @@ class MealEventsController < ApplicationController
         @meal_event.time = info[:time]
         @meal_event.description = info[:description]
         @meal_event.materials = info[:materials]
+        @meal_event.remind_in_advance = info[:remind_in_advance]
         @meal_event.reminded = info[:remind_in_advance].blank?
         @meal_event.save
         redirect_to meal_events_path
@@ -54,6 +55,7 @@ class MealEventsController < ApplicationController
         @meal_event.cook = User.find_by_id(info[:cook])
         @meal_event.date = Date.strptime(info[:date], "%m/%d/%Y")
         @meal_event.time = info[:time]
+        @meal_event.remind_in_advance = info[:remind_in_advance]
         @meal_event.reminded = info[:remind_in_advance].blank?
         @meal_event.description = info[:description]
         @meal_event.materials = info[:materials]
