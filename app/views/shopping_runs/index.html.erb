@@ -35,7 +35,26 @@
                             <td> <%= show_users(meal_event.customers) %> </td>
                         <% end %>
                         <% if signed_in? %>
-                            <td> <%= link_to "Buy Supplies", new_shopping_request_path(:meal_event => meal_event.id) %> </td>
+                            <td>
+                                <li id="fat-menu" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Buy Supplies</a>
+                                <ul id="dropdown" class="dropdown-menu">
+                                    <!-- DROPDOWN MENU OF ALL POSSIBLE SHOPPING RUNS -->
+                                    <% if is_admin? %>
+                                        <% shopping_runs = ShoppingRun.all %>
+                                    <% else %>
+                                        <% shopping_runs = current_user.shopping_runs %>
+                                    <% end %>
+                                    <% if shopping_runs.empty? %>
+                                        <li >No scheduled shopping runs.</li>
+                                    <% else %>
+                                        <% shopping_runs.each do |shopping_run| %>
+                                            <li ><%= link_to ('buy on ' + shopping_run.date.to_s), new_shopping_request_path({:meal_event => meal_event.id, :shopping_run => shopping_run.id}) %></li>
+                                        <% end %>
+                                    <% end %>
+                                    <!-- -->
+                                </ul>
+                            </td>
                         <% end %>
                     </tr>
                 <% end %>
