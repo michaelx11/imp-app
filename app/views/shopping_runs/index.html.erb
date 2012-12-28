@@ -73,7 +73,7 @@
                 <tr>
                     <td> <%= shopping_run_status_text(shopping_run) %> </td>
                     <td> <%= shopping_run.date %> </td>
-                    <td> <%= shopping_run_requests(shopping_run) %> </td>
+                    <td> <%= shopping_run.meal_events.map(&:meal).map(&:name).join(', ') %> </td>
                     <td> <%= shopping_run.shopper.name %> </td>
                     <% if is_admin? %>
                         <td> <%= shopping_run.cost %> </td>

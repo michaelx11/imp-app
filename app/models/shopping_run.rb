@@ -6,6 +6,9 @@ class ShoppingRun
   key :cost, Float
   key :pending, Boolean
 
+  # associations
+  many :meal_events
+
   # reminders
   key :remind_in_advance, Integer
   key :reminded, Boolean

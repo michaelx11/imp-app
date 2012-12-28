@@ -21,20 +21,28 @@
 </p>
 
 <p>
+<b>Proposed:</b> <br />
+<%= @user.meals.map(&:name).join(', ') %>
+</p>
+
+<p>
 <b>Cooking:</b> <br />
-<% MealEvent.each do |meal_event| %>
-    <% if meal_event.cook == @user %>
-        <%= meal_event.meal.name %> on <%= meal_event.date %> at <%= meal_event.time %> <br />
-    <% end %>
+<% @user.meal_events.each do |meal_event| %>
+    <%= meal_event.meal.name %> on <%= meal_event.date %> at <%= meal_event.time %>
+    <br />
 <% end %>
 </p>
 
 <p>
 <b>Shopping:</b> <br />
-<% ShoppingRun.each do |shopping_run| %>
-    <% if shopping_run.shopper == @user %>
-        <%= shopping_run.requests.to_a %> on <%= shopping_run.date %> <br />
+<% @user.shopping_runs.each do |shopping_run| %>
+    <% if shopping_run.meal_events.empty? %>
+        nothing
+    <% else %>
+        <%= shopping_run.meal_events.map(&:meal).map(&:name).join(', ') %>
     <% end %>
+    on <%= shopping_run.date %>
+    <br />
 <% end %>
 </p>
 
