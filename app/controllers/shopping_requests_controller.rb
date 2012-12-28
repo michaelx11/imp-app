@@ -11,4 +11,15 @@ class ShoppingRequestsController < ApplicationController
         end
         redirect_to shopping_runs_path
     end
+
+    def edit
+        unless signed_in?
+            return
+        end
+
+        meal_event = MealEvent.find_by_id(params[:meal_event])
+        meal_event.shopping_run = nil
+        meal_event.save
+        redirect_to shopping_runs_path
+    end
 end

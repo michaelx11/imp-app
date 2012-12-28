@@ -37,7 +37,7 @@
                         <% if signed_in? %>
                             <td>
                                 <li id="fat-menu" class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Buy Supplies</a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Buy Supplies</a>
                                 <ul id="dropdown" class="dropdown-menu">
                                     <!-- DROPDOWN MENU OF ALL POSSIBLE SHOPPING RUNS -->
                                     <% if is_admin? %>
@@ -54,6 +54,7 @@
                                     <% end %>
                                     <!-- -->
                                 </ul>
+                                </li>
                             </td>
                         <% end %>
                     </tr>
@@ -68,6 +69,9 @@
 <div class="page-header well">
     <h1><%= yield(:title) %></h1>
 </div>
+
+<p> Click on a meal in one of your shopping runs to view details or remove it. </p>
+
 <div class="row-fluid">
 
     <table class="display" id="shopping-runs-table">
@@ -90,7 +94,25 @@
                 <tr>
                     <td> <%= link_to shopping_run_status_text(shopping_run), shopping_run_path(shopping_run) %> </td>
                     <td> <%= shopping_run.date %> </td>
-                    <td> <%= shopping_run.meal_events.map(&:meal).map(&:name).join(', ') %> </td>
+                    <td>
+                        <% shopping_run.meal_events.each do |meal_event| %>
+                            <% unless meal_event == shopping_run.meal_events.first %>
+                                <!-- PRINT COMMAS BETWEEN REQUESTS -->
+                                ,
+                            <% end %>
+                            <!-- DROPDOWN MENU TO REMOVE REQUEST FROM SHOPPIN RUN -->
+                            <sec id="fat-menu" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= meal_event.meal.name %></a>
+                            <ul id="dropdown" class="dropdown-menu">
+                                <li ><%= link_to 'Details', meal_event_path(meal_event) %></li>
+                                <% if current_user?(shopping_run.shopper) || is_admin? %>
+                                    <li ><%= link_to 'Remove', edit_shopping_request_path({:id => 0, :meal_event => meal_event.id}) %></li>
+                                <% end %>
+                            </ul>
+                            </sec>
+                            <!-- -->
+                        <% end %>
+                    </td>
                     <td> <%= link_to shopping_run.shopper.name, user_path(shopping_run.shopper) %> </td>
                     <% if is_admin? %>
                         <td> <%= shopping_run.cost %> </td>
