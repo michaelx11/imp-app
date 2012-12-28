@@ -81,10 +81,8 @@
                     <th>Cost</th>
                 <% end %>
                 <th></th>
-                <% if is_admin? %>
-                    <th></th>
-                    <th></th>
-                <% end %>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -98,13 +96,16 @@
                         <td> <%= shopping_run.cost %> </td>
                     <% end %>
                     <% if shopping_run.pending && current_user?(shopping_run.shopper) %>
-                        <td> <%= link_to "Mark Completed", edit_shopping_run_path(shopping_run) %> </td>
+                        <td> <%= link_to "Mark Completed", new_shopping_complete_path(:shopping_run => shopping_run.id) %> </td>
                     <% else %>
                         <td></td>
                     <% end %>
-                    <% if is_admin? %>
+                    <% if current_user?(shopping_run.shopper) || is_admin? %>
                         <td> <%= link_to 'Edit', edit_shopping_run_path(shopping_run) %> </td>
                         <td> <%= link_to 'Remove', shopping_run, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
+                    <% else %>
+                        <td></td>
+                        <td></td>
                     <% end %>
                 </tr>
             <% end %>

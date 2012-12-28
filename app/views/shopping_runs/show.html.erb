@@ -19,7 +19,11 @@
 <% if @shopping_run.pending %>
     Pending.
 <% else %>
-    Total cost: <%= @shopping_run.cost %>
+    <% if is_admin? %>
+        Total cost: <%= @shopping_run.cost %>
+    <% else %>
+        Completed.
+    <% end %>
 <% end %>
 </p>
 

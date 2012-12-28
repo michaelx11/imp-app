@@ -47,9 +47,9 @@ class ShoppingRunsController < ApplicationController
 
         info = params[:shopping_run]
         @shopping_run = ShoppingRun.find(params[:id])
+        @shopping_run.shopper = User.find_by_id(info[:shopper])
         @shopping_run.date = Date.strptime(info[:date], "%m/%d/%Y")
-        @shopping_run.cost = info[:cost]
-        @shopping_run.pending = false
+        @shopping_run.reminded = info[:remind_in_advance]
         @shopping_run.save
         redirect_to shopping_runs_path
     end

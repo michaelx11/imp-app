@@ -10,16 +10,23 @@
             </ul>
         </div>
     <% end %>
-
     <div class="well">
-        <div class="field">
-            <%= f.label :cost %><br />
-            <%= f.text_field :cost , :required => "true", :type => "number", :min => "0.01", :step => "0.01", :value => "0.01"%> 
-        </div>
         <div class="field">
             <%= f.label :date %><br />
             <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}", :value => @shopping_run.date %>
         </div>
+        <div class="field">
+            <%= f.label :remind_in_advance %><br />
+            <%= f.text_field :remind_in_advance, :placeholder => "days to remind in advance" %>
+        </div>
+        <% if is_admin? %>
+            <div class="field">
+                <%= f.label :shopper %><br />
+                <%= f.select :shopper, options_for_select(User.all.map{ |user| [user.name, user.id] }, @shopping_run.shopper.id), :required => true %>
+            </div>
+        <% else %>
+            <%= f.hidden_field :shopper, :value => @shopping_run.shopper.id %>
+        <% end %>
     </div>
     <div class="actions">
         <%= f.submit %>
