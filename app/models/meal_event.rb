@@ -21,5 +21,9 @@ class MealEvent
   key :remind_in_advance, Integer
   key :reminded, Boolean
 
+  validates :date, :presence => true
+  validates :time, :presence => true
+  validates :description, :length => {:maximum => 500}
+  validates :materials, :length => {:maximum => 500}
 
 end

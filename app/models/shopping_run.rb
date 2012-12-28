@@ -13,7 +13,6 @@ class ShoppingRun
   key :remind_in_advance, Integer
   key :reminded, Boolean
 
-  validates :shopper, :presence => true
   validates :date, :presence => true
 
 end
