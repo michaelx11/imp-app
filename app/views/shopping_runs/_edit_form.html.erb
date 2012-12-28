@@ -18,7 +18,7 @@
         </div>
         <div class="field">
             <%= f.label :date %><br />
-            <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}", :value => "enter completed date here" %>
+            <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}", :value => @shopping_run.date %>
         </div>
     </div>
     <div class="actions">
