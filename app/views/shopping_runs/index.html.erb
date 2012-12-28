@@ -30,9 +30,9 @@
                         <td> <%= meal_event.cook.name %> </td>
                         <td> <%= meal_event.materials %></td>
                         <% if is_admin? %>
-                            <td> <%= meal_event.rsvps.to_a %> </td>
-                            <td> <%= meal_event.late_rsvps.to_a %> </td>
-                            <td> <%= meal_event.customers.to_a %> </td>
+                            <td> <%= show_users(meal_event.rsvps) %> </td>
+                            <td> <%= show_users(meal_event.late_rsvps) %> </td>
+                            <td> <%= show_users(meal_event.customers) %> </td>
                         <% end %>
                         <% if signed_in? %>
                             <td> <%= link_to "Buy Supplies", new_shopping_request_path(:meal_event => meal_event.id) %> </td>

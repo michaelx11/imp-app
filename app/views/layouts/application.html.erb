@@ -57,3 +57,10 @@
     document.getElementById("dropdown-profile").style.color = "black";
     document.getElementById("dropdown-signout").style.color = "black";
 </script>
+
+<!-- Convenience functions for views -->
+<%
+    def show_users(ids)
+        ids.map{ |id| User.find_by_id(id).name }.join(', ')
+    end
+%>
