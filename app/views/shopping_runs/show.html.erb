@@ -1,0 +1,25 @@
+<% provide(:title, 'Shopping run by ' + @shopping_run.shopper.name) %>
+
+<h1><%= yield(:title) %></h1>
+
+<h3>Date: <%= @shopping_run.date %></h3>
+
+<p>Shopping for:
+<% if @shopping_run.meal_events.empty? %>
+    nothing currently!
+<% else %>
+    <% @shopping_run.meal_events.each do |meal_event| %>
+        <%= link_to meal_event.meal.name, meal_event_path(meal_event) %>
+        <br />
+    <% end %>
+<% end %>
+</p>
+
+<p>
+<% if @shopping_run.pending %>
+    Pending.
+<% else %>
+    Total cost: <%= @shopping_run.cost %>
+<% end %>
+</p>
+

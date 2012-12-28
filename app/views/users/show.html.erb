@@ -1,24 +1,30 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @user.name %>
+<b>Name:</b>
+<%= @user.name %>
 </p>
 
-<p>
-  <b>Uid:</b>
-  <%= @user.uid %>
-</p>
+<% if @user == current_user || is_admin? %>
+    <p>
+    <b>Uid:</b>
+    <%= @user.uid %>
+    </p>
+<% end %>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
+<% if @user == current_user || is_admin? %>
+    <p>
+    <b>Email:</b>
+    <%= @user.email %>
+    </p>
+<% end %>
 
-<p>
-  <b>Paid:</b>
-  <%= @user.paid %>
-</p>
+<% if @user == current_user || is_admin? %>
+    <p>
+    <b>Paid:</b>
+    <%= @user.paid %>
+    </p>
+<% end %>
 
 <p>
 <b>Proposed:</b> <br />
@@ -46,5 +52,6 @@
 <% end %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<% if @user == current_user || is_admin? %>
+    <%= link_to 'Edit', edit_user_path(@user) %>
+<% end %>

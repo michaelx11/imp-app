@@ -1,2 +1,12 @@
-<% provide(:title, @meal.name) %>
-<h1><%= @meal.name %></h1>
+<% provide(:title, @meal.name + ' (Proposal)') %>
+
+<h1><%= yield(:title) %></h1>
+
+<h3>Proposed by <%= @meal.proposer.name %></h3>
+
+<p><%= pluralize(@meal.voters.size, "person") %> liked this: <%= @meal.voters.map{ |id| User.find_by_id(id).name }.join(', ') %></p>
+
+<% unless @meal.meal_event.nil? %>
+    Currently being cooked by <%= @meal.meal_event.cook.name %> on <%= @meal.meal_event.date %> at <%= @meal.meal_event.time %>.
+<% end %>
+

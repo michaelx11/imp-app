@@ -30,11 +30,11 @@
         <tbody>
             <% @meal_events.each do |meal_event| %>
                 <tr>
-                    <td> <%= meal_event_status_text(meal_event) %> </td>
+                    <td> <%= link_to meal_event_status_text(meal_event), meal_event_path(meal_event) %> </td>
                     <td> <%= meal_event.date %> </td>
                     <td> <%= meal_event.time %> </td>
-                    <td> <%= meal_event.meal.name %> </td>
-                    <td> <%= meal_event.cook.name %> </td>
+                    <td> <%= link_to meal_event.meal.name, meal_path(meal_event.meal) %> </td>
+                    <td> <%= link_to meal_event.cook.name, user_path(meal_event.cook) %> </td>
                     <td> <%= show_users(meal_event.helpers) %> </td>
                     <% if is_admin? %>
                         <td> <%= show_users(meal_event.rsvps) %> </td>

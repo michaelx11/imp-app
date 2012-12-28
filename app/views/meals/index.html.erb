@@ -23,8 +23,8 @@
             <% @meals.each do |meal| %>
                 <% unless has_cook?(meal) %>
                     <tr>
-                        <td> <%= meal.name %> </td>
-                        <td> <%= meal.proposer.name %> </td>
+                        <td> <%= link_to meal.name, meal_path(meal) %> </td>
+                        <td> <%= link_to meal.proposer.name, user_path(meal.proposer) %> </td>
                         <td> <%= meal.voters.size %> </td>
                         <% if signed_in? %>
                             <td> <%= link_to vote_text(meal), edit_vote_path(meal) %> </td>

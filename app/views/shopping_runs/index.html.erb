@@ -26,8 +26,8 @@
                 <% unless has_shopper?(meal_event) %>
                     <tr>
                         <td> <%= meal_event.date %> </td>
-                        <td> <%= meal_event.meal.name %> </td>
-                        <td> <%= meal_event.cook.name %> </td>
+                        <td> <%= link_to meal_event.meal.name, meal_event_path(meal_event) %> </td>
+                        <td> <%= link_to meal_event.cook.name, user_path(meal_event.cook) %> </td>
                         <td> <%= meal_event.materials %></td>
                         <% if is_admin? %>
                             <td> <%= show_users(meal_event.rsvps) %> </td>
@@ -71,10 +71,10 @@
         <tbody>
             <% @shopping_runs.each do |shopping_run| %>
                 <tr>
-                    <td> <%= shopping_run_status_text(shopping_run) %> </td>
+                    <td> <%= link_to shopping_run_status_text(shopping_run), shopping_run_path(shopping_run) %> </td>
                     <td> <%= shopping_run.date %> </td>
                     <td> <%= shopping_run.meal_events.map(&:meal).map(&:name).join(', ') %> </td>
-                    <td> <%= shopping_run.shopper.name %> </td>
+                    <td> <%= link_to shopping_run.shopper.name, user_path(shopping_run.shopper) %> </td>
                     <% if is_admin? %>
                         <td> <%= shopping_run.cost %> </td>
                     <% end %>

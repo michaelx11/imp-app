@@ -1,0 +1,41 @@
+<% provide(:title, @meal_event.meal.name + ' (Meal)') %>
+
+<h1><%= yield(:title) %></h1>
+
+<h3>Cooked by <%= @meal_event.cook.name %></h3>
+
+<h3>Date: <%= @meal_event.date %></h3>
+
+<h3>Time: <%= @meal_event.time %></h3>
+
+<p><%= @meal_event.description %></p>
+
+<p>
+Requires:
+<% if @meal_event.materials.blank? %>
+    nothing!
+<% else %>
+    <%= @meal_event.materials %>
+<% end %>
+</p>
+
+<% unless @meal_event.helpers.empty? %>
+    <p>Helpers: <%= show_users(@meal_event.helpers) %></p>
+<% end %>
+
+<% unless @meal_event.rsvps.empty? %>
+    <p>RSVPs: <%= show_users(@meal_event.rsvps) %></p>
+<% end %>
+
+<% unless @meal_event.late_rsvps.empty? %>
+    <p>Late RSVPs: <%= show_users(@meal_event.late_rsvps) %></p>
+<% end %>
+
+<% unless @meal_event.customers.empty? %>
+    <p>Customers: <%= show_customers(@meal_event.customers) %></p>
+<% end %>
+
+<% unless @meal_event.shopping_run.nil? %>
+    <p>Materials shopped by <%= @meal_event.shopping_run.shopper.name %> on <%= @meal_event.shopping_run.date %></p>
+<% end %>
+
