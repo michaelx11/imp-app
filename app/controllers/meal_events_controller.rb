@@ -23,6 +23,8 @@ class MealEventsController < ApplicationController
         @meal_event.shopping_run = ShoppingRun.find_by_id(info[:shopping_run])
         @meal_event.date = Date.strptime(info[:date], "%m/%d/%Y")
         @meal_event.time = info[:time]
+        @meal_event.description = info[:description]
+        @meal_event.materials = info[:materials]
         @meal_event.reminded = info[:remind_in_advance].blank?
         @meal_event.save
         redirect_to meal_events_path
@@ -52,6 +54,8 @@ class MealEventsController < ApplicationController
         @meal_event.date = Date.strptime(info[:date], "%m/%d/%Y")
         @meal_event.time = info[:time]
         @meal_event.reminded = info[:remind_in_advance].blank?
+        @meal_event.description = info[:description]
+        @meal_event.materials = info[:materials]
         @meal_event.save
         redirect_to meal_events_path
     end
