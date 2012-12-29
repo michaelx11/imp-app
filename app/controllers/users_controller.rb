@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     # POST /users
     # POST /users.json
     def create
-        unless signed_in?
+        unless is_admin?
             return
         end
 
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     # PUT /users/1
     # PUT /users/1.json
     def update
-        unless signed_in?
+        unless is_admin?
             return
         end
 
@@ -80,7 +80,7 @@ class UsersController < ApplicationController
     # DELETE /users/1
     # DELETE /users/1.json
     def destroy
-        unless signed_in?
+        unless is_admin?
             return
         end
 
