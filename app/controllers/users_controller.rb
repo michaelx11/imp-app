@@ -60,11 +60,11 @@ class UsersController < ApplicationController
     # PUT /users/1
     # PUT /users/1.json
     def update
-        unless is_admin?
+        @user = User.find(params[:id])
+
+        unless current_user == @user || is_admin?
             return
         end
-
-        @user = User.find(params[:id])
 
         respond_to do |format|
             if @user.update_attributes(params[:user])
