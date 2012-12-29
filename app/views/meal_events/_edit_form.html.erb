@@ -22,11 +22,11 @@
         </div>
         <div class="description">
             <%= f.label :description %><br />
-            <%= f.text_field :description, :value => @meal_event.description, :placeholder => "description of meal" %>
+            <%= f.text_area :description, :size => '50x3', :value => @meal_event.description, :placeholder => "description of meal" %>
         </div>
         <div class="field">
             <%= f.label :materials %><br />
-            <%= f.text_field :materials, :value => @meal_event.materials, :placeholder => "required ingredients" %>
+            <%= f.text_area :materials, :size => '50x3', :value => @meal_event.materials, :placeholder => "required ingredients" %>
         </div>
         <div class="field">
             <%= f.label :remind_in_advance %><br />
