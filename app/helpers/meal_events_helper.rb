@@ -21,17 +21,13 @@ module MealEventsHelper
         meal_event.rsvps.include?(current_user.id)
     end
 
-    def rsvp_text(meal_event)
-        return 'Un-RSVP' if is_rsvp?(meal_event)
-        'RSVP'
-    end
-
     def is_late_rsvp?(meal_event)
         meal_event.late_rsvps.include?(current_user.id)
     end
 
-    def late_rsvp_text(meal_event)
-        return 'Un-RSVP Late' if is_late_rsvp?(meal_event)
-        'RSVP Late'
+    def rsvp_text(meal_event)
+        return 'RSVP-ed' if is_rsvp?(meal_event)
+        return 'Late RSVP-ed' if is_late_rsvp?(meal_event)
+        'RSVP'
     end
 end
