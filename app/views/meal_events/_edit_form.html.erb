@@ -41,6 +41,10 @@
                 <%= f.label :cook %><br />
                 <%= f.select :cook, options_for_select(User.all.map{ |user| [user.name, user.id] }, @meal_event.cook.id), :required => true %>
             </div>
+            <div class="field">
+                <%= f.label :customers %><br />
+                <%= f.select :customers, User.all.map{ |user| [user.name, user.id] }, {}, {:multiple => true} %>
+            </div>
         <% else %>
             <% f.hidden_field :meal, :value => @meal_event.meal.id %>
             <% f.hidden_field :cook, :value => @meal_event.cook.id %>

@@ -52,6 +52,16 @@
 <% end %>
 </p>
 
+<p>
+<b>Attended:</b> <br />
+<% MealEvent.each do |meal_event| %>
+    <% if meal_event.customers.include?(@user.id.to_s) %>
+        <%= link_to meal_event.meal.name, meal_event_path(meal_event) %> on <%= meal_event.date %>
+        <br />
+    <% end %>
+<% end %>
+</p>
+
 <% if @user == current_user || is_admin? %>
     <%= link_to 'Edit', edit_user_path(@user) %>
 <% end %>

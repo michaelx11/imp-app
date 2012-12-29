@@ -59,6 +59,7 @@ class MealEventsController < ApplicationController
         @meal_event.reminded = info[:remind_in_advance].blank?
         @meal_event.description = info[:description]
         @meal_event.materials = info[:materials]
+        @meal_event.customers = info[:customers].select{ |customer| !customer.blank?}.to_set
         @meal_event.save
         redirect_to meal_events_path
     end

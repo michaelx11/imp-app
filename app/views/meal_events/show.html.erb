@@ -32,7 +32,7 @@ Requires:
 <% end %>
 
 <% unless @meal_event.customers.empty? %>
-    <p>Customers: <%= show_customers(@meal_event.customers) %></p>
+    <p>Customers: <%= show_users(@meal_event.customers) %></p>
 <% end %>
 
 <% unless @meal_event.shopping_run.nil? %>
