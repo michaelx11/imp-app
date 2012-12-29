@@ -23,6 +23,10 @@ class ShoppingRunsController < ApplicationController
         @shopping_run.remind_in_advance = info[:remind_in_advance]
         @shopping_run.reminded = info[:remind_in_advance].blank?
         @shopping_run.pending = true
+        meal_event = MealEvent.find_by_id(info['request'])
+        unless meal_event.nil?
+           meal_event.update_attributes(:shopping_run => @shopping_run)
+        end
         @shopping_run.save
         redirect_to shopping_runs_path
     end

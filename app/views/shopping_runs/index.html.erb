@@ -37,7 +37,7 @@
                         <% if signed_in? %>
                             <td>
                                 <li id="fat-menu" class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Buy Supplies</a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Buy Materials</a>
                                 <ul id="dropdown" class="dropdown-menu">
                                     <!-- DROPDOWN MENU OF ALL POSSIBLE SHOPPING RUNS -->
                                     <% if is_admin? %>
@@ -45,13 +45,10 @@
                                     <% else %>
                                         <% shopping_runs = current_user.shopping_runs %>
                                     <% end %>
-                                    <% if shopping_runs.empty? %>
-                                        <li >No scheduled shopping runs.</li>
-                                    <% else %>
-                                        <% shopping_runs.each do |shopping_run| %>
-                                            <li ><%= link_to ('buy on ' + shopping_run.date.to_s), new_shopping_request_path({:meal_event => meal_event.id, :shopping_run => shopping_run.id}) %></li>
-                                        <% end %>
+                                    <% shopping_runs.each do |shopping_run| %>
+                                        <li ><%= link_to ('buy on ' + shopping_run.date.to_s), new_shopping_request_path({:meal_event => meal_event.id, :shopping_run => shopping_run.id}) %></li>
                                     <% end %>
+                                    <li ><%= link_to 'new shopping run', new_shopping_run_path(:request => meal_event.id) %></li>
                                     <!-- -->
                                 </ul>
                                 </li>
@@ -79,7 +76,7 @@
             <tr>
                 <th>Status</th>
                 <th>Date</th>
-                <th>Requests</th>
+                <th>Meals to buy</th>
                 <th>Shopper</th>
                 <% if is_admin? %>
                     <th>Cost</th>

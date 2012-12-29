@@ -26,6 +26,7 @@
             </div>
         <% else %>
             <%= f.hidden_field :shopper, :value => current_user.id %>
+            <%= f.hidden_field 'request', :value => params[:request] %>
         <% end %>
     </div>
     <div class="actions">
