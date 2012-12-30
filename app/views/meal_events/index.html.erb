@@ -37,15 +37,16 @@
                         <td>
                             <%= link_to (meal_event.shopping_run.shopper.name + ' shopping'), shopping_run_path(meal_event.shopping_run) %>
                         </td>
-                    <% else %>
+                    <% elsif signed_in? %>
                         <td>
                             <!-- DROPDOWN MENU OF ALL POSSIBLE SHOPPING RUNS -->
                             <sec id="fat-menu" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">awaiting shopper</a>
-                            <% @meal_event = meal_event %>
-                            <%= render '/renders/add_to_run' %>
+                            <%= add_to_shopping_run_menu(meal_event).html_safe %>
                             </sec>
                         </td>
+                    <% else %>
+                        <td> awaiting shopper </td>
                     <% end %>
                     <td> <%= meal_event.date %> </td>
                     <td> <%= meal_event.time %> </td>

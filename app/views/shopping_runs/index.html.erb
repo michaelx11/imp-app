@@ -39,8 +39,7 @@
                                 <!-- DROPDOWN MENU OF ALL POSSIBLE SHOPPING RUNS -->
                                 <li id="fat-menu" class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Buy Materials</a>
-                                <% @meal_event = meal_event %>
-                                <%= render 'renders/add_to_run' %>
+                                <%= add_to_shopping_run_menu(meal_event).html_safe %>
                                 </li>
                             </td>
                         <% end %>
