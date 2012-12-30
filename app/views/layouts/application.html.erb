@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+
+<!-- Convenience functions for views -->
+<%
+    def show_users(ids)
+        ids.map{ |id| User.find_by_id(id).name }.join(', ')
+    end
+%>
+
 <html>
     <head>
         <title><%= yield(:title) %></title>
@@ -58,9 +66,3 @@
     document.getElementById("dropdown-signout").style.color = "black";
 </script>
 
-<!-- Convenience functions for views -->
-<%
-    def show_users(ids)
-        ids.map{ |id| User.find_by_id(id).name }.join(', ')
-    end
-%>
