@@ -3,11 +3,6 @@ module MealEventsHelper
         !meal_event.shopping_run.nil?
     end
 
-    def meal_event_status_text(meal_event)
-        return (meal_event.shopping_run.shopper.name + ' shopping') if has_shopper?(meal_event)
-        'awaiting shopper'
-    end
-
     def is_helper?(meal_event)
         meal_event.helpers.include?(current_user.id)
     end

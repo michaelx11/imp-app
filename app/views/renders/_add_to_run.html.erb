@@ -1,0 +1,13 @@
+<ul id="dropdown" class="dropdown-menu">
+    <% if is_admin? %>
+        <% shopping_runs = ShoppingRun.all %>
+    <% else %>
+        <% shopping_runs = current_user.shopping_runs %>
+    <% end %>
+    <% shopping_runs.each do |shopping_run| %>
+        <li ><%= link_to ('buy on ' + shopping_run.date.to_s), new_shopping_request_path({:meal_event => @meal_event.id, :shopping_run => shopping_run.id}) %></li>
+    <% end %>
+    <li ><%= link_to 'new shopping run', new_shopping_run_path(:request => @meal_event.id) %></li>
+    <!-- -->
+</ul>
+
