@@ -16,10 +16,11 @@
                 <th>MEAL</th>
                 <th>Cook</th>
                 <th>Helpers</th>
+                <th></th>
                 <% if is_admin? %>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>RSVPs</th>
+                    <th>Late RSVPs</th>
+                    <th>Customers</th>
                 <% end %>
                 <% if signed_in? %>
                     <th></th>
@@ -32,12 +33,13 @@
         <tbody>
             <% @meal_events.each do |meal_event| %>
                 <tr>
-                    <td> <%= link_to meal_event_status_text(meal_event), meal_event_path(meal_event) %> </td>
+                    <td> <%= meal_event_status_text(meal_event) %> </td>
                     <td> <%= meal_event.date %> </td>
                     <td> <%= meal_event.time %> </td>
                     <td> <%= link_to meal_event.meal.name, meal_path(meal_event.meal) %> </td>
                     <td> <%= link_to meal_event.cook.name, user_path(meal_event.cook) %> </td>
                     <td> <%= show_users(meal_event.helpers) %> </td>
+                    <td> <%= link_to 'Details', meal_event_path(meal_event) %> </td>
                     <% if is_admin? %>
                         <td> <%= show_users(meal_event.rsvps) %> </td>
                         <td> <%= show_users(meal_event.late_rsvps) %> </td>

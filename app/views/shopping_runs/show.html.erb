@@ -8,8 +8,12 @@
 <% if @shopping_run.meal_events.empty? %>
     nothing currently!
 <% else %>
+    <br />
     <% @shopping_run.meal_events.each do |meal_event| %>
         <%= link_to meal_event.meal.name, meal_event_path(meal_event) %>
+        <% unless meal_event.materials.blank? %>
+            (Materials: <%= meal_event.materials %>)
+        <% end %>
         <br />
     <% end %>
 <% end %>

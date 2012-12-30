@@ -2,7 +2,7 @@
 
 <h1><%= yield(:title) %></h1>
 
-<h3>Cooked by <%= @meal_event.cook.name %></h3>
+<h3>Cooked by <%= link_to @meal_event.cook.name, user_path(@meal_event.cook) %></h3>
 
 <h3>Date: <%= @meal_event.date %></h3>
 
@@ -35,7 +35,8 @@ Requires:
     <p>Customers: <%= show_users(@meal_event.customers) %></p>
 <% end %>
 
-<% unless @meal_event.shopping_run.nil? %>
-    <p>Materials shopped by <%= @meal_event.shopping_run.shopper.name %> on <%= @meal_event.shopping_run.date %></p>
+<% shopping_run = @meal_event.shopping_run %>
+<% unless shopping_run.nil? %>
+    <p>Materials shopped by <%= link_to shopping_run.shopper.name, user_path(shopping_run.shopper) %> on <%= shopping_run.date %> <%= link_to 'Details', shopping_run_path(shopping_run) %></p>
 <% end %>
 

@@ -2,11 +2,12 @@
 
 <h1><%= yield(:title) %></h1>
 
-<h3>Proposed by <%= @meal.proposer.name %></h3>
+<h3>Proposed by <%= link_to @meal.proposer.name, user_path(@meal.proposer) %></h3>
 
 <p><%= pluralize(@meal.voters.size, "person") %> liked this: <%= @meal.voters.map{ |id| User.find_by_id(id).name }.join(', ') %></p>
 
 <% unless @meal.meal_event.nil? %>
-    Currently being cooked by <%= @meal.meal_event.cook.name %> on <%= @meal.meal_event.date %> at <%= @meal.meal_event.time %>.
+    Currently being cooked by <%= link_to @meal.meal_event.cook.name, user_path(@meal.proposer) %> on <%= @meal.meal_event.date %> at <%= @meal.meal_event.time %>. <%= link_to 'Details', meal_event_path(@meal.meal_event) %>
+    
 <% end %>
 

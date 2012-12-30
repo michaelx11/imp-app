@@ -12,9 +12,9 @@
                 <th>Cook</th>
                 <th>Materials Needed</th>
                 <% if is_admin? %>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>RSVPs</th>
+                    <th>Late RSVPs</th>
+                    <th>Customers</th>
                 <% end %>
                 <% if signed_in? %>
                     <th></th>
@@ -84,12 +84,13 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <% @shopping_runs.each do |shopping_run| %>
                 <tr>
-                    <td> <%= link_to shopping_run_status_text(shopping_run), shopping_run_path(shopping_run) %> </td>
+                    <td> <%= shopping_run_status_text(shopping_run) %> </td>
                     <td> <%= shopping_run.date %> </td>
                     <td>
                         <% shopping_run.meal_events.each do |meal_event| %>
@@ -114,6 +115,7 @@
                     <% if is_admin? %>
                         <td> <%= shopping_run.cost %> </td>
                     <% end %>
+                    <td> <%= link_to 'Details', shopping_run_path(shopping_run) %> </td>
                     <% if shopping_run.pending && current_user?(shopping_run.shopper) %>
                         <td> <%= link_to "Mark Completed", new_shopping_complete_path(:shopping_run => shopping_run.id) %> </td>
                     <% else %>
