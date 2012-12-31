@@ -23,6 +23,7 @@ class ShoppingRunsController < ApplicationController
         @shopping_run.remind_in_advance = info[:remind_in_advance]
         @shopping_run.reminded = info[:remind_in_advance].blank?
         @shopping_run.pending = true
+        @shopping_run.approved = false
         meal_event = MealEvent.find_by_id(info['request'])
         unless meal_event.nil?
             meal_event.shopping_run = @shopping_run

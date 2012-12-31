@@ -140,6 +140,8 @@ See the table below for all scheduled shopping runs.
                     <td> <%= link_to 'Details', shopping_run_path(shopping_run) %> </td>
                     <% if shopping_run.pending && current_user?(shopping_run.shopper) %>
                         <td> <%= link_to "Mark Completed", new_shopping_complete_path(:shopping_run => shopping_run.id) %> </td>
+                    <% elsif !shopping_run.pending && !shopping_run.approved && is_admin? %>
+                        <td> <%= link_to "Approve", new_shopping_approval_path(:shopping_run => shopping_run.id) %> </td>
                     <% else %>
                         <td></td>
                     <% end %>

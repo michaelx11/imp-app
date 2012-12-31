@@ -1,6 +1,7 @@
 module ShoppingRunsHelper
     def shopping_run_status_text(shopping_run)
         return 'Pending' if shopping_run.pending
+        return 'Approved' if shopping_run.approved
         'Completed'
     end
 

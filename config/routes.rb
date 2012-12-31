@@ -23,7 +23,7 @@ ImpApp::Application.routes.draw do
   resources :meals, :votes
   resources :users, :sessions
   resources :meal_events, :helpers, :rsvps, :late_rsvps
-  resources :shopping_runs, :shopping_requests, :shopping_completes
+  resources :shopping_runs, :shopping_requests, :shopping_completes, :shopping_approvals
   match '/help', :to => 'static_pages#help'
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'

@@ -5,6 +5,7 @@ class ShoppingRun
   key :date, Date
   key :cost, Float
   key :pending, Boolean
+  key :approved, Boolean
 
   # associations
   many :meal_events

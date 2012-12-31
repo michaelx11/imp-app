@@ -20,13 +20,11 @@
 </p>
 
 <p>
-<% if @shopping_run.pending %>
-    Pending.
-<% else %>
-    <% if is_admin? %>
+<%= shopping_run_status_text(@shopping_run) %>
+<br />
+<% unless @shopping_run.cost.nil? %>
+    <% if current_user == @shopping_run.shopper || is_admin? %>
         Total cost: <%= @shopping_run.cost %>
-    <% else %>
-        Completed.
     <% end %>
 <% end %>
 </p>
