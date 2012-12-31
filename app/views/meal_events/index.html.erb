@@ -81,7 +81,11 @@ See the table below for the current meal schedule.
                         <td> <%= show_users(meal_event.customers) %> </td>
                     <% end %>
                     <% if signed_in? %>
-                        <td> <%= link_to help_text(meal_event), edit_helper_path(meal_event) %> </td>
+                        <td>
+                        <% if current_user != meal_event.cook || is_admin? %>
+                            <%= link_to help_text(meal_event), edit_helper_path(meal_event) %>
+                        <% end %>
+                    </td>
                         <td>
                             <sec id="fat-menu" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= rsvp_text(meal_event) %></a>
