@@ -1,9 +1,30 @@
 <% provide(:title, "Schedule") %>
+
 <div class="hero-unit">
-    <h1>Schedule <small> cook, edit, or rsvp</small></h1>
+    <h1>Schedule <small> cook, help and rsvp</small></h1>
 </div>
 
-<p>To Un-RSVP, simply click on the 'RSVPed' status for the corresponding meal.</p>
+<script type="text/javascript">
+    function toggle(id) {
+        var item = document.getElementById(id);
+        item.className=(item.className=='hidden')?'':'hidden';
+    }
+</script>
+
+<p>
+See the table below for the current meal schedule.
+<a href="javascript:toggle('help')">Help</a>
+</p>
+
+<div id=help class='hidden'>
+    <li>Click on the "Date" column label to sort the meals by date.</li>
+    <li>To cook a new meal, go to the "Meals" page and click "Cook This!" for a meal proposal.</li>
+    <li>To view information about a scheduled meal, click on "Details" in the corresponding row.</li>
+    <li>Please click on "Help Cook" to aid our wonderful chefs. The link will change to "Won't Help", which you can always click again to undo this action.</li>
+    <li>RSVP so that our chefs know much to cook. Please select "I'm coming!" if you plan to eat at the normal time, and "Pick up later" if you want a portion saved for you.</li>
+    <li>To Un-RSVP, simply click again on the "RSVPed" status for the corresponding meal.</li>
+    <br />
+</div>
 
 <div class="row-fluid">
 

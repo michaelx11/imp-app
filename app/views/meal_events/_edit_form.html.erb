@@ -29,7 +29,7 @@
             <%= f.text_area :materials, :size => '50x3', :value => @meal_event.materials, :placeholder => "required ingredients" %>
         </div>
         <div class="field">
-            <%= f.label :remind_in_advance %><br />
+            <%= f.label :remind_in_advance, "Enter for email notification. Leave blank otherwise." %><br />
             <%= f.text_field :remind_in_advance, :value => @meal_event.remind_in_advance, :placeholder => "hours to remind in advance" %>
         </div>
         <% if is_admin? %>

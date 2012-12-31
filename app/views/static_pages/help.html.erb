@@ -1,2 +1,132 @@
-<h1>StaticPages#help</h1>
-<p>Find me in app/views/static_pages/help.html.erb</p>
+<% provide(:title, "Help") %>
+
+<h1><%= yield(:title) %></h1>
+
+<script type="text/javascript">
+    function action() {
+        document.getElementById('movie').className='';
+        document.getElementById('movie_param').value += "&as=1";
+        document.getElementById('movie_embed').value += "&as=1";
+    }
+</script>
+
+<p>Welcome to <b>SIMPLE</b>, the
+<a href="javascript:action()">extraordinary</a>
+
+<sec id=movie class="hidden">
+<object width="16" height="16" class="hark_player">
+    <param id=movie_param name="movie" value="http://cdn.hark.com/swfs/player_16x16.swf?pid=vdjkdzgdyp"/>
+    <param name="allowscriptaccess" value="always"/>
+    <param name="allownetworking" value="all"/>
+    <param name="wmode" value="transparent"/>
+    <embed id=movie_embed src="http://cdn.hark.com/swfs/player_16x16.swf?pid=vdjkdzgdyp" type="application/x-shockwave-flash" allowscriptaccess="always" allownetworking="all" width="16" height="16" wmode="transparent"></embed>
+</object>
+</sec>
+
+3-West <b>S</b>tudent <b>I</b>AP <b>M</b>eal <b>P</b>lan: <b>L</b>et's <b>E</b>at!</p>
+
+<p>The main purpose of this website is to organize the meal schedule during IAP, including the meal proposals, the cooks and helpers of each meal, the shoppers of the materials, the attendees of each meal, and the credit/charges for each participant of the 3-West meal plan. We hope you enjoy the site.</p>
+
+<a name="contents"></a>
+<h5><a href="#contents">Contents</a></h5>
+<ul>
+    <li><a href="#meals">Meals</a></li>
+    <li><a href="#meal_schedule">Meal Schedule</a></li>
+    <li><a href="#shopping_requests">Shopping Requests</a></li>
+    <li><a href="#shopping_runs">Shopping Runs</a></li>
+    <li><a href="#credits_fees">Credits and Fees</a></li>
+</ul>
+<h5><a href="#faq">FAQ:</a></h5>
+<ul>
+    <li><a href="#faq1">What does Simple Stand For?</a></li>
+</ul>
+<h5><a href="#about">About</a></h5>
+<br />
+
+<a name="meals"></a>
+<h3>Meals</h3>
+<ul>
+    <li>Click on "New Meal" if you have a meal suggestion. Your suggestion will be added to the table, and everyone (including yourself) can vote on or commit to cook the meal.</li>
+    <li>Please vote for other meal proposals that you like, to show your support! All users can vote at most once for any particular meal suggestion.</li>
+    <li>Click on "Cook This!" to fill out information for cooking a new meal.</li>
+</ul>
+
+<a name="meal_schedule"></a>
+<h3>Meal Schedule</h3>
+<ul>
+    <li>Click on the "Date" column label to sort the meals by date.</li>
+    <li>To cook a new meal, go to the "Meals" page and click "Cook This!" for a meal proposal.</li>
+    <li>To view information about a scheduled meal, click on "Details" in the corresponding row.</li>
+    <li>Please click on "Help Cook" to aid our wonderful chefs. The link will change to "Won't Help", which you can always click again to undo this action.</li>
+    <li>RSVP so that our chefs know much to cook. Please select "I'm coming!" if you plan to eat at the normal time, and "Pick up later" if you want a portion saved for you.</li>
+    <li>To Un-RSVP, simply click again on the "RSVPed" status for the corresponding meal.</li>
+</ul>
+
+<a name="shopping_requests"></a>
+<h3>Shopping Requests</h3>
+<ul>
+    <li>If you can commit to buying the materials of a meal, please click "Buy Materials" in the corresponding row.</li>
+    <li>A dropdown menu of all your currently scheduled shopping runs will appear. Select which shopping run you will commit to buying the materials by.</li>
+    <li>You can always create a new shopping run, either by selecting that option from the dropdown menu, or by clicking the "New Shopping Run" button at the bottom of the page.</li>
+</ul>
+
+<a name="shopping_runs"></a>
+<h3>Shopping Runs</h3>
+<ul>
+    <li>Click on the "Status" column label to separate all completed and pending shopping runs.</li>
+    <li>To add materials for a meal to one of your shopping runs, click "Buy Materials" in the appropriate row above.</li>
+    <li>To view information about a shopping run, click on "Details" in the corresponding row.</li>
+    <li><b>To remove a meal from one of your shopping runs:</b> click on one of the listed meals in the "Meals to buy" column, and select "Remove".</li>
+    <li>Once you finish a shopping run, click "Mark Completed" to enter your total payment amount.</li>
+</ul>
+
+<a name="credits_fees"></a>
+<h3>Credit/Fees</h3>
+<ul>
+    <li>A person who cooks a meal will be awarded a credit of a $8 value + $0.25 a person for that meal.</li>
+    <li>A person who helps cook a meal will be awarded a credit of: $8 for 1 total helper, $4 for 2 total helpers, $2 for 3 or more total helpers.</li>
+    <li>The maximum reimbursement of a shopping run is $75 per meal bought for, unless special approval is given.</li>
+    <li>A person who performs a shopping run will be awarded a credit of $4 in addition to being reimbursed fully (up to the restriction above).</li>
+    <li>The fee for each person will be calculated at the conclusion of IAP based on the total operational cost; it will be guaranteed to be proportional to the number of meals consumed, and will be no more than $7 per meal.</li>
+</ul>
+
+<a name="faq"></a>
+<h3>FAQ</h3>
+
+<a name="faq1"></a>
+<h5>What does Simple Stand For?</h5>
+the <b>S</b>tudent <b>I</b>AP <b>M</b>eal <b>P</b>lan: <b>L</b>et's <b>E</b>at!</p>
+
+<a name="about"></a>
+<h3>About</h3>
+This webpage was created by kyc, trzhang, and michaelx. Please direct questions and comments to kyc2915@mit.edu.
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

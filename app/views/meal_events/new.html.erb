@@ -2,7 +2,7 @@
 
 <h1>Cook <%= Meal.find_by_id(params[:meal]).name %></h1>
 
-<h6>Current schedule is below.</h6>
+<p>Please fill in the appropriate information about the meal you plan to cook. The current meal schedule is shown below for your convenience.</p>
 
 <%= render 'form' %>
 
