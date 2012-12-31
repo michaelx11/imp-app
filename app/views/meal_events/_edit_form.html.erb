@@ -46,8 +46,8 @@
                 <%= f.select :customers, User.all.map{ |user| [user.name, user.id] }, {}, {:multiple => true} %>
             </div>
         <% else %>
-            <% f.hidden_field :meal, :value => @meal_event.meal.id %>
-            <% f.hidden_field :cook, :value => @meal_event.cook.id %>
+            <%= f.hidden_field :meal, :value => @meal_event.meal.id %>
+            <%= f.hidden_field :cook, :value => @meal_event.cook.id %>
         <% end %>
     <div class="actions">
         <%= f.submit %>

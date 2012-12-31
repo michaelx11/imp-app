@@ -25,4 +25,42 @@ module MealEventsHelper
         return 'Late RSVP-ed' if is_late_rsvp?(meal_event)
         'RSVP'
     end
+
+
+    def future_meal_event(meal_event)
+        meal_event.date >= Date.today
+    end
+
+    def collided_meal_event(meal_event)
+        MealEvent.each do |meal_event_other|
+            if meal_event != meal_event_other and meal_event.date == meal_event_other.date
+                return true
+            end
+        end
+        false
+    end
+
+    def far_future_meal_event(meal_event)
+        meal_event.date >= Date.today + 14 # more than 2 weeks away
+    end
+
+    def verify_meal_event(meal_event)
+        if is_admin?
+            return true
+        end
+        unless future_meal_event(meal_event)
+            flash[:error] = 'Error: meal must be scheduled in the future.'
+            return false
+        end
+        if collided_meal_event(meal_event)
+            flash[:error] = 'Error: there is already a meal scheduled at that time.'
+            return false
+        end
+        if far_future_meal_event(meal_event)
+            flash[:alert] = 'WARNING: meal was scheduled in the far future.'
+        else
+            flash[:notice] = "#{ meal_event.meal.name } successfully scheduled."
+        end
+        true
+    end
 end

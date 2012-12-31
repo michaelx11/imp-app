@@ -26,8 +26,12 @@ class MealEventsController < ApplicationController
         @meal_event.materials = info[:materials]
         @meal_event.remind_in_advance = info[:remind_in_advance]
         @meal_event.reminded = info[:remind_in_advance].blank?
-        @meal_event.save
-        redirect_to meal_events_path
+        if verify_meal_event(@meal_event)
+            @meal_event.save
+            redirect_to meal_events_path
+        else
+            redirect_to meals_path
+        end
     end
 
     def destroy
@@ -59,8 +63,12 @@ class MealEventsController < ApplicationController
         @meal_event.reminded = info[:remind_in_advance].blank?
         @meal_event.description = info[:description]
         @meal_event.materials = info[:materials]
-        @meal_event.customers = info[:customers].select{ |customer| !customer.blank?}.to_set
-        @meal_event.save
+        unless info[:customers].nil?
+            @meal_event.customers = info[:customers].select{ |customer| !customer.blank?}.to_set
+        end
+        if verify_meal_event(@meal_event)
+            @meal_event.save
+        end
         redirect_to meal_events_path
     end
 end

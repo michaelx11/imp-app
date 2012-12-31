@@ -25,9 +25,14 @@ class ShoppingRunsController < ApplicationController
         @shopping_run.pending = true
         meal_event = MealEvent.find_by_id(info['request'])
         unless meal_event.nil?
-           meal_event.update_attributes(:shopping_run => @shopping_run)
+            meal_event.shopping_run = @shopping_run
         end
-        @shopping_run.save
+        if verify_shopping_run_event(@shopping_run)
+            unless meal_event.nil?
+                meal_event.save
+            end
+            @shopping_run.save
+        end
         redirect_to shopping_runs_path
     end
 
@@ -56,7 +61,9 @@ class ShoppingRunsController < ApplicationController
         @shopping_run.date = Date.strptime(info[:date], "%m/%d/%Y")
         @shopping_run.remind_in_advance = info[:remind_in_advance]
         @shopping_run.reminded = info[:remind_in_advance].blank?
-        @shopping_run.save
+        if verify_shopping_run_event(@shopping_run)
+            @shopping_run.save
+        end
         redirect_to shopping_runs_path
     end
 end

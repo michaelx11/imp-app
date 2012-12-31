@@ -97,7 +97,7 @@ See the table below for the current meal schedule.
                             </sec>
                         </td>
                     <% end %>
-                    <% if current_user?(meal_event.cook) || is_admin? %>
+                    <% if (current_user?(meal_event.cook) and future_meal_event(meal_event)) || is_admin? %>
                         <td> <%= link_to 'Edit', edit_meal_event_path(meal_event) %> </td>
                         <td> <%= link_to 'Remove', meal_event, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
                     <% else %>
