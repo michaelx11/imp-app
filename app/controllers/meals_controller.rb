@@ -19,6 +19,7 @@ class MealsController < ApplicationController
         @meal = Meal.new(params[:meal])
         @meal.proposer = current_user
         @meal.save
+        log @meal, 'created'
         redirect_to meals_path
     end
 
@@ -28,7 +29,12 @@ class MealsController < ApplicationController
         end
 
         @meal = Meal.find(params[:id])
+        log @meal, 'deleted'
         @meal.destroy
         redirect_to meals_path
+    end
+
+    def log(meal, action)
+        MyLog.log "#{current_user.name} #{action} the meal '#{meal.name}'"
     end
 end

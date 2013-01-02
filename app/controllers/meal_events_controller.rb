@@ -27,6 +27,7 @@ class MealEventsController < ApplicationController
         @meal_event.remind_in_advance = info[:remind_in_advance]
         @meal_event.reminded = info[:remind_in_advance].blank?
         if verify_meal_event(@meal_event)
+            log @meal_event, 'created'
             @meal_event.save
             redirect_to meal_events_path
         else
@@ -40,6 +41,7 @@ class MealEventsController < ApplicationController
         end
 
         @meal_event = MealEvent.find(params[:id])
+        log @meal_event, 'deleted'
         @meal_event.destroy
         redirect_to meal_events_path
     end
@@ -67,8 +69,16 @@ class MealEventsController < ApplicationController
             @meal_event.customers = info[:customers].select{ |customer| !customer.blank?}.to_set
         end
         if verify_meal_event(@meal_event)
+            log @meal_event, 'edited'
+            unless info[:customers].nil?
+                log @meal_event, 'submitted customers to', true
+            end
             @meal_event.save
         end
         redirect_to meal_events_path
+    end
+
+    def log(meal_event, action, select_customers = false)
+        MyLog.log "#{current_user.name} #{action} the meal event '#{meal_event.meal.name}' on #{meal_event.date} at #{meal_event.time} cooked by #{meal_event.cook.name}#{': ' + show_users(meal_event.customers) if select_customers}"
     end
 end

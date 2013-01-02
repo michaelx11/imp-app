@@ -32,6 +32,7 @@ class ShoppingRunsController < ApplicationController
             unless meal_event.nil?
                 meal_event.save
             end
+            log @shopping_run, 'created'
             @shopping_run.save
         end
         redirect_to shopping_runs_path
@@ -43,6 +44,7 @@ class ShoppingRunsController < ApplicationController
         end
 
         @shopping_run = ShoppingRun.find(params[:id])
+        log @shopping_run, 'deleted'
         @shopping_run.destroy
         redirect_to shopping_runs_path
     end
@@ -63,8 +65,13 @@ class ShoppingRunsController < ApplicationController
         @shopping_run.remind_in_advance = info[:remind_in_advance]
         @shopping_run.reminded = info[:remind_in_advance].blank?
         if verify_shopping_run_event(@shopping_run)
+            log @shopping_run, 'edited'
             @shopping_run.save
         end
         redirect_to shopping_runs_path
+    end
+
+    def log(shopping_run, action)
+        MyLog.log "#{current_user.name} #{action} the shopping run by #{shopping_run.shopper.name} on #{shopping_run.date}"
     end
 end
