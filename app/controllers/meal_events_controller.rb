@@ -18,13 +18,20 @@ class MealEventsController < ApplicationController
 
         info = params[:meal_event]
         @meal_event = MealEvent.new
-        @meal_event.meal = Meal.find_by_id(info[:meal])
+
+        # If 'new_meal' is set, create a new meal. Otherwise, associate with the corresponding meal.
+        if info['new_meal']
+            @meal_event.meal = Meal.new(:name => info[:meal], :proposer => current_user)
+        else
+            @meal_event.meal = Meal.find_by_id(info[:meal])
+        end
+
         @meal_event.cook = User.find_by_id(info[:cook])
         @meal_event.date = Date.strptime(info[:date], "%m/%d/%Y")
         @meal_event.time = info[:time]
         @meal_event.description = info[:description]
         @meal_event.materials = info[:materials]
-        @meal_event.max_rsvps = info[:max_rsvps] || 50
+        @meal_event.max_rsvps = info[:max_rsvps].blank? ? 50 : info[:max_rsvps]
         @meal_event.remind_in_advance = info[:remind_in_advance]
         @meal_event.reminded = info[:remind_in_advance].blank?
         if verify_meal_event(@meal_event)
@@ -64,7 +71,7 @@ class MealEventsController < ApplicationController
         @meal_event.time = info[:time]
         @meal_event.remind_in_advance = info[:remind_in_advance]
         @meal_event.reminded = info[:remind_in_advance].blank?
-        @meal_event.max_rsvps = info[:max_rsvps] || 50
+        @meal_event.max_rsvps = info[:max_rsvps].blank? ? 50 : info[:max_rsvps]
         @meal_event.description = info[:description]
         @meal_event.materials = info[:materials]
         unless info[:customers].nil?

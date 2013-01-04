@@ -1,6 +1,11 @@
 <% provide(:title, "Cook") %>
 
-<h1>Cook <%= Meal.find_by_id(params[:meal]).name %></h1>
+<h1>
+    Cook
+    <% if params[:meal] %>
+        <%= Meal.find_by_id(params[:meal]).name %>
+    <% end %>
+</h1>
 
 <p>Please fill in the appropriate information about the meal you plan to cook. The current meal schedule is shown below for your convenience.</p>
 

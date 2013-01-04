@@ -11,6 +11,14 @@
         </div>
     <% end %>
     <div class="well">
+        <!-- IF MEAL IS NOT SET, ADD ADDITIONAL MEAL FIELD -->
+        <% if params[:meal].nil? %>
+            <div class="field">
+                <%= f.label :meal %><br />
+                <%= f.text_field :meal, :required => "true", :placeholder => "name of meal" %>
+            </div>
+            <%= f.hidden_field 'new_meal', :value => true %>
+        <% end %>
         <div class="field">
             <%= f.label :date %><br />
             <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}", :placeholder => "enter planned date here" %>
@@ -28,24 +36,31 @@
             <%= f.text_area :materials, :size => '50x3', :placeholder => "required ingredients" %>
         </div>
         <div class="field">
-            <%= f.label :max_rsvps, "Enter max # of customers. Leave blank otherwise." %><br />
-            <%= f.text_field :max_rsvps, :placeholder => "maximum number of customers" %>
+            <%= f.label :max_rsvps, "Enter max # of customers (1-49). Leave blank otherwise." %><br />
+            <%= f.text_field :max_rsvps, :pattern => "[0-4]?[0-9]?", :placeholder => "maximum number of customers" %>
         </div>
         <div class="field">
             <%= f.label :remind_in_advance, "Enter for email notification. Leave blank otherwise." %><br />
             <%= f.text_field :remind_in_advance, :placeholder => "hours to remind in advance" %>
         </div>
+        <% # IF MEAL IS SET, STORE IN HIDDEN FIELD %>
+        <% if params[:meal] %>
+            <% if is_admin? %>
+                <div class="field">
+                    <%= f.label :meal %><br />
+                    <%= f.select :meal, options_for_select(Meal.all.map{ |meal| [meal.name, meal.id] }, params[:meal]), :required => true %>
+                </div>
+            <% else %>
+                <%= f.hidden_field :meal, :value => params[:meal] %>
+            <% end %>
+        <% end %>
+        <% # SHOW COOK FIELD IF USER IS ADMIN %>
         <% if is_admin? %>
-            <div class="field">
-                <%= f.label :meal %><br />
-                <%= f.select :meal, options_for_select(Meal.all.map{ |meal| [meal.name, meal.id] }, params[:meal]), :required => true %>
-            </div>
             <div class="field">
                 <%= f.label :cook %><br />
                 <%= f.select :cook, options_for_select(User.all.map{ |user| [user.name, user.id] }, current_user.id), :required => true %>
             </div>
         <% else %>
-            <%= f.hidden_field :meal, :value => params[:meal] %>
             <%= f.hidden_field :cook, :value => current_user.id %>
         <% end %>
     </div>
