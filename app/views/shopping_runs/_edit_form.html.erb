@@ -19,10 +19,17 @@
             <%= f.label :place %><br />
             <%= f.text_field :place , :required => "true", :value => @shopping_run.place %>
         </div>
-        <div class="field">
-            <%= f.label :remind_in_advance, "Enter for email notification. Leave blank otherwise." %><br />
-            <%= f.text_field :remind_in_advance, :value => @shopping_run.remind_in_advance %>
-        </div>
+        <% if @shopping_run.pending %>
+            <div class="field">
+                <%= f.label :remind_in_advance, "Enter for email notification. Leave blank otherwise." %><br />
+                <%= f.text_field :remind_in_advance, :value => @shopping_run.remind_in_advance %>
+            </div>
+        <% elsif !@shopping_run.approved %>
+            <div class="field">
+                <%= f.label :cost %><br />
+                <%= f.text_field :cost , :required => "true", :type => "number", :min => "0.01", :step => "0.01", :value => @shopping_run.cost %> 
+            </div>
+        <% end %>
         <% if is_admin? %>
             <div class="field">
                 <%= f.label :shopper %><br />

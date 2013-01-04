@@ -64,8 +64,12 @@ class ShoppingRunsController < ApplicationController
         @shopping_run.shopper = User.find_by_id(info[:shopper])
         @shopping_run.date = Date.strptime(info[:date], "%m/%d/%Y")
         @shopping_run.place = info[:place]
-        @shopping_run.remind_in_advance = info[:remind_in_advance]
-        @shopping_run.reminded = info[:remind_in_advance].blank?
+        if info[:remind_in_advance]
+            @shopping_run.remind_in_advance = info[:remind_in_advance]
+            @shopping_run.reminded = info[:remind_in_advance].blank?
+        elsif info[:cost]
+            @shopping_run.cost = info[:cost]
+        end
         if verify_shopping_run_event(@shopping_run)
             log @shopping_run, 'edited'
             @shopping_run.save
