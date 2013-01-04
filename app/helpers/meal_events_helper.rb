@@ -20,6 +20,14 @@ module MealEventsHelper
         meal_event.late_rsvps.include?(current_user.id)
     end
 
+    def is_some_rsvp?(meal_event)
+        is_rsvp?(meal_event) || is_late_rsvp?(meal_event)
+    end
+
+    def rsvp_full?(meal_event)
+        meal_event.rsvps.size + meal_event.late_rsvps.size >= meal_event.max_rsvps
+    end
+
     def rsvp_text(meal_event)
         return 'RSVP-ed' if is_rsvp?(meal_event)
         return 'Late RSVP-ed' if is_late_rsvp?(meal_event)

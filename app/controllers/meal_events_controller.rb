@@ -24,6 +24,7 @@ class MealEventsController < ApplicationController
         @meal_event.time = info[:time]
         @meal_event.description = info[:description]
         @meal_event.materials = info[:materials]
+        @meal_event.max_rsvps = info[:max_rsvps] || 50
         @meal_event.remind_in_advance = info[:remind_in_advance]
         @meal_event.reminded = info[:remind_in_advance].blank?
         if verify_meal_event(@meal_event)
@@ -63,6 +64,7 @@ class MealEventsController < ApplicationController
         @meal_event.time = info[:time]
         @meal_event.remind_in_advance = info[:remind_in_advance]
         @meal_event.reminded = info[:remind_in_advance].blank?
+        @meal_event.max_rsvps = info[:max_rsvps] || 50
         @meal_event.description = info[:description]
         @meal_event.materials = info[:materials]
         unless info[:customers].nil?
@@ -79,6 +81,6 @@ class MealEventsController < ApplicationController
     end
 
     def log(meal_event, action, select_customers = false)
-        MyLog.log "#{current_user.name} #{action} the meal event '#{meal_event.meal.name}' on #{meal_event.date} at #{meal_event.time} cooked by #{meal_event.cook.name}#{': ' + show_users(meal_event.customers) if select_customers}"
+        MyLog.log "#{current_user.name} #{action} the meal event '#{meal_event.meal.name}' on #{meal_event.date} at #{meal_event.time} cooked by #{meal_event.cook.name} #{'for ' + meal_event.max_rsvps.to_s unless meal_event.max_rsvps == 50}#{': ' + show_users(meal_event.customers) if select_customers}"
     end
 end

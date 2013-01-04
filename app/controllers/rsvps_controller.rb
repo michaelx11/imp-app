@@ -11,7 +11,7 @@ class RsvpsController < ApplicationController
         elsif is_late_rsvp?(@meal_event)
             log 'un-rsvp', 'late'
             @meal_event.late_rsvps.delete(current_user.id)
-        else
+        elsif !rsvp_full?(@meal_event)
             if params['late'].blank?
                 log 'rsvp'
                 @meal_event.rsvps.add(current_user.id)

@@ -17,6 +17,9 @@ class MealEvent
   # materials needed for the meal (for the shopper's knowledge)
   key :materials, String
 
+  # maximum number of RSVPs allowed = rsvps + late rsvps
+  key :max_rsvps, Integer
+
   # reminders
   key :remind_in_advance, Integer
   key :reminded, Boolean
@@ -25,5 +28,6 @@ class MealEvent
   validates :time, :presence => true
   validates :description, :length => {:maximum => 500}
   validates :materials, :length => {:maximum => 500}
+  validates :max_rsvps, :inclusion => 1..50
 
 end

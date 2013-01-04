@@ -87,18 +87,22 @@ See the table below for the current meal schedule.
                         <% end %>
                     </td>
                         <td>
-                            <sec id="fat-menu" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= rsvp_text(meal_event) %></a>
-                            <ul id="dropdown" class="dropdown-menu">
-                                <!-- DROPDOWN MENU OF RSVP CHOICES -->
-                                <% if is_rsvp?(meal_event) || is_late_rsvp?(meal_event) %>
-                                    <li ><%= link_to 'Un-RSVP', edit_rsvp_path(meal_event) %></li>
-                                <% else %>
-                                    <li ><%= link_to 'I\'m coming: save some for meeeee!', edit_rsvp_path(meal_event) %></li>
-                                    <li ><%= link_to 'Pick up later in 3W lounge', edit_rsvp_path({:id => meal_event.id, 'late' => true}) %></li>
-                                <% end %>
-                            </ul>
-                            </sec>
+                            <% if !is_some_rsvp?(meal_event) and rsvp_full?(meal_event) %>
+                                Full.
+                            <% else %>
+                                <sec id="fat-menu" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= rsvp_text(meal_event) %></a>
+                                <ul id="dropdown" class="dropdown-menu">
+                                    <!-- DROPDOWN MENU OF RSVP CHOICES -->
+                                    <% if is_some_rsvp?(meal_event) %>
+                                        <li ><%= link_to 'Un-RSVP', edit_rsvp_path(meal_event) %></li>
+                                    <% else %>
+                                        <li ><%= link_to 'I\'m coming: save some for meeeee!', edit_rsvp_path(meal_event) %></li>
+                                        <li ><%= link_to 'Pick up later in 3W lounge', edit_rsvp_path({:id => meal_event.id, 'late' => true}) %></li>
+                                    <% end %>
+                                </ul>
+                                </sec>
+                            <% end %>
                         </td>
                     <% end %>
                     <% if (current_user?(meal_event.cook) and future_meal_event(meal_event)) || is_admin? %>

@@ -28,6 +28,10 @@
             <%= f.text_area :materials, :size => '50x3', :placeholder => "required ingredients" %>
         </div>
         <div class="field">
+            <%= f.label :max_rsvps, "Enter max # of customers. Leave blank otherwise." %><br />
+            <%= f.text_field :max_rsvps, :placeholder => "maximum number of customers" %>
+        </div>
+        <div class="field">
             <%= f.label :remind_in_advance, "Enter for email notification. Leave blank otherwise." %><br />
             <%= f.text_field :remind_in_advance, :placeholder => "hours to remind in advance" %>
         </div>
