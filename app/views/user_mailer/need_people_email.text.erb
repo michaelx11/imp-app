@@ -3,14 +3,14 @@ Hi all, we are in need of additional people.
 
 There are no meals currently scheduled for the following dates:
     <% @no_meal_dates.each do |date| %>   
-    <%= date.to_s %>
+    <%= date.strftime('%A') %> <%= date.to_s %>
     <% end %>
 <% end %>
 <% unless @unshopped_meal_events.empty? %>
 
 There are no shopping runs currently scheduled for meals on the following dates:
     <% @unshopped_meal_events.each do |meal_event| %>
-    <%= Meal.find_by_id(meal_event.meal_id).name %> on <%= meal_event.date %>
+    <%= Meal.find_by_id(meal_event.meal_id).name %> on <%= date.strftime('%A') %> <%= meal_event.date %>
     <% end %>
 <% end %>
 

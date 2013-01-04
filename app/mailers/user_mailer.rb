@@ -52,12 +52,14 @@ class UserMailer < ActionMailer::Base
       no_meal_dates = Set.new
       unshopped_meal_events = Set.new
       Date.today.upto(Date.today + 3) do |date|
-          t = Time.new(date.year, date.month, date.day, 0, 0, 0, 0)
-          if MealEvent.where(:date => t).empty?
-              no_meal_dates.add(date)
-          end
-          MealEvent.where({:date => t, :shopping_run_id => nil}).each do |meal_event|
-              unshopped_meal_events.add(meal_event)
+          unless date.saturday? or date.sunday?
+              t = Time.new(date.year, date.month, date.day, 0, 0, 0, 0)
+              if MealEvent.where(:date => t).empty?
+                  no_meal_dates.add(date)
+              end
+              MealEvent.where({:date => t, :shopping_run_id => nil}).each do |meal_event|
+                  unshopped_meal_events.add(meal_event)
+              end
           end
       end
       unless no_meal_dates.empty? and unshopped_meal_events.empty?
