@@ -31,6 +31,9 @@ Requires:
     <p>Late RSVPs: <%= show_users(@meal_event.late_rsvps) %></p>
 <% end %>
 
+<p>Total RSVPs: <%= @meal_event.rsvps.size + @meal_event.late_rsvps.size %>
+out of <%= @meal_event.max_rsvps %></p>
+
 <% unless @meal_event.customers.empty? %>
     <p>Customers: <%= show_users(@meal_event.customers) %></p>
 <% end %>
