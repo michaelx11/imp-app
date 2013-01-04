@@ -4,6 +4,12 @@
 
 <h3>Date: <%= @shopping_run.date %></h3>
 
+<p>Place: <%= @shopping_run.place %></h3>
+
+<% unless @shopping_run.helpers.empty? %>
+    <p>Helpers: <%= show_users(@shopping_run.helpers) %></p>
+<% end %>
+
 <p>Shopping for:
 <% if @shopping_run.meal_events.empty? %>
     nothing currently!

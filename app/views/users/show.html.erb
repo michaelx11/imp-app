@@ -75,6 +75,17 @@
 </p>
 
 <p>
+<b>Helped shop:</b> <br />
+<% ShoppingRun.each do |shopping_run| %>
+    <% if shopping_run.helpers.include?(@user.id) %>
+        with <%= link_to shopping_run.shopper.name, user_path(shopping_run.shopper) %> on <%= shopping_run.date %>
+        <%= link_to 'Details', shopping_run_path(shopping_run) %>
+        <br />
+    <% end %>
+<% end %>
+</p>
+
+<p>
 <b>RSVPed to:</b> <br />
 <% MealEvent.each do |meal_event| %>
     <% if meal_event.rsvps.include?(@user.id) || meal_event.late_rsvps.include?(@user.id) %>

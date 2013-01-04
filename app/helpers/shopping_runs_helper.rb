@@ -5,14 +5,13 @@ module ShoppingRunsHelper
         'Completed'
     end
 
-    def shopping_run_requests(shopping_run)
-        requests = []
-        MealEvent.each do |meal_event|
-            if meal_event.shopping_run == shopping_run
-                requests << meal_event
-            end
-        end
-        requests
+    def is_shopping_helper?(shopping_run)
+        return shopping_run.helpers.include?(current_user.id)
+    end
+
+    def shopping_help_text(shopping_run)
+        return 'Won\'t Help' if is_shopping_helper?(shopping_run)
+        'Help Shop'
     end
 
     def future_shopping_run(shopping_run)

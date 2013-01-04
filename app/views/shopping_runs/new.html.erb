@@ -2,7 +2,7 @@
 
 <h1><%= yield(:title) %></h1>
 
-<p>Enter the date when you wish to perform a shopping run.</p>
+<p>Enter the date and place of your shopping run.</p>
 <% unless params[:request].blank? %>
     <% meal_event = MealEvent.find_by_id(params[:request]) %>
     <p>(Note that <b><%= meal_event.meal.name %></b> will be served on <b><%= meal_event.date %></b>; the shopping run must take place before then.)</p>

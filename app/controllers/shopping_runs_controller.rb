@@ -20,6 +20,7 @@ class ShoppingRunsController < ApplicationController
         @shopping_run = ShoppingRun.new
         @shopping_run.shopper = User.find_by_id(info[:shopper])
         @shopping_run.date = Date.strptime(info[:date], "%m/%d/%Y")
+        @shopping_run.place = info[:place]
         @shopping_run.remind_in_advance = info[:remind_in_advance]
         @shopping_run.reminded = info[:remind_in_advance].blank?
         @shopping_run.pending = true
@@ -62,6 +63,7 @@ class ShoppingRunsController < ApplicationController
         @shopping_run = ShoppingRun.find(params[:id])
         @shopping_run.shopper = User.find_by_id(info[:shopper])
         @shopping_run.date = Date.strptime(info[:date], "%m/%d/%Y")
+        @shopping_run.place = info[:place]
         @shopping_run.remind_in_advance = info[:remind_in_advance]
         @shopping_run.reminded = info[:remind_in_advance].blank?
         if verify_shopping_run_event(@shopping_run)
@@ -72,6 +74,6 @@ class ShoppingRunsController < ApplicationController
     end
 
     def log(shopping_run, action)
-        MyLog.log "#{current_user.name} #{action} the shopping run by #{shopping_run.shopper.name} on #{shopping_run.date}"
+        MyLog.log "#{current_user.name} #{action} the shopping run by #{shopping_run.shopper.name} on #{shopping_run.date} at #{shopping_run.place}"
     end
 end

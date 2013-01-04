@@ -16,6 +16,10 @@
             <%= f.text_field :date , :required => "true", :pattern => "[0-9]{2}/[0-9]{2}/[0-9]{4}", :value => @shopping_run.date %>
         </div>
         <div class="field">
+            <%= f.label :place %><br />
+            <%= f.text_field :place , :required => "true", :value => @shopping_run.place %>
+        </div>
+        <div class="field">
             <%= f.label :remind_in_advance, "Enter for email notification. Leave blank otherwise." %><br />
             <%= f.text_field :remind_in_advance, :value => @shopping_run.remind_in_advance %>
         </div>

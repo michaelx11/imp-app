@@ -98,8 +98,10 @@ See the table below for all scheduled shopping runs.
             <tr>
                 <th>Status</th>
                 <th>Date</th>
+                <th>Place</th>
                 <th>Meals to buy</th>
                 <th>Shopper</th>
+                <th>Helpers</th>
                 <% if is_admin? %>
                     <th>Cost</th>
                 <% end %>
@@ -114,6 +116,7 @@ See the table below for all scheduled shopping runs.
                 <tr>
                     <td> <%= shopping_run_status_text(shopping_run) %> </td>
                     <td> <%= shopping_run.date %> </td>
+                    <td> <%= shopping_run.place %> </td>
                     <td>
                         <% shopping_run.meal_events.each do |meal_event| %>
                             <% unless meal_event == shopping_run.meal_events.first %>
@@ -134,12 +137,15 @@ See the table below for all scheduled shopping runs.
                         <% end %>
                     </td>
                     <td> <%= link_to shopping_run.shopper.name, user_path(shopping_run.shopper) %> </td>
+                    <td> <%= show_users(shopping_run.helpers) %> </td>
                     <% if is_admin? %>
                         <td> <%= shopping_run.cost %> </td>
                     <% end %>
                     <td> <%= link_to 'Details', shopping_run_path(shopping_run) %> </td>
                     <% if shopping_run.pending && current_user?(shopping_run.shopper) %>
                         <td> <%= link_to "Mark Completed", new_shopping_complete_path(:shopping_run => shopping_run.id) %> </td>
+                    <% elsif shopping_run.pending && signed_in? && !current_user?(shopping_run.shopper) %>
+                        <td> <%= link_to shopping_help_text(shopping_run), edit_shopping_helper_path(shopping_run) %> </td>
                     <% elsif !shopping_run.pending && !shopping_run.approved && is_admin? %>
                         <td> <%= link_to "Approve", new_shopping_approval_path(:shopping_run => shopping_run.id) %> </td>
                     <% else %>
