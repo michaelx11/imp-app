@@ -56,11 +56,11 @@ module ShoppingRunsHelper
         end
         if collided_shopping_run_event(shopping_run)
             flash[:alert] = 'WARNING: there is already a shopping run scheduled at that time.'
-        elsif far_future_shopping_run(shopping_run)
-            flash[:alert] = 'WARNING: shopping run was scheduled in the far future.'
-        else
-            flash[:notice] = "Shopping run on #{ shopping_run.date } successfully scheduled."
         end
+        if far_future_shopping_run(shopping_run)
+            flash[:alert] = 'WARNING: shopping run was scheduled in the far future.'
+        end
+        flash[:notice] = "Shopping run on #{ shopping_run.date } successfully scheduled."
         true
     end
 end

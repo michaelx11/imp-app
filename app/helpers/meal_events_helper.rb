@@ -53,14 +53,12 @@ module MealEventsHelper
             return false
         end
         if collided_meal_event(meal_event)
-            flash[:error] = 'Error: there is already a meal scheduled at that time.'
-            return false
+            flash[:alert] = 'WARNING: there is already a meal scheduled at that time.'
         end
         if far_future_meal_event(meal_event)
             flash[:alert] = 'WARNING: meal was scheduled in the far future.'
-        else
-            flash[:notice] = "#{ meal_event.meal.name } successfully scheduled."
         end
+        flash[:notice] = "#{ meal_event.meal.name } successfully scheduled."
         true
     end
 end
