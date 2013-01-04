@@ -1,14 +1,11 @@
 <div class="center">
-    <ul>
+    <div>
         <%= link_to image_tag("Logo.png", :alt => "SIMPLE!") %>
-    </ul>
-    <ul>
-        <%= link_to "Meal Options", meals_path, :class => "btn btn-large " %>
-    </ul>
-    <ul>
-    <%= link_to "Schedule", meal_events_path, :class => "btn btn-large" %>
-    </ul>
-    <ul>
-    <%= link_to "Shopping Runs", shopping_runs_path, :class => "btn btn-large" %>
-    </ul>
+    </div>
+    <br />
+    <div>
+        <%= link_to "Vote", meals_path, :class => "btn btn-large " %> &nbsp;
+        <%= link_to "Eat", meal_events_path, :class => "btn btn-large" %> &nbsp;
+        <%= link_to "Shop", shopping_runs_path, :class => "btn btn-large" %>
+    </div>
 </div>

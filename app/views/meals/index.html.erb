@@ -1,7 +1,7 @@
-<% provide(:title, "Meals") %>
+<% provide(:title, "Vote") %>
 
 <div class="hero-unit">
-    <h1>Meals <small> create, vote and cook </small></h1>
+    <h1>Vote!</h1>
 </div>
 
 <script type="text/javascript">
@@ -17,7 +17,7 @@ See the table below for all proposed meals.
 </p>
 
 <div id=help class='hidden'>
-    <li>Click on 'New Meal' if you have a meal suggestion. Your suggestion will be added to the table, and everyone (including yourself) can vote on or commit to cook the meal.</li>
+    <li>Click on 'New Proposal' if you have a meal suggestion. </li>
     <li>Please vote for other meal proposals that you like, to show your support! All users can vote at most once for any particular meal suggestion.</li>
     <li>Click on "Cook This!" to fill out information for cooking a new meal.</li>
     <br />
@@ -62,7 +62,7 @@ See the table below for all proposed meals.
 <br />
 
 <% if signed_in? %>
-    <%= link_to 'New Meal', new_meal_path, :class => "btn btn-large" %>
+    <%= link_to 'New Proposal', new_meal_path, :class => "btn btn-large" %>
 <% end %>
 
 <script>
