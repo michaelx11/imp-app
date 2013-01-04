@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "reminders@mplcr.mit.edu"
+  default from: "reminders@simple.mit.edu"
 
   def sample_email(user)
       @user = user
