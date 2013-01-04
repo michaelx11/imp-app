@@ -56,7 +56,7 @@ class UserMailer < ActionMailer::Base
           if MealEvent.where(:date => t).empty?
               no_meal_dates.add(date)
           end
-          MealEvent.where({:date => t, :status => nil}).each do |meal_event|
+          MealEvent.where({:date => t, :shopping_run_id => nil}).each do |meal_event|
               unshopped_meal_events.add(meal_event)
           end
       end
