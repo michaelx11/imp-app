@@ -148,6 +148,8 @@ See the table below for all scheduled shopping runs.
                         <td> <%= link_to shopping_help_text(shopping_run), edit_shopping_helper_path(shopping_run) %> </td>
                     <% elsif !shopping_run.pending && !shopping_run.approved && is_admin? %>
                         <td> <%= link_to "Approve", new_shopping_approval_path(:shopping_run => shopping_run.id) %> </td>
+                    <% elsif shopping_run.approved and is_admin? %>
+                        <td> <%= link_to "Un-approve", edit_shopping_approval_path(shopping_run) %> </td>
                     <% else %>
                         <td></td>
                     <% end %>
