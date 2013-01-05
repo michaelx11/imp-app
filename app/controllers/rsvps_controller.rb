@@ -1,10 +1,8 @@
 class RsvpsController < ApplicationController
     def edit
-        unless signed_in?
-            return
-        end
-
         @meal_event = MealEvent.find(params[:id])
+        return '' unless can_rsvp?(@meal_event)
+
         if is_rsvp?(@meal_event)
             log 'un-rsvp'
             @meal_event.rsvps.delete(current_user.id)

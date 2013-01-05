@@ -1,10 +1,8 @@
 class HelpersController < ApplicationController
     def edit
-        unless signed_in?
-            return
-        end
-
         @meal_event = MealEvent.find(params[:id])
+        return '' unless can_help?(@meal_event)
+
         if is_helper?(@meal_event)
             log 'un-help'
             @meal_event.helpers.delete(current_user.id)

@@ -40,11 +40,9 @@ class ShoppingRunsController < ApplicationController
     end
 
     def destroy
-        unless signed_in?
-            return
-        end
-
         @shopping_run = ShoppingRun.find(params[:id])
+        return '' unless can_edit_shopping_run(@shopping_run)
+
         log @shopping_run, 'deleted'
         @shopping_run.destroy
         redirect_to shopping_runs_path
@@ -55,12 +53,10 @@ class ShoppingRunsController < ApplicationController
     end
 
     def update
-        unless signed_in?
-            return
-        end
-
         info = params[:shopping_run]
         @shopping_run = ShoppingRun.find(params[:id])
+        return '' unless can_edit_shopping_run(@shopping_run)
+
         @shopping_run.shopper = User.find_by_id(info[:shopper])
         @shopping_run.date = Date.strptime(info[:date], "%m/%d/%Y")
         @shopping_run.place = info[:place]

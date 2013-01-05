@@ -1,10 +1,18 @@
 module MealEventsHelper
+    def can_edit_meal_event?(meal_event)
+        (current_user?(meal_event.cook) and future_meal_event(meal_event)) or is_admin?
+    end
+
     def needs_shopper?(meal_event)
         meal_event.need_materials and meal_event.shopping_run.nil?
     end
 
     def is_helper?(meal_event)
         meal_event.helpers.include?(current_user.id)
+    end
+
+    def can_help?(meal_event)
+        (signed_in? and !current_user?(meal_event.cook) and future_meal_event(meal_event)) or is_admin?
     end
 
     def help_text(meal_event)
@@ -26,6 +34,10 @@ module MealEventsHelper
 
     def rsvp_full?(meal_event)
         meal_event.rsvps.size + meal_event.late_rsvps.size >= meal_event.max_rsvps
+    end
+
+    def can_rsvp?(meal_event)
+        (signed_in? and future_meal_event(meal_event)) or is_admin?
     end
 
     def rsvp_text(meal_event)

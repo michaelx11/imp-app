@@ -1,4 +1,8 @@
 module ShoppingRunsHelper
+    def can_edit_shopping_run(shopping_run)
+        (current_user?(shopping_run.shopper) and future_shopping_run(shopping_run)) or is_admin?
+    end
+
     def shopping_run_status_text(shopping_run)
         return 'Pending' if shopping_run.pending
         return 'Approved' if shopping_run.approved

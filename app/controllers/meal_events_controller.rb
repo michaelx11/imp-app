@@ -47,11 +47,9 @@ class MealEventsController < ApplicationController
     end
 
     def destroy
-        unless signed_in?
-            return
-        end
-
         @meal_event = MealEvent.find(params[:id])
+        return '' unless can_edit_meal_event?(@meal_event)
+
         log @meal_event, 'deleted'
         @meal_event.destroy
         redirect_to meal_events_path
@@ -62,11 +60,9 @@ class MealEventsController < ApplicationController
     end
 
     def update
-        unless signed_in?
-            return
-        end
-
         @meal_event = MealEvent.find(params[:id])
+        return '' unless can_edit_meal_event?(@meal_event)
+
         info = params[:meal_event]
         @meal_event.meal = Meal.find_by_id(info[:meal])
         @meal_event.cook = User.find_by_id(info[:cook])

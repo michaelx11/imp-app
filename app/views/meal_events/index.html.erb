@@ -75,30 +75,32 @@ See the table below for the current meal schedule.
                     <% end %>
                     <% if signed_in? %>
                         <td>
-                        <% if current_user != meal_event.cook || is_admin? %>
-                            <%= link_to help_text(meal_event), edit_helper_path(meal_event) %>
-                        <% end %>
-                    </td>
+                            <% if can_help?(meal_event) %>
+                                <%= link_to help_text(meal_event), edit_helper_path(meal_event) %>
+                            <% end %>
+                        </td>
                         <td>
-                            <% if !is_some_rsvp?(meal_event) and rsvp_full?(meal_event) %>
-                                Full.
-                            <% else %>
-                                <sec id="fat-menu" class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= rsvp_text(meal_event) %></a>
-                                <ul id="dropdown" class="dropdown-menu">
-                                    <!-- DROPDOWN MENU OF RSVP CHOICES -->
-                                    <% if is_some_rsvp?(meal_event) %>
-                                        <li ><%= link_to 'Un-RSVP', edit_rsvp_path(meal_event) %></li>
-                                    <% else %>
-                                        <li ><%= link_to 'I\'m coming: save some for meeeee!', edit_rsvp_path(meal_event) %></li>
-                                        <li ><%= link_to 'Pick up later in 3W lounge', edit_rsvp_path({:id => meal_event.id, 'late' => true}) %></li>
-                                    <% end %>
-                                </ul>
-                                </sec>
+                            <% if can_rsvp?(meal_event) %>
+                                <% if !is_some_rsvp?(meal_event) and rsvp_full?(meal_event) %>
+                                    Full.
+                                <% else %>
+                                    <sec id="fat-menu" class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= rsvp_text(meal_event) %></a>
+                                    <ul id="dropdown" class="dropdown-menu">
+                                        <!-- DROPDOWN MENU OF RSVP CHOICES -->
+                                        <% if is_some_rsvp?(meal_event) %>
+                                            <li ><%= link_to 'Un-RSVP', edit_rsvp_path(meal_event) %></li>
+                                        <% else %>
+                                            <li ><%= link_to 'I\'m coming: save some for meeeee!', edit_rsvp_path(meal_event) %></li>
+                                            <li ><%= link_to 'Pick up later in 3W lounge', edit_rsvp_path({:id => meal_event.id, 'late' => true}) %></li>
+                                        <% end %>
+                                    </ul>
+                                    </sec>
+                                <% end %>
                             <% end %>
                         </td>
                     <% end %>
-                    <% if (current_user?(meal_event.cook) and future_meal_event(meal_event)) || is_admin? %>
+                    <% if can_edit_meal_event?(meal_event) %>
                         <td> <%= link_to 'Edit', edit_meal_event_path(meal_event) %> </td>
                         <td> <%= link_to 'Remove', meal_event, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
                     <% else %>

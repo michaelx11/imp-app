@@ -146,7 +146,7 @@ See the table below for all scheduled shopping runs.
                     <% else %>
                         <td></td>
                     <% end %>
-                    <% if (current_user?(shopping_run.shopper) and future_shopping_run(shopping_run)) || is_admin? %>
+                    <% if can_edit_shopping_run(shopping_run) %>
                         <td> <%= link_to 'Edit', edit_shopping_run_path(shopping_run) %> </td>
                         <td> <%= link_to 'Remove', shopping_run, :method => :delete, :data => { :confirm => "Are you sure?" } %> </td>
                     <% else %>

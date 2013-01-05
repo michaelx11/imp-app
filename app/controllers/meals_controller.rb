@@ -24,9 +24,7 @@ class MealsController < ApplicationController
     end
 
     def destroy
-        unless signed_in?
-            return
-        end
+        return '' unless is_admin?
 
         @meal = Meal.find(params[:id])
         log @meal, 'deleted'
