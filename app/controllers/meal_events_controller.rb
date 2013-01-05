@@ -30,6 +30,7 @@ class MealEventsController < ApplicationController
         @meal_event.date = Date.strptime(info[:date], "%m/%d/%Y")
         @meal_event.time = info[:time]
         @meal_event.description = info[:description]
+        @meal_event.need_materials = info[:need_materials]
         @meal_event.materials = info[:materials]
         @meal_event.max_rsvps = info[:max_rsvps].blank? ? 50 : info[:max_rsvps]
         @meal_event.remind_in_advance = info[:remind_in_advance]
@@ -73,6 +74,7 @@ class MealEventsController < ApplicationController
         @meal_event.reminded = info[:remind_in_advance].blank?
         @meal_event.max_rsvps = info[:max_rsvps].blank? ? 50 : info[:max_rsvps]
         @meal_event.description = info[:description]
+        @meal_event.need_materials = info[:need_materials]
         @meal_event.materials = info[:materials]
         unless info[:customers].nil?
             @meal_event.customers = info[:customers].select{ |customer| !customer.blank?}.to_set

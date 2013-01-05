@@ -44,7 +44,7 @@ See the table below for meal events that currently are not being shopped for. Pl
         </thead>
         <tbody>
             <% MealEvent.each do |meal_event| %>
-                <% unless has_shopper?(meal_event) %>
+                <% if needs_shopper?(meal_event) %>
                     <tr>
                         <td> <%= meal_event.date %> </td>
                         <td> <%= link_to meal_event.meal.name, meal_event_path(meal_event) %> </td>

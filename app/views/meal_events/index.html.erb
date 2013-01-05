@@ -54,21 +54,21 @@ See the table below for the current meal schedule.
         <tbody>
             <% @meal_events.each do |meal_event| %>
                 <tr>
-                    <% if has_shopper?(meal_event) %>
-                        <td>
+                    <td>
+                        <% if needs_shopper?(meal_event) %>
+                            <% if signed_in? %>
+                                <!-- DROPDOWN MENU OF ALL POSSIBLE SHOPPING RUNS -->
+                                <sec id="fat-menu" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">awaiting shopper</a>
+                                <%= add_to_shopping_run_menu(meal_event).html_safe %>
+                                </sec>
+                            <% else %>
+                                awaiting shopper
+                            <% end %>
+                        <% elsif meal_event.shopping_run %>
                             <%= link_to (meal_event.shopping_run.shopper.name + ' shopping'), shopping_run_path(meal_event.shopping_run) %>
-                        </td>
-                    <% elsif signed_in? %>
-                        <td>
-                            <!-- DROPDOWN MENU OF ALL POSSIBLE SHOPPING RUNS -->
-                            <sec id="fat-menu" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">awaiting shopper</a>
-                            <%= add_to_shopping_run_menu(meal_event).html_safe %>
-                            </sec>
-                        </td>
-                    <% else %>
-                        <td> awaiting shopper </td>
-                    <% end %>
+                        <% end %>
+                    </td>
                     <td> <%= meal_event.date %> </td>
                     <td> <%= meal_event.time %> </td>
                     <td> <%= link_to meal_event.meal.name, meal_path(meal_event.meal) %> </td>

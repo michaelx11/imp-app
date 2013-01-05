@@ -1,6 +1,6 @@
 module MealEventsHelper
-    def has_shopper?(meal_event)
-        !meal_event.shopping_run.nil?
+    def needs_shopper?(meal_event)
+        meal_event.need_materials and meal_event.shopping_run.nil?
     end
 
     def is_helper?(meal_event)

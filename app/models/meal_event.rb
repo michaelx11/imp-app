@@ -15,6 +15,7 @@ class MealEvent
   key :description, String
 
   # materials needed for the meal (for the shopper's knowledge)
+  key :need_materials, Boolean
   key :materials, String
 
   # maximum number of RSVPs allowed = rsvps + late rsvps

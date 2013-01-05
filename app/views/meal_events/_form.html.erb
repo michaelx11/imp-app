@@ -1,3 +1,11 @@
+<script type="text/javascript">
+    function toggle_materials() {
+        var item = document.getElementById("materials");
+        item.className=(item.className=='hidden')?'':'hidden';
+        //item.style.visibility=(item.style.visibility=='hidden')?'visible':'hidden';
+    }
+</script>
+
 <%= form_for(@meal_event) do |f| %>
     <% if @meal_event.errors.any? %>
         <div id="error_explanation">
@@ -31,13 +39,19 @@
             <%= f.label :description %><br />
             <%= f.text_area :description, :size => '50x3', :placeholder => "description of meal" %>
         </div>
+
+        <!-- CHECKBOX TO ENTER ADDITIONAL MATERIALS -->
         <div class="field">
-            <%= f.label :materials %><br />
-            <%= f.text_area :materials, :size => '50x3', :placeholder => "required ingredients" %>
+            <label>Request materials to be shopped: <%= f.check_box :need_materials, {:value => "1", :onClick => "toggle_materials()"} %></label>
+            <div id="materials" class="hidden">
+                <%= f.text_area :materials, :size => '50x3', :placeholder => "desired materials" %>
+            </div>
         </div>
+        <!-- -->
+
         <div class="field">
-            <%= f.label :max_rsvps, "Enter max # of customers (1-49). Leave blank otherwise." %><br />
-            <%= f.text_field :max_rsvps, :pattern => "[0-4]?[0-9]?", :placeholder => "maximum number of customers" %>
+            <%= f.label :max_rsvps, "Enter max # of customers (1-50). Leave blank otherwise." %><br />
+            <%= f.text_field :max_rsvps, :pattern => "([0-4]?[0-9]?)|(50)", :placeholder => "maximum number of customers" %>
         </div>
         <div class="field">
             <%= f.label :remind_in_advance, "Enter for email notification. Leave blank otherwise." %><br />
