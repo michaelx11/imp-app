@@ -16,6 +16,9 @@ gem 'omniauth-facebook'
 # whenever
 gem 'whenever'
 
+# calendar
+gem 'simple_calendar', '~> 0.1.1'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 group :development do

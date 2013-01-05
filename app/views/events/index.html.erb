@@ -1,0 +1,14 @@
+<% provide(:title, "Calendar") %>
+
+<h1><%= yield(:title) %></h1>
+
+<%= calendar @events do |event| %>
+    <div>
+        <% if event.class == MealEvent %>
+            <%= link_to "#{event.meal.name} at #{event.time}", meal_event_path(event) %>
+        <% elsif event.class == ShoppingRun %>
+            <%= link_to "#{event.shopper.name} shopping at #{event.place}", shopping_run_path(event) %>
+        <% end %>
+    </div>
+<% end %>
+

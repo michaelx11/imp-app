@@ -19,4 +19,7 @@ class ShoppingRun
   validates :date, :presence => true
   validates :place, :presence => true
 
+  def start_time
+      return date.to_datetime
+  end
 end

@@ -1,7 +1,7 @@
 ImpApp::Application.routes.draw do
 
 
-  resources :reminders
+  resources :reminders, :events
 
 
   get "static_pages/home"

@@ -33,6 +33,11 @@ textarea {
     display: none;
 }
 
+.calendar td {
+    height: 80px;
+    width: 14.28%;
+}
+
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {

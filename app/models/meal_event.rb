@@ -35,4 +35,7 @@ class MealEvent
   validates :materials, :length => {:maximum => 500}
   validates :max_rsvps, :inclusion => 1..50
 
+  def start_time
+      return date.to_datetime
+  end
 end
