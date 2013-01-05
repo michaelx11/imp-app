@@ -21,8 +21,8 @@ class ShoppingRunsController < ApplicationController
         @shopping_run.shopper = User.find_by_id(info[:shopper])
         @shopping_run.date = Date.strptime(info[:date], "%m/%d/%Y")
         @shopping_run.place = info[:place]
-        @shopping_run.remind_in_advance = info[:remind_in_advance]
-        @shopping_run.reminded = info[:remind_in_advance].blank?
+        @shopping_run.remind_in_advance = info[:remind_in_advance] unless info[:reminded] == 'true'
+        @shopping_run.reminded = info[:reminded] == 'true'
         @shopping_run.pending = true
         @shopping_run.approved = false
         meal_event = MealEvent.find_by_id(info['request'])
@@ -65,8 +65,8 @@ class ShoppingRunsController < ApplicationController
         @shopping_run.date = Date.strptime(info[:date], "%m/%d/%Y")
         @shopping_run.place = info[:place]
         if info[:remind_in_advance]
-            @shopping_run.remind_in_advance = info[:remind_in_advance]
-            @shopping_run.reminded = info[:remind_in_advance].blank?
+            @shopping_run.remind_in_advance = info[:remind_in_advance] unless info[:reminded] == 'true'
+            @shopping_run.reminded = info[:reminded] == 'true'
         elsif info[:cost]
             @shopping_run.cost = info[:cost]
         end

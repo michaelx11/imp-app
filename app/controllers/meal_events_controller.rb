@@ -33,9 +33,10 @@ class MealEventsController < ApplicationController
         @meal_event.side_dish = info[:side_dish]
         @meal_event.need_materials = info[:need_materials]
         @meal_event.materials = info[:materials]
+        @meal_event.limit_rsvps = info[:limit_rsvps]
         @meal_event.max_rsvps = info[:max_rsvps].blank? ? 50 : info[:max_rsvps]
-        @meal_event.remind_in_advance = info[:remind_in_advance]
-        @meal_event.reminded = info[:remind_in_advance].blank?
+        @meal_event.remind_in_advance = info[:remind_in_advance] unless info[:reminded] == 'true'
+        @meal_event.reminded = info[:reminded] == 'true'
         if verify_meal_event(@meal_event)
             log @meal_event, 'created'
             @meal_event.save
@@ -71,8 +72,9 @@ class MealEventsController < ApplicationController
         @meal_event.cook = User.find_by_id(info[:cook])
         @meal_event.date = Date.strptime(info[:date], "%m/%d/%Y")
         @meal_event.time = info[:time]
-        @meal_event.remind_in_advance = info[:remind_in_advance]
-        @meal_event.reminded = info[:remind_in_advance].blank?
+        @meal_event.remind_in_advance = info[:remind_in_advance] unless info[:reminded] == 'true'
+        @meal_event.reminded = info[:reminded] == 'true'
+        @meal_event.limit_rsvps = info[:limit_rsvps]
         @meal_event.max_rsvps = info[:max_rsvps].blank? ? 50 : info[:max_rsvps]
         @meal_event.description = info[:description]
         @meal_event.side_dish = info[:side_dish]

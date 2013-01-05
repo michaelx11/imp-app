@@ -22,6 +22,7 @@ class MealEvent
   key :materials, String
 
   # maximum number of RSVPs allowed = rsvps + late rsvps
+  key :limit_rsvps, Boolean
   key :max_rsvps, Integer
 
   # reminders

@@ -1,11 +1,3 @@
-<script type="text/javascript">
-    function toggle_materials() {
-        var item = document.getElementById("materials");
-        item.className=(item.className=='hidden')?'':'hidden';
-        //item.style.visibility=(item.style.visibility=='hidden')?'visible':'hidden';
-    }
-</script>
-
 <%= form_for(@meal_event) do |f| %>
     <% if @meal_event.errors.any? %>
         <div id="error_explanation">
@@ -40,21 +32,29 @@
 
         <!-- CHECKBOX TO ENTER ADDITIONAL MATERIALS -->
         <div class="field">
-            <label>Request materials to be shopped: <%= f.check_box :need_materials, {:value => "1", :onClick => "toggle_materials()", :checked => @meal_event.need_materials } %></label>
+            <label>Request materials to be shopped: <%= f.check_box :need_materials, {:value => "1", :onClick => "toggle('materials')", :checked => @meal_event.need_materials } %></label>
             <div id="materials" <%= 'class="hidden"'.html_safe unless @meal_event.need_materials %>>
                 <%= f.text_area :materials, :size => '50x3', :value => @meal_event.materials, :placeholder => "desired materials" %>
             </div>
         </div>
         <!-- -->
 
+        <!-- CHECKBOX FOR RSVP LIMIT -->
         <div class="field">
-            <%= f.label :max_rsvps, "Enter max # of customers (1-50). Leave blank otherwise." %><br />
-            <%= f.text_field :max_rsvps, :value => @meal_event.max_rsvps, :pattern => "([0-4]?[0-9]?)|(50)", :placeholder => "maximum number of customers" %>
+            <label>Limit the number of RSVPs (1-50): <%= f.check_box :limit_rsvps, {:value => "1", :onClick => "toggle('max_rsvps')", :checked => @meal_event.limit_rsvps } %></label>
+            <div id="max_rsvps" <%= 'class="hidden"'.html_safe unless @meal_event.limit_rsvps %>>
+                <%= f.text_field :max_rsvps, :pattern => "([0-4]?[0-9]?)|(50)", :placeholder => "maximum number of customers" %>
+            </div>
         </div>
+
+        <!-- CHECKBOX FOR EMAIL REMINDER -->
         <div class="field">
-            <%= f.label :remind_in_advance, "Enter for email notification. Leave blank otherwise." %><br />
-            <%= f.text_field :remind_in_advance, :value => @meal_event.remind_in_advance, :placeholder => "hours to remind in advance" %>
+            <label>I want an email reminder: <%= f.check_box :reminded, {:value => "1", :onClick => "toggle('email')", :checked => !@meal_event.reminded }, "", "true" %></label>
+            <div id="email" <%= 'class="hidden"'.html_safe if @meal_event.reminded %>>
+                <%= f.text_field :remind_in_advance, :value => @meal_event.remind_in_advance, :value => @meal_event.remind_in_advance, :placeholder => "hours to remind in advance" %>
+            </div>
         </div>
+
         <% if is_admin? %>
             <div class="field">
                 <%= f.label :meal %><br />
