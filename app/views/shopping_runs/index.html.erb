@@ -21,6 +21,7 @@ See the table below for meal events that currently are not being shopped for. Pl
     <table class="display" id="requests-table">
         <thead>
             <tr>
+                <th></th>
                 <th>Date</th>
                 <th>MEAL</th>
                 <th>Cook</th>
@@ -39,6 +40,9 @@ See the table below for meal events that currently are not being shopped for. Pl
             <% MealEvent.each do |meal_event| %>
                 <% if needs_shopper?(meal_event) %>
                     <tr>
+                        <!-- 'upcoming' FOR FILTERING PURPOSES -->
+                        <td> upcoming </td>
+
                         <td> <%= meal_event.date %> </td>
                         <td> <%= link_to meal_event.meal.name, meal_event_path(meal_event) %> </td>
                         <td> <%= link_to meal_event.cook.name, user_path(meal_event.cook) %> </td>
@@ -84,11 +88,17 @@ See the table below for all scheduled shopping runs.
     <br />
 </div>
 
+<p>
+Show all scheduled shopping runs: <input id='show_all_rows' type='checkbox'>
+Show expanded version: <input id='show_all_cols' type='checkbox'>
+</p>
+
 <div class="row-fluid">
 
     <table class="display" id="shopping-runs-table">
         <thead>
             <tr>
+                <th></th>
                 <th>Status</th>
                 <th>Date</th>
                 <th>Place</th>
@@ -107,6 +117,8 @@ See the table below for all scheduled shopping runs.
         <tbody>
             <% @shopping_runs.each do |shopping_run| %>
                 <tr>
+                    <!-- HIDDEN 'UPCOMING' COLUMN, FOR CLIENT ROW FILTERING -->
+                    <td> <%= 'upcoming' if future_shopping_run(shopping_run) and !far_future_shopping_run(shopping_run) %> </td>
                     <td> <%= shopping_run_status_text(shopping_run) %> </td>
                     <td> <%= shopping_run.date %> </td>
                     <td> <%= shopping_run.place %> </td>
@@ -167,9 +179,39 @@ See the table below for all scheduled shopping runs.
 <hr />
 
 <script>
+    function setColVis(table) {
+        // Toggle various columns
+        <% if is_admin? %>
+            cols = [1, 4, 6, 10, 11];
+        <% else %>
+            cols = [1, 4, 6, 9, 10];
+        <% end %>
+        for (var i = 0; i < cols.length; i++) {
+            table.fnSetColumnVis(cols[i], $('#show_all_cols').is(':checked'));
+        }
+    }
+
     $(document).ready(function() {
+        // Set custom filtering function
+        $.fn.dataTableExt.afnFiltering.push(function(oSettings, aData, iDataIndex) {
+            var show_all_rows = $('#show_all_rows').is(':checked');
+            return show_all_rows || aData[0] == 'upcoming';
+        });
+
         $("#requests-table").dataTable();
-        $("#shopping-runs-table").dataTable();
+        var table = $("#shopping-runs-table").dataTable();
+        table.fnSort([[2, 'asc']]); // Sort by date
+        table.fnSetColumnVis(0, false); // Hide 'upcoming' column
+        setColVis(table);
+
+        $('#show_all_rows').on("click", function(e) {
+            table.fnDraw();
+        });
+
+        $('#show_all_cols').on("click", function(e) {
+            setColVis(table);
+            table.fnDraw();
+        });
     });
     
     $.extend( $.fn.dataTableExt.oStdClasses, {

@@ -19,11 +19,17 @@ See the table below for the current meal schedule.
     <br />
 </div>
 
+<p>
+Show all scheduled meals: <input id='show_all_rows' type='checkbox'>
+Show expanded version: <input id='show_all_cols' type='checkbox'>
+</p>
+
 <div class="row-fluid">
 
     <table class="display" id="meal-events-table">
         <thead>
             <tr>
+                <th></th>
                 <th>Status</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -47,6 +53,8 @@ See the table below for the current meal schedule.
         <tbody>
             <% @meal_events.each do |meal_event| %>
                 <tr>
+                    <!-- HIDDEN 'UPCOMING' COLUMN, FOR CLIENT ROW FILTERING -->
+                    <td> <%= 'upcoming' if future_meal_event(meal_event) and !far_future_meal_event(meal_event) %> </td>
                     <td>
                         <% if needs_shopper?(meal_event) %>
                             <% if signed_in? %>
@@ -119,8 +127,40 @@ See the table below for the current meal schedule.
 <% end %>
 
 <script>
+    function setColVis(table) {
+        // Toggle various columns
+        <% if is_admin? %>
+            cols = [1, 6, 13, 14];
+        <% elsif signed_in? %>
+            cols = [1, 6, 10, 11];
+        <% else %>
+            cols = [1, 6];
+        <% end %>
+        for (var i = 0; i < cols.length; i++) {
+            table.fnSetColumnVis(cols[i], $('#show_all_cols').is(':checked'));
+        }
+    }
+
     $(document).ready(function() {
-        $("#meal-events-table").dataTable();
+        // Set custom filtering function
+        $.fn.dataTableExt.afnFiltering.push(function(oSettings, aData, iDataIndex) {
+            var show_all_rows = $('#show_all_rows').is(':checked');
+            return show_all_rows || aData[0] == 'upcoming';
+        });
+
+        var table = $("#meal-events-table").dataTable();
+        table.fnSort([[2, 'asc'], [3, 'asc']]); // Sort by date, then time
+        table.fnSetColumnVis(0, false); // Hide 'upcoming' column
+        setColVis(table);
+
+        $('#show_all_rows').on("click", function(e) {
+            table.fnDraw();
+        });
+
+        $('#show_all_cols').on("click", function(e) {
+            setColVis(table);
+            table.fnDraw();
+        });
     });
 
     $.extend( $.fn.dataTableExt.oStdClasses, {
