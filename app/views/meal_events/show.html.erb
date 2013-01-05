@@ -1,6 +1,6 @@
 <% provide(:title, @meal_event.meal.name + ' (Meal)') %>
 
-<h1><%= yield(:title) %></h1>
+<h1><%= yield(:title) %> <%= '[Side dish]' if @meal_event.side_dish %></h1>
 
 <h3>Cooked by <%= link_to @meal_event.cook.name, user_path(@meal_event.cook) %></h3>
 

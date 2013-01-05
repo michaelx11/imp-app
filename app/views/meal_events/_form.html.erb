@@ -40,6 +40,11 @@
             <%= f.text_area :description, :size => '50x3', :placeholder => "description of meal" %>
         </div>
 
+        <!-- CHECKBOX FOR SIDE DISH -->
+        <div class="field">
+            <label>Check if this is just a side dish: <%= f.check_box :side_dish, {:value => "1"} %></label>
+        </div>
+
         <!-- CHECKBOX TO ENTER ADDITIONAL MATERIALS -->
         <div class="field">
             <label>Request materials to be shopped: <%= f.check_box :need_materials, {:value => "1", :onClick => "toggle_materials()"} %></label>

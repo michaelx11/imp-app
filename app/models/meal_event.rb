@@ -14,6 +14,9 @@ class MealEvent
   # description of meal (for customers' knowledge)
   key :description, String
 
+  # flag if this meal is a side dish (relatively small)
+  key :side_dish, Boolean
+
   # materials needed for the meal (for the shopper's knowledge)
   key :need_materials, Boolean
   key :materials, String
