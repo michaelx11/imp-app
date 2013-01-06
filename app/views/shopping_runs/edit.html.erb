@@ -2,10 +2,12 @@
 
 <h1><%= yield(:title) %></h1>
 
-<p>Enter the new date when you wish to perform a shopping run.</p>
+<p>Enter the new date when you wish to perform a shopping run. The current schedule is shown below for your convenience.</p>
 <% unless @shopping_run.meal_events.empty? %>
     <p>You are currently scheduled to shop for the following meals on this shopping run: <%= @shopping_run.meal_events.map{ |meal_event| "<b>#{ meal_event.meal.name }</b> on <b>#{ meal_event.date }</b>" }.join(', ').html_safe %>; the shopping run must take place before all these meals are served.</p>
 <% end %>
 <p>Remember that you can edit or undo this action by clicking "Edit" or "Remove" in the appropriate row in the Shopping Runs table.</p>
 
 <%= render 'edit_form' %>
+
+<%= render 'static_pages/calendar' %>

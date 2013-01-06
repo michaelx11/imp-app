@@ -6,47 +6,4 @@
 
 <%= render 'edit_form' %>
 
-<div class="row-fluid">
-    <table class="display" id="meal-events-table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Time</th>
-                <th>MEAL</th>
-                <th>Cook</th>
-                <th>Helpers</th>
-                <% if is_admin? %>
-                    <th>RSVPs</th>
-                    <th>Late RSVPs</th>
-                    <th>Customers</th>
-                <% end %>
-            </tr>
-        </thead>
-        <tbody>
-            <% MealEvent.each do |meal_event| %>
-                <tr>
-                    <td> <%= meal_event.date %> </td>
-                    <td> <%= meal_event.time %> </td>
-                    <td> <%= meal_event.meal.name %> </td>
-                    <td> <%= meal_event.cook.name %> </td>
-                    <td> <%= show_users(meal_event.helpers) %> </td>
-                    <% if is_admin? %>
-                        <td> <%= show_users(meal_event.rsvps) %> </td>
-                        <td> <%= show_users(meal_event.late_rsvps) %> </td>
-                        <td> <%= show_users(meal_event.customers) %> </td>
-                    <% end %>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>
-</div>
-
-<script>
-    $(document).ready(function() {
-        $("#meal-events-table").dataTable();
-    });
-
-    $.extend( $.fn.dataTableExt.oStdClasses, {
-        "sWrapper": "dataTables_wrapper form-inline"
-    });
-</script>
+<%= render 'static_pages/calendar' %>
