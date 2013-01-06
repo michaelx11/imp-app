@@ -1,37 +1,91 @@
-<h1>Listing users</h1>
+<% provide(:title, "Users") %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Uid</th>
-    <th>Email</th>
-    <th>Paid</th>
-    <th>Remember token</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.name %></td>
-    <% if is_admin? %>
-        <td><%= user.uid %></td>
-        <td><%= user.email %></td>
-        <td><%= user.paid %></td>
-        <td><%= user.remember_token %></td>
-    <% end %>
-    <td><%= link_to 'Show', user %></td>
-    <% if is_admin? %>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% end %>
-  </tr>
-<% end %>
-</table>
-
-<br />
+<h1><%= yield(:title) %></h1>
 
 <% if is_admin? %>
-    <%= link_to 'New User', new_user_path %>
+
+    <p>Show expanded version: <input id='show_all_cols' type='checkbox'></p>
+
+    <div class="row-fluid">
+
+        <table class="display" id="users-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Uid</th>
+                    <th>Email</th>
+                    <th>Total Charge</th>
+                    <th>Proposed</th>
+                    <th>Liked</th>
+                    <th>Cooked</th>
+                    <th>Helped cook</th>
+                    <th>Shopping</th>
+                    <th>Helped shop</th>
+                    <th>RSVPed to</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @users.each do |user| %>
+                    <tr>
+                        <td><%= user.admin %></td>
+                        <td><%= link_to user.name, user %></td>
+                        <td><%= user.uid %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.total_charge %></td>
+                        <td><%= user.meals.map(&:name).join(', ') %></td>
+                        <td><%= user.liked_meals.map(&:name).join(', ') %></td>
+                        <td><%= user.meal_events.map(&:meal).map(&:name).join(', ') %></td>
+                        <td><%= user.helped_cook.map(&:meal).map(&:name).join(', ') %></td>
+                        <td><%= user.shopping_runs.map(&:date).join(', ') %></td>
+                        <td><%= user.helped_shop.map(&:date).join(', ') %></td>
+                        <td><%= user.rsvps.map(&:meal).map(&:name).join(', ') %></td>
+                        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+                        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'WARNING: deleting a user which is referenced anywhere else (proposed, cooked, or shopping) will break the system. Make sure all references of this user are deleted first.' } %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+    <br />
+
+    <%= link_to 'New User', new_user_path, :class => "btn btn-large" %>
+
+<% else %>
+
+    <p>Users information visible only in admin view.</p>
+
 <% end %>
+
+<script>
+    function setColVis(table) {
+        // Toggle various columns
+        cols = [2, 3, 5, 6, 10];
+        for (var i = 0; i < cols.length; i++) {
+            table.fnSetColumnVis(cols[i], $('#show_all_cols').is(':checked'));
+        }
+    }
+
+    $(document).ready(function() {
+        var table = $("#users-table").dataTable({
+            "sDom": 'rt<ip>',
+            "sScrollX": "100%",
+            "sScrollXInner": "150%",
+            "bScrollCollapse": true
+        });
+        table.fnSort([[0, 'asc'], [1, 'asc']]); // Sort by admins, then by name
+        table.fnSetColumnVis(0, false); // Hide 'admin' column
+        setColVis(table);
+
+        $('#show_all_cols').on("click", function(e) {
+            setColVis(table);
+            table.fnDraw();
+        });
+    });
+
+    $.extend( $.fn.dataTableExt.oStdClasses, {
+        "sWrapper": "dataTables_wrapper form-inline"
+    });
+</script>

@@ -56,55 +56,50 @@
 
 <p>
 <b>Liked:</b> <br />
-<% Meal.each do |meal| %>
-    <% if meal.voters.include?(@user.id) %>
-        <%= link_to meal.name, meal_path(meal) %>
-        <br />
-    <% end %>
+<% @user.liked_meals.each do |meal| %>
+    <%= link_to meal.name, meal_path(meal) %>
+    <br />
 <% end %>
 </p>
 
 <p>
 <b>Helped cook:</b> <br />
-<% MealEvent.each do |meal_event| %>
-    <% if meal_event.helpers.include?(@user.id) %>
-        <%= link_to meal_event.meal.name, meal_event_path(meal_event) %> on <%= meal_event.date %>
-        <br />
-    <% end %>
+<% @user.helped_cook.each do |meal_event| %>
+    <%= link_to meal_event.meal.name, meal_event_path(meal_event) %> on <%= meal_event.date %>
+    <br />
 <% end %>
 </p>
 
 <p>
 <b>Helped shop:</b> <br />
-<% ShoppingRun.each do |shopping_run| %>
-    <% if shopping_run.helpers.include?(@user.id) %>
-        with <%= link_to shopping_run.shopper.name, user_path(shopping_run.shopper) %> on <%= shopping_run.date %>
-        <%= link_to 'Details', shopping_run_path(shopping_run) %>
-        <br />
-    <% end %>
+<% @user.helped_shop.each do |shopping_run| %>
+    with <%= link_to shopping_run.shopper.name, user_path(shopping_run.shopper) %> on <%= shopping_run.date %>
+    <%= link_to 'Details', shopping_run_path(shopping_run) %>
+    <br />
 <% end %>
 </p>
 
 <p>
 <b>RSVPed to:</b> <br />
-<% MealEvent.each do |meal_event| %>
-    <% if meal_event.rsvps.include?(@user.id) || meal_event.late_rsvps.include?(@user.id) %>
-        <%= link_to meal_event.meal.name, meal_event_path(meal_event) %> on <%= meal_event.date %>
-        <br />
-    <% end %>
+<% @user.rsvps.each do |meal_event| %>
+    <%= link_to meal_event.meal.name, meal_event_path(meal_event) %> on <%= meal_event.date %>
+    <br />
 <% end %>
 </p>
 
 <p>
 <b>Attended:</b> <br />
-<% MealEvent.each do |meal_event| %>
-    <% if meal_event.customers.include?(@user.id.to_s) %>
-        <%= link_to meal_event.meal.name, meal_event_path(meal_event) %> on <%= meal_event.date %>
-        <br />
-    <% end %>
+<% @user.attended.each do |meal_event| %>
+    <%= link_to meal_event.meal.name, meal_event_path(meal_event) %> on <%= meal_event.date %>
+    <br />
 <% end %>
 </p>
 
 <% if @user == current_user || is_admin? %>
+    <p>
+    <b>Total charge:</b> <br />
+    <%= @user.total_charge %>
+    </p>
+
     <%= link_to 'Edit', edit_user_path(@user) %>
 <% end %>
