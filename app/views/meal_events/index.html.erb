@@ -148,7 +148,7 @@ Show expanded version: <input id='show_all_cols' type='checkbox'>
             return show_all_rows || aData[0] == 'upcoming';
         });
 
-        var table = $("#meal-events-table").dataTable();
+        var table = $("#meal-events-table").dataTable({ "sDom": 'rt<ip>' });
         table.fnSort([[2, 'asc'], [3, 'asc']]); // Sort by date, then time
         table.fnSetColumnVis(0, false); // Hide 'upcoming' column
         setColVis(table);

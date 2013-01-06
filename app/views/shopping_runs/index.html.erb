@@ -198,8 +198,8 @@ Show expanded version: <input id='show_all_cols' type='checkbox'>
             return show_all_rows || aData[0] == 'upcoming';
         });
 
-        $("#requests-table").dataTable();
-        var table = $("#shopping-runs-table").dataTable();
+        $("#requests-table").dataTable({ "sDom": 'rt<ip>' });
+        var table = $("#shopping-runs-table").dataTable({ "sDom": 'rt<ip>' });
         table.fnSort([[2, 'asc']]); // Sort by date
         table.fnSetColumnVis(0, false); // Hide 'upcoming' column
         setColVis(table);

@@ -60,7 +60,7 @@ See the table below for all proposed meals.
 
 <script>
     $(document).ready(function() {
-        $("#meal-table").dataTable();
+        var table = $("#meal-table").dataTable({ "sDom": 'rt<ip>' });
     });
 
     $.extend( $.fn.dataTableExt.oStdClasses, {
