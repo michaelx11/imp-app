@@ -5,4 +5,5 @@ class ApplicationController < ActionController::Base
   include MealsHelper
   include MealEventsHelper
   include ShoppingRunsHelper
+  include UserTogglesHelper
 end

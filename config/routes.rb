@@ -21,7 +21,7 @@ ImpApp::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :meals, :votes
-  resources :users, :sessions
+  resources :users, :sessions, :user_toggles
   resources :meal_events, :helpers, :rsvps, :late_rsvps
   resources :shopping_runs, :shopping_helpers, :shopping_requests, :shopping_completes, :shopping_approvals
   match '/help', :to => 'static_pages#help'

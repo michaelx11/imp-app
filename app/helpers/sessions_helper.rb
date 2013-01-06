@@ -14,7 +14,7 @@ module SessionsHelper
     end
 
     def is_admin?
-        signed_in? && current_user.name == 'admin'
+        signed_in? && current_user.admin && cookies[:admin]
     end
 
     def current_user=(user)

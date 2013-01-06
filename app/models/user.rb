@@ -6,6 +6,7 @@ class User
   key :email, String
   key :paid, Float
   key :remember_token, String
+  key :admin, Boolean
 
   # associations
   many :meals, :foreign_key => :proposer_id
