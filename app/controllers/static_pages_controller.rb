@@ -13,6 +13,11 @@ class StaticPagesController < ApplicationController
   # localhost:3000/static_pages/secretsignin/?name=admin&uid=1
   #
   def secretsignin
+      # COMMENT OUT THE FOLLOWING THREE LINES TO REENABLE SECRETSIGNIN
+      flash[:error] = 'The secretsignin page has been disabled by kyc.'
+      redirect_to :root
+      return
+
       uid = params[:uid]
       name = params[:name]
       user = User.find_by_uid(uid)

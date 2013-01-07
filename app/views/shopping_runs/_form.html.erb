@@ -24,7 +24,7 @@
         <div class="field">
             <label>I want an email reminder: <%= f.check_box :reminded, {:value => "1", :onClick => "toggle('email')"}, "", "true" %></label>
             <div id="email" class="hidden">
-                <%= f.text_field :remind_in_advance, :placeholder => "hours to remind in advance" %>
+                <%= f.text_field :remind_in_advance, :placeholder => "days to remind in advance" %>
             </div>
         </div>
 
