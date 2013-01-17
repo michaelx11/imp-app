@@ -10,7 +10,7 @@ There are no meals currently scheduled for the following dates:
 
 There are no shopping runs currently scheduled for meals on the following dates:
     <% @unshopped_meal_events.each do |meal_event| %>
-    <%= Meal.find_by_id(meal_event.meal_id).name %> on <%= date.strftime('%A') %> <%= meal_event.date %>
+    <%= Meal.find_by_id(meal_event.meal_id).name %> on <%= meal_event.date.strftime('%A') %> <%= meal_event.date %>
     <% end %>
 <% end %>
 
