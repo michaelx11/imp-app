@@ -37,7 +37,7 @@ module MealEventsHelper
     end
 
     def can_rsvp?(meal_event)
-        (signed_in? and future_meal_event(meal_event)) or is_admin?
+        signed_in?
     end
 
     def rsvp_text(meal_event)
